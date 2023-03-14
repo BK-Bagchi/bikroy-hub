@@ -1,9 +1,10 @@
 import React from 'react';
+import Top from '../Top/Top'
 
 const Main = () => {
     return (
         <div>
-            <p>Hello there. I'm back again.</p>
+            <Top />
         </div>
     );
 };

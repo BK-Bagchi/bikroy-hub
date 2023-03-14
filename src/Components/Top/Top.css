@@ -1,0 +1,17 @@
+.top, .middle, .search-box{
+    background-color: #149777;
+}
+.top p{
+    color: white;
+}
+.middle p{
+    color: white;
+    font-size: 100px;
+    text-align: center;
+}
+.container{
+    height: 70px;
+}
+p{
+    margin: 0;
+}
