@@ -19,3 +19,12 @@ p{
     width: 120px;
     border-radius: 5px;
 }
+.top .login{
+    background: white;
+    color: #149777;
+    font-weight: bold;
+    border: none;
+    width: 75px;
+    height: 35px;
+    border-radius: 5px;
+}

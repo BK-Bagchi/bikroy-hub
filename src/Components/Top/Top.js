@@ -11,7 +11,8 @@ const Top = () => {
                             <img className="logo-small" src= {require(`../../Resources/images/logo-small.png`)} alt="" />
                         </div>
                         <div className="d-flex justify-content-center" id="navbarText">
-                            <p>Login</p>
+                            <button className="login">Login</button>
+                            <p>Profile</p>
                         </div>
                     </div>
                 </nav>
