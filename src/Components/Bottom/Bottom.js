@@ -8,9 +8,10 @@ const Bottom = () => {
             <section className="bottom container">
                 <div className="row">
                     <div className="col-sm-4">
-                        <div><p>Download Our App</p></div>
-                        <div><p>Connect With</p></div>
-                        <div><p>Other Countries</p></div>
+                        <p>Download Our App</p>
+                        <p>Connect With</p>
+                        <p>Other Countries</p>
+                        <img className="logo-big" src={require(`../../Resources/images/logo-big.jpg`)} alt="" />
                     </div>
                     <div className="col-sm-2">
                         <p>More from Bikroy</p>

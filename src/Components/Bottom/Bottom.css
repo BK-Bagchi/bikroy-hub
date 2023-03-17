@@ -7,3 +7,7 @@
 footer{
     text-align: center;
 }
+.bottom .logo-big{
+    width: 200px;
+    border-radius: 7px;
+}

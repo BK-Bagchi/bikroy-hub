@@ -8,7 +8,7 @@ const Top = () => {
                 <nav className="navbar navbar-expand-lg bg-body-tertiary">
                     <div className="container d-flex align-items-center">
                         <div className="d-flex justify-content-center" id="navbarText">
-                            <p>Logo</p>
+                            <img className="logo-small" src= {require(`../../Resources/images/logo-small.png`)} alt="" />
                         </div>
                         <div className="d-flex justify-content-center" id="navbarText">
                             <p>Login</p>
