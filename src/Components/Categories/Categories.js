@@ -9,7 +9,7 @@ const Categories = () => {
                 <div className="col-sm-3">
                     <div className="card">
                         <div className="card-body">
-                            <h5 className="card-title">Item name</h5>
+                            <h5 className="card-title">Mobile</h5>
                             <p className="card-text">Item amount</p>
                         </div>
                     </div>
@@ -17,7 +17,7 @@ const Categories = () => {
                 <div className="col-sm-3">
                     <div className="card">
                         <div className="card-body">
-                            <h5 className="card-title">Item name</h5>
+                            <h5 className="card-title">Electronics</h5>
                             <p className="card-text">Item amount</p>
                         </div>
                     </div>
@@ -25,7 +25,7 @@ const Categories = () => {
                 <div className="col-sm-3">
                     <div className="card">
                         <div className="card-body">
-                            <h5 className="card-title">Item name</h5>
+                            <h5 className="card-title">Vehicle</h5>
                             <p className="card-text">Item amount</p>
                         </div>
                     </div>
@@ -33,7 +33,7 @@ const Categories = () => {
                 <div className="col-sm-3">
                     <div className="card">
                         <div className="card-body">
-                            <h5 className="card-title">Item name</h5>
+                            <h5 className="card-title">Property</h5>
                             <p className="card-text">Item amount</p>
                         </div>
                     </div>
