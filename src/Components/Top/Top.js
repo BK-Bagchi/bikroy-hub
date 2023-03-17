@@ -1,27 +1,11 @@
 import React from 'react';
+import Navbar from './Navbar';
 import './Top.css'
 
 const Top = () => {
     return (
         <>
-            <section className='top'>
-                <nav className="navbar navbar-expand-lg bg-body-tertiary">
-                    <div className="container d-flex align-items-center">
-                        <div className="d-flex justify-content-center" id="navbarText">
-                            <img className="logo-small" src= {require(`../../Resources/images/logo-small.png`)} alt="" />
-                        </div>
-                        <div className="d-flex justify-content-center" id="navbarText">
-                            <button className="login">Login</button>
-                            <p>Profile</p>
-                        </div>
-                    </div>
-                </nav>
-            </section>
-            <section className="middle">
-                <div className="name">
-                    <p>Bikroy.com</p>
-                </div>
-            </section>
+            <Navbar/>
             <section className="search-box">
                 <div className="search-box-div d-flex justify-content-center pt-5 pb-5">
                     <form>

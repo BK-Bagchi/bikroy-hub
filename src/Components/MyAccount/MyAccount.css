@@ -1,0 +1,18 @@
+.myAccount{
+    display: block;
+    background-color: #E7EDEE;
+    border-radius: 5px;
+    margin: 20px auto;
+    height: 20vh !important;
+}
+.myAccount .profile-postadd{
+    width: 100%;
+}
+.profile, .post-add{
+    background: white;
+    color: #149777;
+    font-weight: bold;
+    border: none;
+    height: 35px;
+    border-radius: 5px;
+}
