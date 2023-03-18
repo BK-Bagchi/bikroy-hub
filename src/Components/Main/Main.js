@@ -6,6 +6,7 @@ import Categories from '../Categories/Categories';
 import MyAccount from '../MyAccount/MyAccount';
 import Top from '../Top/Top';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import PostAd from '../PostAd/PostAd';
 
 const Main = () => {
     return (
@@ -21,6 +22,9 @@ const Main = () => {
                     </Route>
                     <Route path="/myAccount">
                         <MyAccount/>
+                    </Route>
+                    <Route path="/postAds">
+                        <PostAd/>
                     </Route>
                 </Switch>
             </Router>

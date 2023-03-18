@@ -11,3 +11,8 @@ footer{
     width: 200px;
     border-radius: 7px;
 }
+.line{
+    background: #149777;
+    height: 1px;
+    margin: 25px auto;
+}

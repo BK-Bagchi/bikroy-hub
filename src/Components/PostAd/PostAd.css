@@ -1,0 +1,26 @@
+.post-ad{
+    background: #E7EDEE;
+    height: 100% !important;
+    margin: 20px auto;
+    padding: 20px 0;
+    border-radius: 5px;
+}
+
+.post-ad form input[type="text"], input[type="number"], textarea{
+    width: 40%;
+    height: 40px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    padding: 2px 5px;
+}
+.post-ad form textarea{
+    height: 150px !important;
+}
+.post-ad form input[type="checkbox"]{
+    width: 20px;
+    height: 20px;
+}
+.post-ad .condition{
+    width: 40%;
+}

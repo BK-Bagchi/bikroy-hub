@@ -5,6 +5,7 @@ const Bottom = () => {
     // const date= Date.getFullYear(); 
     return (
         <>
+            <p className="line"></p>
             <section className="bottom container">
                 <div className="row">
                     <div className="col-sm-4">
