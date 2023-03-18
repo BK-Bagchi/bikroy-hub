@@ -28,3 +28,19 @@ p{
     height: 35px;
     border-radius: 5px;
 }
+.search-box .search-btn input{
+    width: 50%;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    padding: 2px 5px;
+    margin: 0 10px;
+}
+.search-box .search-btn button{
+    width: 80px;
+    background: white;
+    color: #149777;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+}
