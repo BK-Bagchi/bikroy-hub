@@ -1,0 +1,16 @@
+.firebase-auth{
+    display: block;
+    background-color: #E7EDEE;
+    border-radius: 5px;
+    height: 20vh !important;
+}
+.brand-icons{
+    background: white;
+    color: #149777;
+    font-weight: bold;
+    border: none;
+    height: 35px;
+    padding: 5px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}

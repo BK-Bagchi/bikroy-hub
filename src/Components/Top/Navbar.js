@@ -17,10 +17,13 @@ const Navbar = () => {
                             </div>
                             <div className="d-flex justify-content-center" id="navbarText">
                                 <button className="login" onClick={()=>{
-                                    history.push('/myAccount');
+                                    history.push('/login');
                                     window.location.reload();
                                     }}>Login</button>
-                                <p>My Account</p>
+                                <p className="myAccountLoginBtn" onClick={()=>{
+                                    history.push('/myAccount');
+                                    window.location.reload();
+                                    }}>My Account</p>
                             </div>
                         </div>
                     </nav>

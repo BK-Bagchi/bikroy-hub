@@ -7,6 +7,7 @@ import MyAccount from '../MyAccount/MyAccount';
 import Top from '../Top/Top';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PostAd from '../PostAd/PostAd';
+import Firebase from '../Sign/Firebase';
 
 const Main = () => {
     return (
@@ -22,6 +23,9 @@ const Main = () => {
                     </Route>
                     <Route path="/myAccount">
                         <MyAccount/>
+                    </Route>
+                    <Route path="/login">
+                        <Firebase/>
                     </Route>
                     <Route path="/postAds">
                         <PostAd/>
