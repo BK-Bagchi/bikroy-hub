@@ -1,8 +1,14 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 
 const Navbar = () => {
     const history= useHistory();
+    const [loggedIn, isLoggedIn]= useState(localStorage.getItem("isLoggedIn"));
+    useEffect(()=>{
+        isLoggedIn(localStorage.getItem("isLoggedIn"));
+    },[loggedIn]);
+
+    (loggedIn)?console.log("tureR"):console.log("falseR");
     
     return (
         <>
@@ -16,14 +22,20 @@ const Navbar = () => {
                                     }} />
                             </div>
                             <div className="d-flex justify-content-center" id="navbarText">
-                                <button className="login" onClick={()=>{
-                                    history.push('/login');
-                                    window.location.reload();
-                                    }}>Login</button>
-                                <p className="myAccountLoginBtn" onClick={()=>{
-                                    history.push('/myAccount');
-                                    window.location.reload();
-                                    }}>My Account</p>
+                                {
+                                    loggedIn?
+                                    <p className="myAccountLoginBtn" onClick={()=>{
+                                        history.push('/myAccount');
+                                        window.location.reload();
+                                        }}>My Account
+                                    </p>
+                                    :
+                                    <button className="login" onClick={()=>{
+                                        history.push('/login');
+                                        window.location.reload();
+                                        }}>Login
+                                    </button>
+                                }
                             </div>
                         </div>
                     </nav>

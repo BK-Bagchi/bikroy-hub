@@ -23,6 +23,7 @@ export const signInWithGoogle = () => {
       localStorage.setItem("displayName", displayName);
       localStorage.setItem("email", email);
       localStorage.setItem("photoURL", photoURL);
+      localStorage.setItem("isLoggedIn", "true");
   }).catch((error) => {
       const { code, message, email, credential } = error
       console.log(code, "| |", message, "| |", email, "| |", credential)
