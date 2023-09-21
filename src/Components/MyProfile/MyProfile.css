@@ -21,6 +21,7 @@
 }
 .profile .about-user{
     margin: 10px 0;
+    width: 42%;
 }
 .profile form input[type="checkbox"]{
     width: 20px;
@@ -47,4 +48,14 @@
     height: 35px;
     border-radius: 5px;
     padding: 0 20px;
+}
+.profile .text{
+    color: #149777;
+    font-weight: bold;
+    padding: 0 20px;
+    cursor: pointer;
+}
+.profile .text:hover{
+    color: black;
+    text-decoration: underline;
 }

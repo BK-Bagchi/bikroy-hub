@@ -7,6 +7,7 @@ import Categories from '../Categories/Categories';
 import MyAccount from '../MyAccount/MyAccount';
 import PostAd from '../PostAd/PostAd';
 import MyProfile from '../MyProfile/MyProfile';
+import EditProfile from '../MyProfile/EditProfile';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Firebase from '../Sign/Firebase';
 
@@ -27,6 +28,9 @@ const Main = () => {
                     </Route>
                     <Route path="/myProfile">
                         <MyProfile/>
+                    </Route>
+                    <Route path="/editProfile">
+                        <EditProfile/>
                     </Route>
                     <Route path="/login">
                         <Firebase/>

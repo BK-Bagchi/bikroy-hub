@@ -15,9 +15,9 @@ const MyProfile = () => {
         <section className="profile container">
             <div className="edit-profile">
                 <p className='text text-right' onClick={()=>{
-                        history.push('/editProfile');
+                        history.push('/myProfile');
                         window.location.reload();
-                    }}>Edit Profile</p>
+                    }}>My Profile</p>
             </div>
             <div className="profile-form">
                 <form className="d-flex flex-column align-items-center">
@@ -25,12 +25,13 @@ const MyProfile = () => {
                         <img src={myProfilePicture} alt="User Profile Pic" />
                     </div>
                     <input type="text" value= {myName}/>
-                    <input type="text" value="My Location" />
-                    <input type="text" value="My contact"/>
+                    <input type="text" placeholder="Enter Your location" />
+                    <input type="number" placeholder="Enter Your Contact"/>
                     <div class="about-user">
-                        <p>About me</p>
-                        <textarea name="description" value="It's all about me."></textarea>
+                        <p>Write something about yourself so that others can connect to you.</p>
+                        <textarea name="description" placeholder="About you..."></textarea>
                     </div>
+                    <button className='submit-btn'>Submit</button>
                 </form>
             </div>
         </section>
