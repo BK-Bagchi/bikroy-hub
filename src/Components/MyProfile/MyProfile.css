@@ -1,0 +1,50 @@
+.profile{
+    background: #E7EDEE;
+    height: 100% !important;
+    margin: 20px auto;
+    padding: 20px 0;
+    border-radius: 5px;
+}
+
+.profile form input[type="text"], input[type="number"], textarea{
+    width: 40%;
+    height: 40px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    padding: 2px 5px;
+}
+.profile textarea{
+    height: 150px !important;
+    width: 100%;
+    margin: 10px 0;
+}
+.profile .about-user{
+    margin: 10px 0;
+}
+.profile form input[type="checkbox"]{
+    width: 20px;
+    height: 20px;
+}
+.profile .condition{
+    width: 40%;
+}
+.profile .profile-picture{
+    height: 100px;
+    width: 100px;
+    margin: 20px 0;
+}
+.profile .profile-picture img{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+.profile .submit-btn{
+    background: white;
+    color: #149777;
+    font-weight: bold;
+    border: none;
+    height: 35px;
+    border-radius: 5px;
+    padding: 0 20px;
+}

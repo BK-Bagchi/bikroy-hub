@@ -12,8 +12,11 @@ const MyAccount = () => {
             <Navbar/>
             <section className="myAccount container d-flex align-items-center justify-content-around">
                 <div className="profile-postadd d-flex justify-content-around">
-                    <button className="profile">View Profile</button>
-                    <button className="post-add" onClick={()=>{
+                    <button className="profile-btn" onClick={()=>{
+                        history.push('/myProfile');
+                        window.location.reload();
+                    }}>View Profile</button>
+                    <button className="post-add-btn" onClick={()=>{
                         history.push('/postAds');
                         window.location.reload();
                     }}>Post Your Add Now</button>

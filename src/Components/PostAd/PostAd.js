@@ -25,7 +25,7 @@ const PostAd = () => {
                         <input type="number" placeholder="Your Contact"/>
                     </form>
                 </div>
-            </section><br /><br />
+            </section>
             <Bottom/>
         </>
     );

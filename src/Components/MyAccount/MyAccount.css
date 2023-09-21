@@ -8,7 +8,7 @@
 .myAccount .profile-postadd{
     width: 100%;
 }
-.profile, .post-add{
+.profile-btn, .post-add-btn{
     background: white;
     color: #149777;
     font-weight: bold;
