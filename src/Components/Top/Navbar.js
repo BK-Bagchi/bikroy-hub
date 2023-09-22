@@ -8,7 +8,7 @@ const Navbar = () => {
         isLoggedIn(localStorage.getItem("isLoggedIn"));
     },[loggedIn]);
 
-    (loggedIn)?console.log("tureR"):console.log("falseR");
+    // (loggedIn)?console.log("tureR"):console.log("falseR");
     
     return (
         <>

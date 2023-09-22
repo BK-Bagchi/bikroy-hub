@@ -28,7 +28,7 @@ const MyProfile = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData)
+        // console.log(formData)
     
         // Now, you can make an API call using the formData
         // For this example, we'll use a fake API endpoint
