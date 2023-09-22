@@ -29,6 +29,12 @@ const MyProfile = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // console.log(formData)
+
+        //setting profile info for temporary use
+        localStorage.setItem("location", formData.location)
+        localStorage.setItem("phoneNumber", formData.phoneNumber)
+        localStorage.setItem("aboutYou", formData.aboutYou);
+        
     
         // Now, you can make an API call using the formData
         // For this example, we'll use a fake API endpoint
