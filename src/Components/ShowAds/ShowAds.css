@@ -1,0 +1,35 @@
+.show-ad{
+    background: #E7EDEE;
+    height: 100% !important;
+    margin: 20px auto;
+    padding: 20px 0;
+    border-radius: 5px;
+}
+.show-ad .ad-name{
+    font-size:20px;
+    font-weight: 600;
+}
+.show-ad .ad-picture .picture{
+ border-radius: 5px;   
+}
+/* .show-ad .description{
+    display: flex !important;
+} */
+
+.show-ad .price{
+    color: #149777;
+    font-weight: bold;
+    font-size: 25px;
+}
+.show-ad .details div{
+    padding: 20px;
+}
+.show-ad .details div h6{
+    text-align: center;
+}
+.show-ad .details p, .show-ad .description p{
+    background: white;
+    margin: 2px;
+    padding:5px 20px;
+    border-radius: 5px;
+}
