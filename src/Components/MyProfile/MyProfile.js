@@ -62,7 +62,7 @@ const MyProfile = () => {
                     <input type="text" value= {loginInfo.name} name='name'/>
                     <input type="text" value={loginInfo.location} name='location'/>
                     <input type="text" value={"0"+loginInfo.phoneNumber} name='phoneNumber'/>
-                    <div class="about-user">
+                    <div className="about-user">
                         <p>About me</p>
                         <textarea name="aboutYou" value={loginInfo.aboutYou}></textarea>
                     </div>

@@ -35,25 +35,26 @@ const MyProfile = () => {
         localStorage.setItem("phoneNumber", formData.phoneNumber)
         localStorage.setItem("aboutYou", formData.aboutYou);
         
-    
-        // Now, you can make an API call using the formData
-        // For this example, we'll use a fake API endpoint
-        // fetch('https://example.com/api/submit', {
-        //   method: 'POST',
-        //   body: JSON.stringify(formData),
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        // })
-        //   .then((response) => response.json())
-        //   .then((data) => {
-        //     console.log(data);
-        //     // Handle API response here
-        //   })
-        //   .catch((error) => {
-        //     console.error('Error:', error);
-        //   });
+        profileInfo();
       };
+
+      const profileInfo = () => {
+        // Make a POST request to the specified endpoint
+        fetch('http://localhost:4000/profileInfo', {
+          method: 'POST',
+          body: JSON.stringify(formData),
+          headers: { 'Content-Type': 'application/json' },
+        })
+          .then((response) => response.json()) // Parse the response as JSON
+          .then((data) => {
+            console.log(data); // Handle API response here
+          })
+          .catch((error) => {
+            console.error('Error:', error); // Handle any errors
+          });
+      };
+      
+      
 
   return (
     <>
@@ -73,7 +74,7 @@ const MyProfile = () => {
                     <input type="text" value= {myName}/>
                     <input type="text" placeholder="Enter Your location" name='location' onBlur={handelFormInput}/>
                     <input type="number" placeholder="Enter Your Contact" name='phoneNumber' onBlur={handelFormInput}/>
-                    <div class="about-user">
+                    <div className="about-user">
                         <p>Write something about yourself so that others can connect to you.</p>
                         <textarea placeholder="About you..." name="aboutYou" onBlur={handelFormInput}></textarea>
                     </div>
