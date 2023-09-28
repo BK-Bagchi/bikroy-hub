@@ -59,12 +59,12 @@ const MyProfile = () => {
                     <div className="profile-picture">
                         <img src={loginInfo.profilePicture} alt="User Profile Pic" />
                     </div>
-                    <input type="text" value= {loginInfo.name} name='name'/>
-                    <input type="text" value={loginInfo.location} name='location'/>
-                    <input type="text" value={"0"+loginInfo.phoneNumber} name='phoneNumber'/>
+                    <input type="text" value= {loginInfo.name} name='name' readOnly/>
+                    <input type="text" value={loginInfo.location} name='location' readOnly/>
+                    <input type="text" value={"0"+loginInfo.phoneNumber} name='phoneNumber' readOnly/>
                     <div className="about-user">
                         <p>About me</p>
-                        <textarea name="aboutYou" value={loginInfo.aboutYou}></textarea>
+                        <textarea name="aboutYou" value={loginInfo.aboutYou} readOnly></textarea>
                     </div>
                 </form>
             </div>
