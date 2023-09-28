@@ -40,18 +40,18 @@ const MyProfile = () => {
 
       const profileInfo = () => {
         // Make a POST request to the specified endpoint
-        fetch('http://localhost:4000/profileInfo', {
-          method: 'POST',
-          body: JSON.stringify(formData),
-          headers: { 'Content-Type': 'application/json' },
-        })
-          .then((response) => response.json()) // Parse the response as JSON
-          .then((data) => {
-            console.log(data); // Handle API response here
-          })
-          .catch((error) => {
-            console.error('Error:', error); // Handle any errors
-          });
+        // fetch('http://localhost:4000/profileInfo', {
+        //   method: 'POST',
+        //   body: JSON.stringify(formData),
+        //   headers: { 'Content-Type': 'application/json' },
+        // })
+        //   .then((response) => response.json()) // Parse the response as JSON
+        //   .then((data) => {
+        //     console.log(data); // Handle API response here
+        //   })
+        //   .catch((error) => {
+        //     console.error('Error:', error); // Handle any errors
+        //   });
       };
       
       
@@ -71,7 +71,7 @@ const MyProfile = () => {
                     <div className="profile-picture">
                         <img src={myProfilePicture} alt="User Profile Pic" />
                     </div>
-                    <input type="text" value= {myName}/>
+                    <input type="text" value= {myName} readOnly/>
                     <input type="text" placeholder="Enter Your location" name='location' onBlur={handelFormInput}/>
                     <input type="number" placeholder="Enter Your Contact" name='phoneNumber' onBlur={handelFormInput}/>
                     <div className="about-user">
