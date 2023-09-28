@@ -49,7 +49,9 @@ const ShowAds = () => {
                 </div>
               </div>
               <div className="description">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum maxime sequi repellat, nulla illo reiciendis consectetur perspiciatis laborum quae! Velit!</p>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque tenetur praesentium sint sunt! Molestiae, culpa. Incidunt pariatur veritatis, ab in consectetur, deleniti sequi consequatur dicta omnis dolorem nobis tenetur dolorum expedita tempore enim! Debitis a molestias tempora explicabo, obcaecati corporis nemo sit nisi soluta ducimus perspiciatis tempore iure error eveniet.
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque tenetur praesentium sint sunt! Molestiae, culpa. Incidunt pariatur veritatis, ab in consectetur, deleniti sequi consequatur dicta omnis dolorem nobis tenetur dolorum expedita tempore enim! Debitis a molestias tempora explicabo, obcaecati corporis nemo sit nisi soluta ducimus perspiciatis tempore iure error eveniet.
+                </p>
               </div>
             </div>
         </section>
