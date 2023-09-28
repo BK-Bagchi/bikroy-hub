@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react';
 import './AdsHome.css'
+import adsHomeDatabase from '../Database/AdsHomeDatabse';
 
 
 const AdsHome = () => {
@@ -8,17 +9,24 @@ const AdsHome = () => {
         <section className="ads-home container">
             <p>Posted adds</p>
             <div className="card-group">
-                <div className="card">
-                    <img className="card-img-top" src={require(`../../Resources/ads/Mobile.jpg`)} alt="Card image cap" />
-                    <div className="card-body">
-                        <h5 className="card-title">Phone</h5>
-                        <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                    <div className="card-footer">
-                        <small className="text-muted">Posted 1 days ago</small>
-                    </div>
-                </div>
-                <div className="card">
+                {
+                    adsHomeDatabase.map(adsHome =>{
+                        const {id, adImageUrl, adName, adDescription, adTime}= adsHome
+                        return (
+                            <div className={`card ${id}`}>
+                                <img className="card-img-top" src={require(`../../Resources/ads/${adImageUrl}`)} alt="Card image cap" />
+                                <div className="card-body">
+                                    <h5 className="card-title">{adName}</h5>
+                                    <p className="card-text">{adDescription}</p>
+                                </div>
+                                <div className="card-footer">
+                                    <small className="text-muted">Posted {adTime} days ago</small>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+                {/* <div className="card">
                     <img className="card-img-top" src={require(`../../Resources/ads/Motorcycle.jpg`)} alt="Card image cap" />
                     <div className="card-body">
                         <h5 className="card-title">Motorcycle</h5>
@@ -37,7 +45,7 @@ const AdsHome = () => {
                     <div className="card-footer">
                         <small className="text-muted">Posted 2 days ago</small>
                     </div>
-                </div>
+                </div> */}
             </div>
         </section>
     );
