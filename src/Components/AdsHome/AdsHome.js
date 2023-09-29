@@ -19,7 +19,6 @@ const AdsHome = () => {
                             <div className='card' key={id} onClick={()=>{
                                 localStorage.setItem('adId', id)
                                 history.push('/showAds')
-                                window.location.reload()
                             }}>
                                 <img className="card-img-top" src={require(`../../Resources/ads/${adImageUrl}`)} alt="Card image cap" />
                                 <div className="card-body">

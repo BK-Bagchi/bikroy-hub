@@ -16,9 +16,9 @@ const PostAd = () => {
                         <div className="condition">
                             <p>Condition</p>
                             <input type="checkbox" id="new" name="new" value="Bike"/>
-                            <label for="new">New</label> <br />
+                            <label htmlFor="new">New</label> <br />
                             <input type="checkbox" id="used" name="used" value="Car"/>
-                            <label for="used">Used</label>
+                            <label htmlFor="used">Used</label>
                         </div>
                         <textarea name="description" placeholder="Product Description"></textarea>
                         <input type="text" placeholder="Your location" />

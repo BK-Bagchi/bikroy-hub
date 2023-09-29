@@ -51,7 +51,6 @@ const MyProfile = () => {
             <div className="edit-profile">
                 <p className='text text-right' onClick={()=>{
                         history.push('/editProfile');
-                        window.location.reload();
                     }}>Edit Profile</p>
             </div>
             <div className="profile-form">
