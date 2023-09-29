@@ -24,3 +24,15 @@
 .post-ad .condition{
     width: 40%;
 }
+.post-ad .submit-btn{
+    background: white;
+    color: #149777;
+    font-weight: bold;
+    border: none;
+    height: 35px;
+    border-radius: 5px;
+    padding: 0 20px;
+}
+.post-ad label{
+    margin: 0 10px;
+}
