@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import Navbar from '../Top/Navbar'
 import Bottom from '../Bottom/Bottom'
 import './MyProfile.css'
@@ -36,26 +37,23 @@ const MyProfile = () => {
         localStorage.setItem("aboutYou", formData.aboutYou);
         
         profileInfo();
+        history.push('/myProfile')
       };
 
       const profileInfo = () => {
-        // Make a POST request to the specified endpoint
-        // fetch('http://localhost:4000/profileInfo', {
-        //   method: 'POST',
-        //   body: JSON.stringify(formData),
-        //   headers: { 'Content-Type': 'application/json' },
-        // })
-        //   .then((response) => response.json()) // Parse the response as JSON
-        //   .then((data) => {
-        //     console.log(data); // Handle API response here
-        //   })
-        //   .catch((error) => {
-        //     console.error('Error:', error); // Handle any errors
-        //   });
+        axios.post('http://localhost:4000/profileInfo', formData, {
+            headers: {'Content-Type': 'application/json',}
+            })
+            .then((response) => {
+                // Parse the response as JSON and handle it here
+                console.log('this is axios post method',response.data);
+            })
+            .catch((error) => {
+                // Handle any errors
+                console.error('Error:', error);
+            });
       };
       
-      
-
   return (
     <>
         <Navbar/>
