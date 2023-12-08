@@ -11,21 +11,21 @@ const MyProfile = () => {
     const [loginInfo, setLoginInfo]= useState({
         name: myName,
         profilePicture: myProfilePicture,
-        location: 'Your location',
+        businessName: 'Your business name',
         phoneNumber: '01xxxxxxxxx',
-        aboutYou: 'All about me'
+        aboutYourBusiness: 'All about my business'
     })
 
     //setting profile info for temporary use
     useEffect(() => {
-        const locationFromLocalStorage = localStorage.getItem('location');
+        const locationFromLocalStorage = localStorage.getItem('businessName');
         const phoneNumberFromLocalStorage = localStorage.getItem('phoneNumber');
-        const aboutYouFromLocalStorage = localStorage.getItem('aboutYou');
+        const aboutYouFromLocalStorage = localStorage.getItem('aboutYourBusiness');
     
         if (locationFromLocalStorage) {
           setLoginInfo((prevLoginInfo) => ({
             ...prevLoginInfo,
-            location: locationFromLocalStorage,
+            businessName: locationFromLocalStorage,
           }));
         }
     
@@ -63,11 +63,11 @@ const MyProfile = () => {
                         <img src={loginInfo.profilePicture} alt="User Profile Pic" />
                     </div>
                     <input type="text" value= {loginInfo.name} name='name' readOnly/>
-                    <input type="text" value={loginInfo.location} name='location' readOnly/>
+                    <input type="text" value={loginInfo.businessName} name='businessName' readOnly/>
                     <input type="text" value={"0"+loginInfo.phoneNumber} name='phoneNumber' readOnly/>
                     <div className="about-user">
                         <p>About me</p>
-                        <textarea name="aboutYou" value={loginInfo.aboutYou} readOnly></textarea>
+                        <textarea name="aboutYourBusiness" value={loginInfo.aboutYourBusiness} readOnly></textarea>
                     </div>
                 </form>
             </div>

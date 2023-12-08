@@ -13,9 +13,9 @@ const MyProfile = () => {
     const [formData, setFromData]= useState({
         name: myName,
         profilePicture: myProfilePicture,
-        location: '',
+        businessName: '',
         phoneNumber: 0,
-        aboutYou: ''
+        aboutYourBusiness: ''
     })
 
     const handelFormInput= (e) =>{
@@ -32,9 +32,9 @@ const MyProfile = () => {
         // console.log(formData)
 
         //setting profile info for temporary use
-        localStorage.setItem("location", formData.location)
+        localStorage.setItem("businessName", formData.businessName)
         localStorage.setItem("phoneNumber", formData.phoneNumber)
-        localStorage.setItem("aboutYou", formData.aboutYou);
+        localStorage.setItem("aboutYourBusiness", formData.aboutYourBusiness);
         
         profileInfo();
         history.push('/myProfile')
@@ -69,11 +69,11 @@ const MyProfile = () => {
                         <img src={myProfilePicture} alt="User Profile Pic" />
                     </div>
                     <input type="text" value= {myName} readOnly/>
-                    <input type="text" placeholder="Enter Your location" name='location' onBlur={handelFormInput}/>
+                    <input type="text" placeholder="Enter Your Business name" name='businessName' onBlur={handelFormInput}/>
                     <input type="number" placeholder="Enter Your Contact" name='phoneNumber' onBlur={handelFormInput}/>
                     <div className="about-user">
-                        <p>Write something about yourself so that others can connect to you.</p>
-                        <textarea placeholder="About you..." name="aboutYou" onBlur={handelFormInput}></textarea>
+                        <p>Write something about your business so that others can connect to you.</p>
+                        <textarea placeholder="About your business..." name="aboutYourBusiness" onBlur={handelFormInput}></textarea>
                     </div>
                     <button type='submit' className='submit-btn'>Submit</button>
                 </form>
