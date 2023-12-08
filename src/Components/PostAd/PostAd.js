@@ -7,12 +7,10 @@ import './PostAd.css';
 const PostAd = () => {
     const [formData, setFromData]= useState({
         itemName: '',
-        condition: '',
         price: 0,
-        isUsed: '',
+        category: '',
         description: '',
-        location:'',
-        number: 0
+        contactNumber: 0
     })
 
     const handelFormInput= (e)=>{
@@ -49,22 +47,21 @@ const PostAd = () => {
                 <div className="post-ad-form">
                     <form className="d-flex flex-column align-items-center" onSubmit={handelSubmit}>
                         <input type="text" placeholder="Item name" name='itemName' onBlur={handelFormInput}/>
-                        <input type="text" placeholder="Condition" name="condition" onBlur={handelFormInput}/>
+                        {/* <input type="text" placeholder="Condition" name="condition" onBlur={handelFormInput}/> */}
+                        
                         <input type="number" placeholder="Price" name="price" onBlur={handelFormInput}/>
-                        <div className="condition" onBlur={handelFormInput}>
-                            <p>Condition</p>
-                            <div className='d-flex align-items-center'>
-                                <input type="checkbox" id="new" name="isUsed" value="new"/>
-                                <label htmlFor="new">New</label>
-                            </div>
-                            <div className='d-flex align-items-center'>
-                                <input type="checkbox" id="used" name="isUsed" value="used"/>
-                                <label htmlFor="used">Used</label>
-                            </div>
+                        <div className="d-flex align-items-center" onBlur={handelFormInput} style={{width: '40%'}}>
+                            <p>Category</p>
+                            <select name="category" id="category" style={{margin: '10px'}}>
+                                <option value="" style={{display: "none"}}>Select Item Category</option>
+                                <option value="Electronic">Electronic</option>
+                                <option value="Vechile">Vechile</option>
+                                <option value="Mobile">Mobile</option>
+                                <option value="Laptop">Laptop</option>
+                            </select>
                         </div>
                         <textarea name="description" placeholder="Product Description" onBlur={handelFormInput}></textarea>
-                        <input type="text" placeholder="Your location" name='location' onBlur={handelFormInput}/>
-                        <input type="number" placeholder="Your Contact" name='number' onBlur={handelFormInput}/>
+                        <input type="number" placeholder="Your Contact" name='contactNumber' onBlur={handelFormInput}/>
                         <button type="submit" className="submit-btn">Submit</button>
                     </form>
                 </div>
