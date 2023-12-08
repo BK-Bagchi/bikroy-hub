@@ -18,6 +18,10 @@ const MyAccount = () => {
                     <button className="post-add-btn" onClick={()=>{
                         history.push('/postAds');
                     }}>Post Your Add Now</button>
+                    <button className="post-add-btn" onClick={()=>{
+                        localStorage.setItem("isLoggedIn", "");
+                        history.push('/');
+                    }}>Logout</button>
                 </div>
             </section>
             <Bottom/>

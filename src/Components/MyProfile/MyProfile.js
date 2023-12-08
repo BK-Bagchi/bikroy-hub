@@ -50,8 +50,12 @@ const MyProfile = () => {
         <section className="profile container">
             <div className="edit-profile">
                 <p className='text text-right' onClick={()=>{
-                        history.push('/editProfile');
-                    }}>Edit Profile</p>
+                    history.push('/editProfile');
+                }}>Edit Profile</p>
+                <p className='text text-right' onClick={()=>{
+                    localStorage.setItem("isLoggedIn", "");
+                    history.push('/');
+                }}>Logout</p>
             </div>
             <div className="profile-form">
                 <form className="d-flex flex-column align-items-center">
