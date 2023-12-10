@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import Navbar from '../Top/Navbar'
 import Bottom from '../Bottom/Bottom'
 import './MyProfile.css'
@@ -8,7 +9,8 @@ const MyProfile = () => {
     const history= useHistory()
     const myName= localStorage.getItem('displayName')
     const myProfilePicture= localStorage.getItem('photoURL')
-    const [loginInfo, setLoginInfo]= useState({
+    const [profileInfo, setProfileInfo]= useState({
+        _id: 13,
         name: myName,
         profilePicture: myProfilePicture,
         businessName: 'Your business name',
@@ -18,31 +20,43 @@ const MyProfile = () => {
 
     //setting profile info for temporary use
     useEffect(() => {
-        const locationFromLocalStorage = localStorage.getItem('businessName');
-        const phoneNumberFromLocalStorage = localStorage.getItem('phoneNumber');
-        const aboutYouFromLocalStorage = localStorage.getItem('aboutYourBusiness');
+        // const locationFromLocalStorage = localStorage.getItem('businessName');
+        // const phoneNumberFromLocalStorage = localStorage.getItem('phoneNumber');
+        // const aboutYouFromLocalStorage = localStorage.getItem('aboutYourBusiness');
     
-        if (locationFromLocalStorage) {
-          setLoginInfo((prevLoginInfo) => ({
-            ...prevLoginInfo,
-            businessName: locationFromLocalStorage,
-          }));
-        }
+        // if (locationFromLocalStorage) {
+        //   setLoginInfo((prevLoginInfo) => ({
+        //     ...prevLoginInfo,
+        //     businessName: locationFromLocalStorage,
+        //   }));
+        // }
     
-        if (phoneNumberFromLocalStorage) {
-          setLoginInfo((prevLoginInfo) => ({
-            ...prevLoginInfo,
-            phoneNumber: phoneNumberFromLocalStorage,
-          }));
-        }
+        // if (phoneNumberFromLocalStorage) {
+        //   setLoginInfo((prevLoginInfo) => ({
+        //     ...prevLoginInfo,
+        //     phoneNumber: phoneNumberFromLocalStorage,
+        //   }));
+        // }
     
-        if (aboutYouFromLocalStorage) {
-          setLoginInfo((prevLoginInfo) => ({
-            ...prevLoginInfo,
-            aboutYou: aboutYouFromLocalStorage,
-          }));
-        }
+        // if (aboutYouFromLocalStorage) {
+        //   setLoginInfo((prevLoginInfo) => ({
+        //     ...prevLoginInfo,
+        //     aboutYou: aboutYouFromLocalStorage,
+        //   }));
+        // }
+
+        axios.get('http://localhost:4000/getProfileInfo')
+          .then(response => {
+            console.log('Response:', response.data);
+            setProfileInfo(response.data[0])
+          })
+          .catch(error => {
+            // Handle errors here
+            console.error('Error:', error.message);
+          });
+
       }, []);
+      console.log(profileInfo)
 
   return (
     <>
@@ -60,14 +74,14 @@ const MyProfile = () => {
             <div className="profile-form">
                 <form className="d-flex flex-column align-items-center">
                     <div className="profile-picture">
-                        <img src={loginInfo.profilePicture} alt="User Profile Pic" />
+                        <img src={profileInfo.profilePicture} alt="User Profile Pic" />
                     </div>
-                    <input type="text" value= {loginInfo.name} name='name' readOnly/>
-                    <input type="text" value={loginInfo.businessName} name='businessName' readOnly/>
-                    <input type="text" value={"0"+loginInfo.phoneNumber} name='phoneNumber' readOnly/>
+                    <input type="text" value= {profileInfo.name} name='name' readOnly/>
+                    <input type="text" value={profileInfo.businessName} name='businessName' readOnly/>
+                    <input type="text" value={profileInfo.phoneNumber} name='phoneNumber' readOnly/>
                     <div className="about-user">
                         <p>About me</p>
-                        <textarea name="aboutYourBusiness" value={loginInfo.aboutYourBusiness} readOnly></textarea>
+                        <textarea name="aboutYourBusiness" value={profileInfo.aboutYourBusiness} readOnly></textarea>
                     </div>
                 </form>
             </div>
