@@ -41,7 +41,7 @@ const MyProfile = () => {
       };
 
       const profileInfo = () => {
-        axios.post('http://localhost:4000/profileInfo', formData, {
+        axios.post('http://localhost:4000/postProfileInfo', formData, {
             headers: {'Content-Type': 'application/json',}
             })
             .then((response) => {
