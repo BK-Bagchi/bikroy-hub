@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../Top/Navbar'
 import Bottom from '../Bottom/Bottom'
 import axios from 'axios'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 
 const ViewPostedAds = () => {
+  const history= useHistory()
+
   const userEmail= localStorage.getItem('email')
   const [postedAds, setPostedAds]= useState([])
 
@@ -33,7 +36,7 @@ const ViewPostedAds = () => {
                         return (
                             <div className='card' key={_id} onClick={()=>{
                                 localStorage.setItem('adId', _id)
-                                // history.push('/showAds')
+                                history.push('/editPostedAds')
                             }}>
                                 <img className="card-img-top" src={imageURL} alt="Card img cap" />
                                 <div className="card-body">

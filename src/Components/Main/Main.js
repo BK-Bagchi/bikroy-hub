@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import About from '../About/About';
 import AdsHome from '../AdsHome/AdsHome';
 import Top from '../Top/Top';
@@ -8,10 +9,10 @@ import MyAccount from '../MyAccount/MyAccount';
 import PostAd from '../PostAd/PostAd';
 import MyProfile from '../MyProfile/MyProfile';
 import EditProfile from '../MyProfile/EditProfile';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Firebase from '../Sign/Firebase';
 import ShowAds from '../ShowAds/ShowAds';
 import ViewPostedAds from '../PostAd/ViewPostedAds';
+import EditPostedAds from '../PostAd/EditPostedAds';
 
 const Main = () => {
     return (
@@ -45,6 +46,9 @@ const Main = () => {
                     </Route>
                     <Route path="/viewPostedAds">
                         <ViewPostedAds/>
+                    </Route>
+                    <Route path="/editPostedAds">
+                        <EditPostedAds/>
                     </Route>
                 </Switch>
             </Router>
