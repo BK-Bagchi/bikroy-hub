@@ -24,11 +24,11 @@ const AdsHome = () => {
 
     return (
         <section className="ads-home container">
-            <p>Recently posted</p>
+            <p>Recently posted(click to see details)</p>
             <div className="card-group">
                 {
                     adsInfo.map(adsHome =>{
-                        const {_id, itemName, description, price, imageURL}= adsHome
+                        const {_id, itemName, description, price, imageURL, postingTime}= adsHome
                         
                         return (
                             <div className='card' key={_id} onClick={()=>{
@@ -42,7 +42,7 @@ const AdsHome = () => {
                                     <span className="card-text price">Price: {price}</span>
                                 </div>
                                 <div className="card-footer">
-                                    <small className="text-muted">Posted "adTime" days ago</small>
+                                    <small className="text-muted">Posted on {postingTime}</small>
                                 </div>
                             </div>
                         )
