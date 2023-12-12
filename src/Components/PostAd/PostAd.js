@@ -4,6 +4,8 @@ import Bottom from '../Bottom/Bottom';
 import Navbar from '../Top/Navbar';
 import './PostAd.css';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../Sign/FirebaseConfig";
 
 const PostAd = () => {
     const history= useHistory()
@@ -12,8 +14,28 @@ const PostAd = () => {
         price: 0,
         category: '',
         description: '',
-        contactNumber: 0
+        contactNumber: 0,
+        imageURL: ''
     })
+
+    const [imageUpload, setImageUpload] = useState();
+    const uploadFile = () => {
+        if (!imageUpload) return;
+    
+        const imageRef = ref(storage, `9jacoder/images/${imageUpload.name}`);
+    
+        uploadBytes(imageRef, imageUpload).then((snapshot) => {
+          getDownloadURL(snapshot.ref).then((url) => {
+            console.log(url);
+            setFromData({
+                ...formData,
+                imageURL: url
+            })
+          });
+        });
+      };
+
+    console.log(formData);
 
     const handelFormInput= (e)=>{
         const {name, value}= e.target
@@ -63,6 +85,13 @@ const PostAd = () => {
                                 <option value="Mobile">Mobile</option>
                                 <option value="Laptop">Laptop</option>
                             </select>
+                        </div>
+                        <div>
+                            <input type="file" onChange={(event) => {
+                                setImageUpload(event.target.files[0])}}
+                                onBlur={() =>uploadFile()}
+                            />
+                            {/* <button onClick={uploadFile}>Upload</button> */}
                         </div>
                         <textarea name="description" placeholder="Product Description" onBlur={handelFormInput}></textarea>
                         <input type="number" placeholder="Your Contact" name='contactNumber' onBlur={handelFormInput}/>
