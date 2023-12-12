@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Bottom from '../Bottom/Bottom';
 import Navbar from '../Top/Navbar';
@@ -15,7 +15,8 @@ const PostAd = () => {
         category: '',
         description: '',
         contactNumber: 0,
-        imageURL: ''
+        imageURL: '',
+        postingTime: ''
     })
 
     const [imageUpload, setImageUpload] = useState();
@@ -26,7 +27,7 @@ const PostAd = () => {
     
         uploadBytes(imageRef, imageUpload).then((snapshot) => {
           getDownloadURL(snapshot.ref).then((url) => {
-            // console.log(url);
+            console.log(url);
             setFromData({
                 ...formData,
                 imageURL: url
@@ -35,6 +36,20 @@ const PostAd = () => {
         });
       };
 
+    // console.log(formData);
+
+    useEffect(()=>{
+        const date = new Date();
+        const futureDateTime = new Date(date.getTime() + 6 * 60 * 60 * 1000);
+        const nowDateTime = `${futureDateTime.getFullYear()}-${(futureDateTime.getMonth() + 1)
+            .toString()
+            .padStart(2, '0')}-${futureDateTime.getDate().toString().padStart(2, '0')} ${futureDateTime.getHours().toString().padStart(2, '0')}:${futureDateTime.getMinutes().toString().padStart(2, '0')}:${futureDateTime.getSeconds().toString().padStart(2, '0')}`;
+
+        setFromData({
+            ...formData,
+            postingTime: nowDateTime
+        })
+    },[])
     // console.log(formData);
 
     const handelFormInput= (e)=>{
