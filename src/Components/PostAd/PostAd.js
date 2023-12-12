@@ -72,11 +72,16 @@ const PostAd = () => {
             <section className="post-ad container">
                 <div className="post-ad-form">
                     <form className="d-flex flex-column align-items-center" onSubmit={handelSubmit}>
-                        <input type="text" placeholder="Item name" name='itemName' onBlur={handelFormInput}/>
+                        <div className="form-fields">
+                            <p>Item name</p>
+                            <input type="text" placeholder="Item name" name='itemName' onBlur={handelFormInput}/>
+                        </div>
                         {/* <input type="text" placeholder="Condition" name="condition" onBlur={handelFormInput}/> */}
-                        
-                        <input type="number" placeholder="Price" name="price" onBlur={handelFormInput}/>
-                        <div className="d-flex align-items-center" onBlur={handelFormInput} style={{width: '40%'}}>
+                        <div className="form-fields">
+                            <p>Item Price</p>
+                            <input type="number" placeholder="Price" name="price" onBlur={handelFormInput}/>
+                        </div>
+                        <div className="form-fields" onBlur={handelFormInput}>
                             <p>Category</p>
                             <select name="category" id="category" style={{margin: '10px'}}>
                                 <option value="" style={{display: "none"}}>Select Item Category</option>
@@ -86,16 +91,23 @@ const PostAd = () => {
                                 <option value="Laptop">Laptop</option>
                             </select>
                         </div>
-                        <div>
+                        <div className="form-fields">
+                            <p>Upload photo</p>
                             <input type="file" onChange={(event) => {
                                 setImageUpload(event.target.files[0])}}
                                 onBlur={() =>uploadFile()}
-                            />
+                            style={{margin: '10px'}}/>
                             {/* <button onClick={uploadFile}>Upload</button> */}
                         </div>
-                        <textarea name="description" placeholder="Product Description" onBlur={handelFormInput}></textarea>
-                        <input type="number" placeholder="Your Contact" name='contactNumber' onBlur={handelFormInput}/>
-                        <button type="submit" className="submit-btn">Submit</button>
+                        <div className="form-fields">
+                            <p>Item description</p>
+                            <textarea name="description" placeholder="Product Description" onBlur={handelFormInput}></textarea>
+                        </div>
+                        <div className="form-fields">
+                            <p>Your contact</p>
+                            <input type="number" placeholder="Your Contact" name='contactNumber' onBlur={handelFormInput}/>
+                        </div>
+                        <button type="submit" className="submit-btn">Post Ad</button>
                     </form>
                 </div>
             </section>

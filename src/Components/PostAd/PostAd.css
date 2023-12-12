@@ -16,6 +16,7 @@
 }
 .post-ad form textarea{
     height: 150px !important;
+    width: 100%;
 }
 .post-ad form input[type="checkbox"]{
     width: 20px;
@@ -35,4 +36,14 @@
 }
 .post-ad label{
     margin: 0 10px;
+}
+
+.post-ad .form-fields{
+    display: flex;
+    min-width: 40%;
+    justify-content: space-between;
+}
+
+.post-ad .form-fields input{
+    width: 80% !important;
 }
