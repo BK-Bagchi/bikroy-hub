@@ -26,7 +26,7 @@ const PostAd = () => {
     
         uploadBytes(imageRef, imageUpload).then((snapshot) => {
           getDownloadURL(snapshot.ref).then((url) => {
-            console.log(url);
+            // console.log(url);
             setFromData({
                 ...formData,
                 imageURL: url
@@ -35,7 +35,7 @@ const PostAd = () => {
         });
       };
 
-    console.log(formData);
+    // console.log(formData);
 
     const handelFormInput= (e)=>{
         const {name, value}= e.target
