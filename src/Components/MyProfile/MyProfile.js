@@ -20,43 +20,17 @@ const MyProfile = () => {
 
     //setting profile info for temporary use
     useEffect(() => {
-        // const locationFromLocalStorage = localStorage.getItem('businessName');
-        // const phoneNumberFromLocalStorage = localStorage.getItem('phoneNumber');
-        // const aboutYouFromLocalStorage = localStorage.getItem('aboutYourBusiness');
-    
-        // if (locationFromLocalStorage) {
-        //   setLoginInfo((prevLoginInfo) => ({
-        //     ...prevLoginInfo,
-        //     businessName: locationFromLocalStorage,
-        //   }));
-        // }
-    
-        // if (phoneNumberFromLocalStorage) {
-        //   setLoginInfo((prevLoginInfo) => ({
-        //     ...prevLoginInfo,
-        //     phoneNumber: phoneNumberFromLocalStorage,
-        //   }));
-        // }
-    
-        // if (aboutYouFromLocalStorage) {
-        //   setLoginInfo((prevLoginInfo) => ({
-        //     ...prevLoginInfo,
-        //     aboutYou: aboutYouFromLocalStorage,
-        //   }));
-        // }
-
         axios.get('http://localhost:4000/getProfileInfo')
           .then(response => {
-            console.log('Response:', response.data);
+            // console.log('Response:', response.data);
             setProfileInfo(response.data[0])
           })
           .catch(error => {
             // Handle errors here
             console.error('Error:', error.message);
           });
-
       }, []);
-      console.log(profileInfo)
+    //   console.log(profileInfo)
 
   return (
     <>

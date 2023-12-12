@@ -3,8 +3,10 @@ import axios from 'axios';
 import Bottom from '../Bottom/Bottom';
 import Navbar from '../Top/Navbar';
 import './PostAd.css';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const PostAd = () => {
+    const history= useHistory()
     const [formData, setFromData]= useState({
         itemName: '',
         price: 0,
@@ -39,6 +41,8 @@ const PostAd = () => {
                 // Handle any errors
                 console.error('Error:', error);
             });
+        
+        history.push('/')
     }
     return (
         <>
