@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../Top/Navbar'
 import Bottom from '../Bottom/Bottom'
 import './ShowAds.css'
-import adsHomeDatabase from '../Database/AdsHomeDatabse'
 import axios from 'axios'
 
 const ShowAds = () => {
@@ -22,6 +21,7 @@ const ShowAds = () => {
       });
   },[])
   const showingAd= adsInfo.filter(add=> add._id === adId)
+  console.log(showingAd);
 
   return (
     <>
@@ -29,14 +29,15 @@ const ShowAds = () => {
       {
           showingAd.map(thisAd=>{
             {/* const {_id, adImageUrl, adName, adDescription, adTime}= thisAd */}
-            const {_id, itemName, price, category, description}= thisAd
+            const {_id, brand, category, contactNumber, description, imageURL, itemName, postingTime, price}= thisAd
 
             return(
               <section className={`show-ad container p-2 {adTime}`} key={_id}>
                 <p className='ad-name m-2'>{itemName}</p>
+                <span>Posted on {postingTime}</span><br />
                 <button className='buy-now'>Buy Now</button>
                 <div className="ad-picture w-100 d-flex align-items-center justify-content-center">
-                  <img className="picture w-25" src={require(`../../Resources/ads/Laptop.jpg`)} alt="picture" />
+                  <img className="picture w-25" src={imageURL} alt="picture" />
                 </div>
                 <div className='description d-flex flex-column align-items-center justify-content-center my-3'>
                   <div className="product-price">
@@ -46,15 +47,15 @@ const ShowAds = () => {
                   {/* dynamically data will come from db at this place */}
                     <div>
                       <h6>Brand Name</h6>
-                      <p>Brand</p>
+                      <p>{brand}</p>
                     </div>
                     <div>
                       <h6>Model</h6>
                       <p>{itemName}</p>
                     </div>
                     <div>
-                      <h6>Condition</h6>
-                      <p>Condition</p>
+                      <h6>Contact Now</h6>
+                      <p>{contactNumber}</p>
                     </div>
                     <div>
                       <h6>Category</h6>
