@@ -11,6 +11,7 @@ import EditProfile from '../MyProfile/EditProfile';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Firebase from '../Sign/Firebase';
 import ShowAds from '../ShowAds/ShowAds';
+import ViewPostedAds from '../PostAd/ViewPostedAds';
 
 const Main = () => {
     return (
@@ -41,6 +42,9 @@ const Main = () => {
                     </Route>
                     <Route path="/showAds">
                         <ShowAds/>
+                    </Route>
+                    <Route path="/viewPostedAds">
+                        <ViewPostedAds/>
                     </Route>
                 </Switch>
             </Router>

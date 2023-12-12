@@ -16,6 +16,9 @@ const MyAccount = () => {
                         history.push('/myProfile');
                     }}>View Profile</button>
                     <button className="post-add-btn" onClick={()=>{
+                        history.push('/viewPostedAds');
+                    }}>View Posted Ads</button>
+                    <button className="post-add-btn" onClick={()=>{
                         history.push('/postAds');
                     }}>Post Your Add Now</button>
                     <button className="post-add-btn" onClick={()=>{
