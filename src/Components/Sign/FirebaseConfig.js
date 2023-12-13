@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { getFirestore } from "@firebase/firestore";
 import { getStorage } from "firebase/storage";
-import "firebase/storage";
+// import "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDTZX7AzIhfL3JfRs3nVNHeWDYOkTauThs",
@@ -27,6 +27,7 @@ export const signInWithGoogle = () => {
       localStorage.setItem("email", email);
       localStorage.setItem("photoURL", photoURL);
       localStorage.setItem("isLoggedIn", "true");
+      window.location.href = "/myAccount";
   }).catch((error) => {
       const { code, message, email, credential } = error
       console.log(code, "| |", message, "| |", email, "| |", credential)
