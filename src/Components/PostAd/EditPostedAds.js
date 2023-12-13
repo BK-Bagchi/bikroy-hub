@@ -15,6 +15,7 @@ const EditPostedAds = () => {
     const adId= localStorage.getItem('adId')
     const [editableAd, setEditableAd] = useState({
       _id: '',
+      brand: '',
       category: '',
       contactNumber:0,
       description: '',

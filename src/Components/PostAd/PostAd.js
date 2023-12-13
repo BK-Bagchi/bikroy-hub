@@ -10,13 +10,15 @@ import { storage } from "../Sign/FirebaseConfig";
 const PostAd = () => {
     const history= useHistory()
     const [formData, setFromData]= useState({
-        itemName: '',
-        price: 0,
+        brand:'',
         category: '',
+        contactNumber:0,
         description: '',
-        contactNumber: 0,
         imageURL: '',
-        postingTime: ''
+        itemName:'',
+        postingTime:'',
+        price:'',
+        userEmail:localStorage.getItem('email')
     })
 
     const [imageUpload, setImageUpload] = useState();
@@ -91,7 +93,10 @@ const PostAd = () => {
                             <p>Item name</p>
                             <input type="text" placeholder="Item name" name='itemName' onBlur={handelFormInput}/>
                         </div>
-                        {/* <input type="text" placeholder="Condition" name="condition" onBlur={handelFormInput}/> */}
+                        <div className="form-fields">
+                            <p>Brand name</p>
+                            <input type="text" placeholder="Brand name" name='brand' onChange={handelFormInput}/>
+                        </div>
                         <div className="form-fields">
                             <p>Item Price</p>
                             <input type="number" placeholder="Price" name="price" onBlur={handelFormInput}/>
