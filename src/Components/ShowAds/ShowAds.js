@@ -9,7 +9,6 @@ const ShowAds = () => {
   const adId= localStorage.getItem('adId')
   const [adsInfo, setAdsInfo]= useState([])
   const [paymentInfo, setPaymentInfo]= useState({
-    userName: localStorage.getItem('displayName'),
     shippingAddress: '',
     contactNumber: 0,
     postCode: 0,
@@ -31,8 +30,13 @@ const ShowAds = () => {
   // console.log(showingAd);
 
   const orderNow= ()=>{
-    const sendPaymentInfo= {...paymentInfo, ...showingAd[0]}
-    console.log(sendPaymentInfo)
+    const sendPaymentInfo= {
+      ...paymentInfo,
+      ...showingAd[0],
+      userName: localStorage.getItem('displayName'),
+      userEmail:localStorage.getItem('email')
+    }
+    // console.log(sendPaymentInfo)
 
     axios.post('http://localhost:4000/orderNow', sendPaymentInfo, {
       headers: {'Content-Type': 'application/json',}

@@ -13,6 +13,8 @@ import Firebase from '../Sign/Firebase';
 import ShowAds from '../ShowAds/ShowAds';
 import ViewPostedAds from '../PostAd/ViewPostedAds';
 import EditPostedAds from '../PostAd/EditPostedAds';
+import Success from '../PaymentNotification/Success';
+import Fail from '../PaymentNotification/Fail';
 
 const Main = () => {
     return (
@@ -49,6 +51,12 @@ const Main = () => {
                     </Route>
                     <Route path="/editPostedAds">
                         <EditPostedAds/>
+                    </Route>
+                    <Route path="/paymentSuccess">
+                        <Success/>
+                    </Route>
+                    <Route path="/paymentFailed">
+                        <Fail/>
                     </Route>
                 </Switch>
             </Router>
