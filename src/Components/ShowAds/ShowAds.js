@@ -26,11 +26,13 @@ const ShowAds = () => {
         console.error('Error:', error.message);
       });
   },[])
+  
   const showingAd= adsInfo.filter(add=> add._id === adId)
-  console.log(showingAd);
+  // console.log(showingAd);
 
   const orderNow= ()=>{
     const sendPaymentInfo= {...paymentInfo, ...showingAd[0]}
+    console.log(sendPaymentInfo)
 
     axios.post('http://localhost:4000/orderNow', sendPaymentInfo, {
       headers: {'Content-Type': 'application/json',}
@@ -38,6 +40,8 @@ const ShowAds = () => {
       .then((response) => {
           // Parse the response as JSON and handle it here
           console.log('this is axios post method',response.data);
+          //redirects to the payment page of sslcommerz
+          window.location.replace(response.data.url)
       })
       .catch((error) => {
           // Handle any errors
