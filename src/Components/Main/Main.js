@@ -15,6 +15,7 @@ import ViewPostedAds from '../PostAd/ViewPostedAds';
 import EditPostedAds from '../PostAd/EditPostedAds';
 import Success from '../PaymentNotification/Success';
 import Fail from '../PaymentNotification/Fail';
+import ViewOrders from '../PostAd/ViewOrders';
 
 const Main = () => {
     return (
@@ -57,6 +58,9 @@ const Main = () => {
                     </Route>
                     <Route path="/paymentFailed">
                         <Fail/>
+                    </Route>
+                    <Route path="/viewOrders">
+                        <ViewOrders/>
                     </Route>
                 </Switch>
             </Router>
