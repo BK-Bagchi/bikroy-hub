@@ -95,7 +95,7 @@ const PostAd = () => {
                         </div>
                         <div className="form-fields">
                             <p>Brand name</p>
-                            <input type="text" placeholder="Brand name" name='brand' onChange={handelFormInput}/>
+                            <input type="text" placeholder="Brand name" name='brand' onBlur={handelFormInput}/>
                         </div>
                         <div className="form-fields">
                             <p>Item Price</p>

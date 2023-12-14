@@ -8,6 +8,12 @@ import axios from 'axios'
 const ShowAds = () => {
   const adId= localStorage.getItem('adId')
   const [adsInfo, setAdsInfo]= useState([])
+  const [paymentInfo, setPaymentInfo]= useState({
+    userName: localStorage.getItem('displayName'),
+    shippingAddress: '',
+    contactNumber: 0,
+    postCode: 0,
+  })
 
   useEffect(()=>{
     axios.get('http://localhost:4000/getAdsInfo')
@@ -23,19 +29,88 @@ const ShowAds = () => {
   const showingAd= adsInfo.filter(add=> add._id === adId)
   console.log(showingAd);
 
+  const orderNow= ()=>{
+    const sendPaymentInfo= {...paymentInfo, ...showingAd[0]}
+
+    axios.post('http://localhost:4000/orderNow', sendPaymentInfo, {
+      headers: {'Content-Type': 'application/json',}
+      })
+      .then((response) => {
+          // Parse the response as JSON and handle it here
+          console.log('this is axios post method',response.data);
+      })
+      .catch((error) => {
+          // Handle any errors
+          console.error('Error:', error);
+      });
+  }
+
+  const handelFormInput= (e) =>{
+    const {name, value}= e.target
+        setPaymentInfo({
+            ...paymentInfo,
+            [name]: value
+        })
+  }
+
   return (
     <>
       <Navbar/>
       {
           showingAd.map(thisAd=>{
-            {/* const {_id, adImageUrl, adName, adDescription, adTime}= thisAd */}
             const {_id, brand, category, contactNumber, description, imageURL, itemName, postingTime, price}= thisAd
 
             return(
-              <section className={`show-ad container p-2 {adTime}`} key={_id}>
+              <section className="show-ad container p-2" key={_id}>
                 <p className='ad-name m-2'>{itemName}</p>
                 <span>Posted on {postingTime}</span><br />
-                <button className='buy-now'>Buy Now</button>
+                <button className='buy-now' data-toggle="modal" data-target="#orderTakingModal">Buy Now</button>
+                <div className="modal" tabIndex="-1" role="dialog" id='orderTakingModal'>
+                  <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h5 className="modal-title">Payment Info</h5>
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      {/* pop up starts */}
+                      <div className="modal-body">
+                          <section className="d-flex flex-column align-items-center">
+                            <div className="form-fields">
+                                <p>Shipping Name</p>
+                                <input type="text" placeholder="Your Name" name='userName' value={localStorage.getItem('displayName')}/>
+                            </div>
+                            <div className="form-fields">
+                                <p>Contact Email</p>
+                                <input type="text" placeholder="Your Email" name='userEmail' value={localStorage.getItem('email')}/>
+                            </div>
+                            <div className="form-fields">
+                                <p>Item Price</p>
+                                <input type="number" placeholder="Price" name="price" value={price}/>
+                            </div>
+                            <div className="form-fields">
+                                <p>Address</p>
+                                <input type="text" placeholder="Your Shipping Address" name='shippingAddress' onChange={handelFormInput}/>
+                            </div>
+                            <div className="form-fields">
+                                <p>Contact</p>
+                                <input type="number" placeholder="Your Contact" name='contactNumber' onChange={handelFormInput}/>
+                            </div>
+                            <div className="form-fields">
+                                <p>Post code</p>
+                                <input type="number" placeholder="Your Post Code" name='postCode' onChange={handelFormInput}/>
+                            </div>
+                        </section>
+                      </div>
+                      {/* pop up ends */}
+                      <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" className="btn btn-primary" onClick={orderNow}>Pay Now</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div className="ad-picture w-100 d-flex align-items-center justify-content-center">
                   <img className="picture w-25" src={imageURL} alt="picture" />
                 </div>
@@ -66,7 +141,6 @@ const ShowAds = () => {
                     <p>{description}</p>
                   </div>
                 </div>
-                
               </section>
             )
           })
