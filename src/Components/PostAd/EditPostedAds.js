@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 import Navbar from '../Top/Navbar'
 import Bottom from '../Bottom/Bottom'

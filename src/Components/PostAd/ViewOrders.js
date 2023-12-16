@@ -2,11 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../Top/Navbar'
 import Bottom from '../Bottom/Bottom'
 import axios from 'axios'
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 
 const ViewOrders = () => {
-    const history= useHistory()
-  
     const userEmail= localStorage.getItem('email')
     const [orders, setOrders]= useState([])
     const [adsInfo, setAdsInfo] = useState([])
