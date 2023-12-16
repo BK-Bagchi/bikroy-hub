@@ -112,6 +112,14 @@ const PostAd = () => {
                                 <option value="Laptop">Laptop</option>
                             </select>
                         </div>
+                <div className="edit-picture w-100 d-flex align-items-center justify-content-center">
+                  {
+                    (formData.imageURL)?
+                        <img className="picture w-25" src={formData.imageURL} alt="Edit pic" />
+                    : 
+                        null
+                  }
+                </div>
                         <div className="form-fields">
                             <p>Upload photo</p>
                             <input type="file" onChange={(event) => {
