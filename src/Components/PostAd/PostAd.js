@@ -107,7 +107,7 @@ const PostAd = () => {
                             <select name="category" id="category" style={{margin: '10px'}}>
                                 <option value="" style={{display: "none"}}>Select Item Category</option>
                                 <option value="Electronic">Electronic</option>
-                                <option value="Vechile">Vechile</option>
+                                <option value="Vehicle">Vehicle</option>
                                 <option value="Mobile">Mobile</option>
                                 <option value="Laptop">Laptop</option>
                             </select>
