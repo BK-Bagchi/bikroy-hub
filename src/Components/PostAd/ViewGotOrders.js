@@ -3,7 +3,7 @@ import Navbar from '../Top/Navbar'
 import Bottom from '../Bottom/Bottom'
 import axios from 'axios'
 
-const ViewOrders = () => {
+const ViewGotOrders = () => {
     const userEmail= localStorage.getItem('email')
     const [orders, setOrders]= useState([])
     const [adsInfo, setAdsInfo] = useState([])
@@ -14,25 +14,25 @@ const ViewOrders = () => {
             orderId: order.orderId || 'qwerty12345',
             productId: order.productId || 'qwerty12345',
             matchingItems: matchingItem || 'qwerty12345',
-          };  
-    });
+          };   
+    }).filter(item => item.matchingItems !== 'qwerty12345');
     // console.log(orderElementsDetails);
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/ordersByAnUser?userEmail=${userEmail}`)
+        axios.get(`http://localhost:4000/adsByAnUser?userEmail=${userEmail}`)
           .then(response => {
             // console.log('Response:', response.data);
-            setOrders(response.data.userOrders)
+            setAdsInfo(response.data.userAds)
           })
           .catch(error => {
             // Handle errors here
             console.error('Error:', error.message);
           });
         
-        axios.get("http://localhost:4000/getAdsInfo")
+        axios.get("http://localhost:4000/getOrdersInfo")
           .then(response => {
             // console.log('Response:', response.data);
-            setAdsInfo(response.data)
+            setOrders(response.data)
           })
           .catch(error => {
             // Handle errors here
@@ -60,15 +60,20 @@ const ViewOrders = () => {
     <>
         <Navbar/>
         <section className="ads-home container">
-            <p>Posted ads(click to cancel)</p>
-            <div className="card-group d-flex justify-content-center">
-                {
-                    orderElementsDetails.map(orderElements =>{
-                        const {orderId, matchingItems}= orderElements
-                        const {itemName, description, price, imageURL, postingTime}= matchingItems
-                        
+        {orderElementsDetails.length === 0 ? (
+            <p>You have not get any order</p>
+        ) 
+        : 
+        (
+            <>
+                <p>Got orders (click to cancel)</p>
+                <div className="card-group d-flex justify-content-center">
+                    {orderElementsDetails.map(orderElements => {
+                        const { orderId, matchingItems } = orderElements;
+                        const { itemName, description, price, imageURL, postingTime } = matchingItems;
+
                         return (
-                            <div className='card' key={orderId} style={{maxHeight: '440px', maxWidth: '230px'}} onClick={() =>cancelOrder(orderId)}>
+                            <div className='card' key={orderId} style={{ maxHeight: '440px', maxWidth: '230px' }} onClick={() => cancelOrder(orderId)}>
                                 <img className="card-img-top" src={imageURL} alt="Card img cap" />
                                 <div className="card-body">
                                     <h5 className="card-title">{itemName}</h5>
@@ -79,14 +84,16 @@ const ViewOrders = () => {
                                     <small className="text-muted">Posted on {postingTime}</small>
                                 </div>
                             </div>
-                        )
-                    })
-                }
-            </div>
+                        );
+                    })}
+                </div>
+            </>
+        )
+        }
         </section>
         <Bottom/>
     </>
   )
 }
 
-export default ViewOrders
+export default ViewGotOrders
