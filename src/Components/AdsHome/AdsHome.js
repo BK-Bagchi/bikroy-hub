@@ -26,13 +26,13 @@ const AdsHome = () => {
     return (
         <section className="ads-home container">
             <p>Recently posted(click to see details)</p>
-            <div className="card-group">
+            <div className="card-group d-flex justify-content-center">
                 {
                     showAdsHome.map(adsHome =>{
                         const {_id, itemName, description, price, imageURL, postingTime}= adsHome
                         
                         return (
-                            <div className='card' key={_id} onClick={()=>{
+                            <div className='card' key={_id} style={{maxHeight: '440px', maxWidth: '230px'}} onClick={()=>{
                                 localStorage.setItem('adId', _id)
                                 history.push('/showAds')
                             }}>
