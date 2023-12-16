@@ -68,7 +68,7 @@ const ViewGotOrders = () => {
                 <>
                     <p>Got orders (click to cancel)</p>
                     <div className="card-group d-flex justify-content-center">
-                        {orderElementsDetails.map(orderElements => {
+                        {[...orderElementsDetails].reverse().map(orderElements => {
                             const { orderId, matchingItems } = orderElements;
                             const { itemName, description, price, imageURL, postingTime } = matchingItems;
 
