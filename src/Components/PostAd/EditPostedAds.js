@@ -70,7 +70,8 @@ const EditPostedAds = () => {
         });
       };
 
-      const submitUpdate= ()=>{
+      const updateAd= (e)=>{
+        e.preventDefault()
         axios.put(`http://localhost:4000/updateAds?adId=${adId}`, editableAd, {
             headers: {'Content-Type': 'application/json',}
             })
@@ -82,10 +83,25 @@ const EditPostedAds = () => {
                 // Handle any errors
                 console.error('Error:', error);
             });
-        
         history.push('/viewPostedAds')
       }
-
+      
+      const deleteAd = (e, adId) => {
+        e.preventDefault()
+        // console.log(adId)
+        axios.post('http://localhost:4000/deleteAds', {adId}, {
+            headers: { 'Content-Type': 'application/json' }
+            })
+            .then((response) => {
+                console.log('Response:', response.data);
+            })
+            .catch((error) => {
+                // Handle any errors
+                console.error('Error:', error);
+            });
+          history.push('/viewPostedAds')
+      }
+      
       const handelFormInput= (e)=> {
         const {name, value}= e.target
         setEditableAd({
@@ -93,17 +109,13 @@ const EditPostedAds = () => {
             [name]: value
         })
       }
-      const handleUpdate= (e)=>{
-        e.preventDefault()
-        submitUpdate()
-      }
 
   return (
     <>
         <Navbar/>
         <section className="edit-ad container">
             <div className="edit-ad-form">
-            <form className="d-flex flex-column align-items-center" key={editableAd._id} onSubmit={handleUpdate}>
+            <form className="d-flex flex-column align-items-center" key={editableAd._id} onSubmit={updateAd}>
                 <div className="form-fields">
                     <p>Item name</p>
                     <input type="text" placeholder="Item name" name='itemName' value={editableAd.itemName} onChange={handelFormInput}/>
@@ -145,7 +157,10 @@ const EditPostedAds = () => {
                     <p>Your contact</p>
                     <input type="number" placeholder="Your Contact" name='contactNumber' value={editableAd.contactNumber} onChange={handelFormInput}/>
                 </div>
-                <button type="submit" className="submit-btn">Update Ad</button>
+                <div className="d-flex justify-content-around w-50">
+                  <button type="submit" className="submit-btn">Update</button>
+                  <button type="submit" className="btn btn-danger" onClick={(e)=>deleteAd(e, editableAd._id)}>Delete</button>
+                </div>
             </form>
             </div>
         </section>

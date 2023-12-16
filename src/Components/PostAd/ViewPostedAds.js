@@ -33,7 +33,7 @@ const ViewPostedAds = () => {
             : 
             (
                 <>
-                    <p>Posted ads (click to edit)</p>
+                    <p>Posted ads (click to edit or delete)</p>
                     <div className="card-group d-flex justify-content-center">
                         {postedAds.map(postedAdsByAnUser => {
                             const { _id, itemName, description, price, imageURL, postingTime } = postedAdsByAnUser;

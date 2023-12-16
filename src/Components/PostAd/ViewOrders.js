@@ -15,7 +15,7 @@ const ViewOrders = () => {
             productId: order.productId || 'qwerty12345',
             matchingItems: matchingItem || 'qwerty12345',
           };  
-    });
+    }).filter(item => item.matchingItems !== 'qwerty12345');
     // console.log(orderElementsDetails);
 
     useEffect(() => {
@@ -66,7 +66,7 @@ const ViewOrders = () => {
             : 
             (
                 <>
-                    <p>Posted ads(click to cancel)</p>
+                    <p>Placed orders(click to cancel)</p>
                     <div className="card-group d-flex justify-content-center">
                         {orderElementsDetails.map(orderElements => {
                             const { orderId, matchingItems } = orderElements;
