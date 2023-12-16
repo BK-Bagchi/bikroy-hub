@@ -11,7 +11,7 @@ const ViewOrders = () => {
     const [orders, setOrders]= useState([])
     const [adsInfo, setAdsInfo] = useState([])
 
-    const oderElementsDetails = orders.map(order => {
+    const orderElementsDetails = orders.map(order => {
         const matchingItem = adsInfo.find(ad => ad._id === order.productId);
         return {
             orderId: order.orderId,
@@ -20,7 +20,7 @@ const ViewOrders = () => {
           };
         
     });
-    console.log(oderElementsDetails);//make html map using this comnbinedArray
+    console.log(orderElementsDetails);
 
 
     useEffect(() => {
@@ -46,6 +46,21 @@ const ViewOrders = () => {
       }, [userEmail]);
     //   console.log(orders, adsInfo)
 
+    const cancelOrder= (orderId)=>{
+        // console.log(orderId)
+        axios.post('http://localhost:4000/deleteOrder', { orderId }, {
+            headers: { 'Content-Type': 'application/json' }
+            })
+            .then((response) => {
+                console.log('Response:', response.data);
+                window.location.reload();
+            })
+            .catch((error) => {
+                // Handle any errors
+                console.error('Error:', error);
+            });
+    }
+
   return (
     <>
         <Navbar/>
@@ -53,33 +68,12 @@ const ViewOrders = () => {
             <p>Posted ads(click to cancel)</p>
             <div className="card-group">
                 {
-                    oderElementsDetails.map(oderElements =>{
-                        const {orderId, matchingItems}= oderElements
+                    orderElementsDetails.map(orderElements =>{
+                        const {orderId, matchingItems}= orderElements
                         const {itemName, description, price, imageURL, postingTime}= matchingItems
                         
                         return (
-                            <div className='card' key={orderId} data-toggle="modal" data-target="#exampleModal">
-                                {/* Modal starts */}
-                                <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div className="modal-dialog" role="document">
-                                        <div className="modal-content">
-                                        <div className="modal-header">
-                                            <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
-                                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div className="modal-body">
-                                           <p>Are you sure you want to cancel order??</p>
-                                        </div>
-                                        <div className="modal-footer">
-                                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" className="btn btn-danger">Cancel Now</button>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* Modal ends */}
+                            <div className='card' key={orderId} onClick={() =>cancelOrder(orderId)}>
                                 <img className="card-img-top" src={imageURL} alt="Card img cap" />
                                 <div className="card-body">
                                     <h5 className="card-title">{itemName}</h5>
