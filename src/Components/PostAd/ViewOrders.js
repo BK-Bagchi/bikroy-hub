@@ -14,9 +14,9 @@ const ViewOrders = () => {
     const orderElementsDetails = orders.map(order => {
         const matchingItem = adsInfo.find(ad => ad._id === order.productId);
         return {
-            orderId: order.orderId,
-            productId: order.productId,
-            matchingItems: matchingItem,
+            orderId: order.orderId || 'qwerty12345',
+            productId: order.productId || 'qwerty12345',
+            matchingItems: matchingItem || 'qwerty12345',
           };
         
     });
