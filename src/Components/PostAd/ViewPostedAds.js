@@ -28,13 +28,13 @@ const ViewPostedAds = () => {
         <Navbar/>
         <section className="ads-home container">
             <p>Posted ads(click to edit)</p>
-            <div className="card-group">
+            <div className="card-group d-flex justify-content-center">
                 {
                     postedAds.map(postedAdsByAnUser =>{
                         const {_id, itemName, description, price, imageURL, postingTime}= postedAdsByAnUser
                         
                         return (
-                            <div className='card' key={_id} onClick={()=>{
+                            <div className='card' key={_id} style={{maxHeight: '440px', maxWidth: '230px'}} onClick={()=>{
                                 localStorage.setItem('adId', _id)
                                 history.push('/editPostedAds')
                             }}>

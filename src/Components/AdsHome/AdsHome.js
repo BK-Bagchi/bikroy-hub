@@ -8,6 +8,7 @@ import axios from 'axios';
 const AdsHome = () => {
     const history = useHistory()
     const [adsInfo, setAdsInfo] = useState([])
+    const showAdsHome= adsInfo.slice(-5).reverse()
 
     useEffect(() => {
         axios.get('http://localhost:4000/getAdsInfo')
@@ -27,7 +28,7 @@ const AdsHome = () => {
             <p>Recently posted(click to see details)</p>
             <div className="card-group">
                 {
-                    adsInfo.map(adsHome =>{
+                    showAdsHome.map(adsHome =>{
                         const {_id, itemName, description, price, imageURL, postingTime}= adsHome
                         
                         return (

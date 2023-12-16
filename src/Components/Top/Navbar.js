@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 const Navbar = () => {
     const history= useHistory();
+    const photoURL= localStorage.getItem('photoURL')
     const [loggedIn, isLoggedIn]= useState(localStorage.getItem("isLoggedIn"));
     useEffect(()=>{
         isLoggedIn(localStorage.getItem("isLoggedIn"));
@@ -23,10 +24,8 @@ const Navbar = () => {
                             <div className="d-flex justify-content-center" id="navbarText">
                                 {
                                     loggedIn?
-                                    <p className="myAccountLoginBtn" onClick={()=>{
-                                        history.push('/myAccount');
-                                        }}>My Account
-                                    </p>
+                                    <img className="myAccountLoginBtn" src={photoURL} alt="Profile at navbar" onClick={()=>{
+                                        history.push('/myAccount');}} />
                                     :
                                     <button className="login" onClick={()=>{
                                         history.push('/login');

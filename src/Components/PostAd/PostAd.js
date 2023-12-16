@@ -82,7 +82,7 @@ const PostAd = () => {
                 console.error('Error:', error);
             });
         
-        history.push('/')
+        history.push('/viewPostedAds')
     }
     return (
         <>
