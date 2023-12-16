@@ -9,18 +9,19 @@ const MyProfile = () => {
     const history= useHistory()
     const myName= localStorage.getItem('displayName')
     const myProfilePicture= localStorage.getItem('photoURL')
+    const myEmail= localStorage.getItem('email')
     const [profileInfo, setProfileInfo]= useState({
         _id: 13,
         name: myName,
         profilePicture: myProfilePicture,
-        businessName: 'Your business name',
-        phoneNumber: '01xxxxxxxxx',
-        aboutYourBusiness: 'All about my business'
+        businessName: '',
+        phoneNumber: '',
+        aboutYourBusiness: ''
     })
 
     //setting profile info for temporary use
     useEffect(() => {
-        axios.get('http://localhost:4000/getProfileInfo')
+        axios.get(`http://localhost:4000/getProfileInfo?userEmail=${myEmail}`)
           .then(response => {
             // console.log('Response:', response.data);
             setProfileInfo(response.data[0])
@@ -29,7 +30,7 @@ const MyProfile = () => {
             // Handle errors here
             console.error('Error:', error.message);
           });
-      }, []);
+      }, [myEmail]);
     //   console.log(profileInfo)
 
   return (
@@ -48,14 +49,14 @@ const MyProfile = () => {
             <div className="profile-form">
                 <form className="d-flex flex-column align-items-center">
                     <div className="profile-picture">
-                        <img src={profileInfo.profilePicture} alt="User Profile Pic" />
+                        <img src={myProfilePicture} alt="User Profile Pic" />
                     </div>
-                    <input type="text" value= {profileInfo.name} name='name' readOnly/>
-                    <input type="text" value={profileInfo.businessName} name='businessName' readOnly/>
-                    <input type="text" value={profileInfo.phoneNumber} name='phoneNumber' readOnly/>
+                    <input type="text" value= {myName} name='name' readOnly/>
+                    <input type="text" value={profileInfo.businessName} name='businessName' placeholder='Your business name' readOnly/>
+                    <input type="text" value={profileInfo.phoneNumber} name='phoneNumber' placeholder='Your phone number' readOnly/>
                     <div className="about-user">
-                        <p>About me</p>
-                        <textarea name="aboutYourBusiness" value={profileInfo.aboutYourBusiness} readOnly></textarea>
+                        <p>About business</p>
+                        <textarea name="aboutYourBusiness" value={profileInfo.aboutBusiness} placeholder='About your business' readOnly></textarea>
                     </div>
                 </form>
             </div>

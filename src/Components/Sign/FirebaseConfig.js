@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { getFirestore } from "@firebase/firestore";
 import { getStorage } from "firebase/storage";
+import axios from "axios";
 // import "firebase/storage";
 
 const firebaseConfig = {
@@ -20,8 +21,23 @@ export const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
 export const signInWithGoogle = () => {
+    const userLogin= (displayName, email, photoURL) => {
+      axios.post('http://localhost:4000/userLogin', {displayName, email, photoURL}, {
+        headers: {'Content-Type': 'application/json',}
+        })
+        .then((response) => {
+            // Parse the response as JSON and handle it here
+            console.log('this is axios post method',response.data);
+        })
+        .catch((error) => {
+            // Handle any errors
+            console.error('Error:', error);
+        });
+    }
+
     signInWithPopup(auth, provider).then((result) => {
       const {displayName, email, photoURL} = result.user;
+      userLogin(displayName, email, photoURL);
       
       localStorage.setItem("displayName", displayName);
       localStorage.setItem("email", email);
