@@ -60,36 +60,36 @@ const ViewGotOrders = () => {
     <>
         <Navbar/>
         <section className="ads-home container">
-        {orderElementsDetails.length === 0 ? (
-            <p>You have not get any order</p>
-        ) 
-        : 
-        (
-            <>
-                <p>Got orders (click to cancel)</p>
-                <div className="card-group d-flex justify-content-center">
-                    {orderElementsDetails.map(orderElements => {
-                        const { orderId, matchingItems } = orderElements;
-                        const { itemName, description, price, imageURL, postingTime } = matchingItems;
+            {orderElementsDetails.length === 0 ? (
+                <p>You have not get any order</p>
+            ) 
+            : 
+            (
+                <>
+                    <p>Got orders (click to cancel)</p>
+                    <div className="card-group d-flex justify-content-center">
+                        {orderElementsDetails.map(orderElements => {
+                            const { orderId, matchingItems } = orderElements;
+                            const { itemName, description, price, imageURL, postingTime } = matchingItems;
 
-                        return (
-                            <div className='card' key={orderId} style={{ maxHeight: '440px', maxWidth: '230px' }} onClick={() => cancelOrder(orderId)}>
-                                <img className="card-img-top" src={imageURL} alt="Card img cap" />
-                                <div className="card-body">
-                                    <h5 className="card-title">{itemName}</h5>
-                                    <p className="card-text">{description}</p>
-                                    <span className="card-text price">Price: {price}</span>
+                            return (
+                                <div className='card' key={orderId} style={{ maxHeight: '440px', maxWidth: '230px' }} onClick={() => cancelOrder(orderId)}>
+                                    <img className="card-img-top" src={imageURL} alt="Card img cap" />
+                                    <div className="card-body">
+                                        <h5 className="card-title">{itemName}</h5>
+                                        <p className="card-text">{description}</p>
+                                        <span className="card-text price">Price: {price}</span>
+                                    </div>
+                                    <div className="card-footer">
+                                        <small className="text-muted">Posted on {postingTime}</small>
+                                    </div>
                                 </div>
-                                <div className="card-footer">
-                                    <small className="text-muted">Posted on {postingTime}</small>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            </>
-        )
-        }
+                            );
+                        })}
+                    </div>
+                </>
+            )
+            }
         </section>
         <Bottom/>
     </>

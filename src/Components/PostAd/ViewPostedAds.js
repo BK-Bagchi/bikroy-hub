@@ -27,32 +27,40 @@ const ViewPostedAds = () => {
     <>
         <Navbar/>
         <section className="ads-home container">
-            <p>Posted ads(click to edit)</p>
-            <div className="card-group d-flex justify-content-center">
-                {
-                    postedAds.map(postedAdsByAnUser =>{
-                        const {_id, itemName, description, price, imageURL, postingTime}= postedAdsByAnUser
-                        
-                        return (
-                            <div className='card' key={_id} style={{maxHeight: '440px', maxWidth: '230px'}} onClick={()=>{
-                                localStorage.setItem('adId', _id)
-                                history.push('/editPostedAds')
-                            }}>
-                                <img className="card-img-top" src={imageURL} alt="Card img cap" />
-                                <div className="card-body">
-                                    <h5 className="card-title">{itemName}</h5>
-                                    <p className="card-text">{description}</p>
-                                    <span className="card-text price">Price: {price}</span>
+            {postedAds.length === 0 ? (
+                <p>You have not posted any ads</p>
+            ) 
+            : 
+            (
+                <>
+                    <p>Posted ads (click to edit)</p>
+                    <div className="card-group d-flex justify-content-center">
+                        {postedAds.map(postedAdsByAnUser => {
+                            const { _id, itemName, description, price, imageURL, postingTime } = postedAdsByAnUser;
+
+                            return (
+                                <div className='card' key={_id} style={{ maxHeight: '440px', maxWidth: '230px' }} onClick={() => {
+                                    localStorage.setItem('adId', _id);
+                                    history.push('/editPostedAds');
+                                }}>
+                                    <img className="card-img-top" src={imageURL} alt="Card img cap" />
+                                    <div className="card-body">
+                                        <h5 className="card-title">{itemName}</h5>
+                                        <p className="card-text">{description}</p>
+                                        <span className="card-text price">Price: {price}</span>
+                                    </div>
+                                    <div className="card-footer">
+                                        <small className="text-muted">Posted on {postingTime}</small>
+                                    </div>
                                 </div>
-                                <div className="card-footer">
-                                    <small className="text-muted">Posted on {postingTime}</small>
-                                </div>
-                            </div>
-                        )
-                    })
-                }
-            </div>
+                            );
+                        })}
+                    </div>
+                </>
+            )
+            }
         </section>
+
         <Bottom/>
     </>
   )
