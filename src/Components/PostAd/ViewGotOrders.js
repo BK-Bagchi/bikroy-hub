@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../Top/Navbar'
 import Bottom from '../Bottom/Bottom'
 import axios from 'axios'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 
 const ViewGotOrders = () => {
+    const history= useHistory()
+
     const userEmail= localStorage.getItem('email')
     const [orders, setOrders]= useState([])
     const [adsInfo, setAdsInfo] = useState([])
@@ -13,6 +16,7 @@ const ViewGotOrders = () => {
         return {
             orderId: order.orderId || 'qwerty12345',
             productId: order.productId || 'qwerty12345',
+            customerCredentials: order.customerCredentials,
             matchingItems: matchingItem || 'qwerty12345',
           };   
     }).filter(item => item.matchingItems !== 'qwerty12345');
@@ -41,19 +45,8 @@ const ViewGotOrders = () => {
       }, [userEmail]);
     //   console.log(orders, adsInfo)
 
-    const cancelOrder= (orderId)=>{
-        // console.log(orderId)
-        axios.post('http://localhost:4000/deleteOrder', { orderId }, {
-            headers: { 'Content-Type': 'application/json' }
-            })
-            .then((response) => {
-                console.log('Response:', response.data);
-                window.location.reload();
-            })
-            .catch((error) => {
-                // Handle any errors
-                console.error('Error:', error);
-            });
+    const viewOrderDetails =(orderId)=>{
+        history.push('/orderDetails')
     }
 
   return (
@@ -66,14 +59,14 @@ const ViewGotOrders = () => {
             : 
             (
                 <>
-                    <p>Got orders (click to cancel)</p>
+                    <p>Got orders (click to see details, accept or refuse)</p>
                     <div className="card-group d-flex justify-content-center">
                         {[...orderElementsDetails].reverse().map(orderElements => {
                             const { orderId, matchingItems } = orderElements;
                             const { itemName, description, price, imageURL, postingTime } = matchingItems;
 
                             return (
-                                <div className='card' key={orderId} style={{ maxHeight: '440px', maxWidth: '230px' }} onClick={() => cancelOrder(orderId)}>
+                                <div className='card' key={orderId} style={{ maxHeight: '440px', maxWidth: '230px' }} onClick={() => viewOrderDetails(orderId)}>
                                     <img className="card-img-top" src={imageURL} alt="Card img cap" />
                                     <div className="card-body">
                                         <h5 className="card-title">{itemName}</h5>

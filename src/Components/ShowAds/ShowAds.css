@@ -33,13 +33,19 @@
     padding:5px 20px;
     border-radius: 5px;
 }
-.show-ad .buy-now{
+.show-ad .buy-now, .show-ad .accept-order, .show-ad .decline-order{
     background: #149777;
     color: white;
     border: none;
     border-radius: 5px;
     padding: 2px 10px;
     margin-top: 5px;
+}
+.show-ad .accept-order, .show-ad .decline-order{
+    margin: 10px 5px;
+}
+.show-ad .decline-order{
+    background: #C82333;
 }
 .show-ad .modal-body section{
     background: #E7EDEE;

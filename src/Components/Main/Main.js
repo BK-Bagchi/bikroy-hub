@@ -17,6 +17,7 @@ import Success from '../PaymentNotification/Success';
 import Fail from '../PaymentNotification/Fail';
 import ViewOrders from '../PostAd/ViewOrders';
 import ViewGotOrders from '../PostAd/ViewGotOrders';
+import OrderDetails from '../PostAd/OrderDetails';
 import Search from '../Search/Search';
 
 const Main = () => {
@@ -66,6 +67,9 @@ const Main = () => {
                     </Route>
                     <Route path="/viewGotOrders">
                         <ViewGotOrders/>
+                    </Route>
+                    <Route path="/orderDetails">
+                        <OrderDetails/>
                     </Route>
                     <Route path="/search">
                         <Search/>
