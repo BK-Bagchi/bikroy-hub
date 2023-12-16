@@ -4,8 +4,15 @@ import Navbar from '../Top/Navbar'
 import Bottom from '../Bottom/Bottom'
 import './ShowAds.css'
 import axios from 'axios'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 
 const ShowAds = () => {
+  const history= useHistory()
+  const [loggedIn, isLoggedIn]= useState(localStorage.getItem("isLoggedIn"))
+  useEffect(()=>{
+    isLoggedIn(localStorage.getItem("isLoggedIn"));
+  },[loggedIn]);
+
   const adId= localStorage.getItem('adId')
   const [adsInfo, setAdsInfo]= useState([])
   const [paymentInfo, setPaymentInfo]= useState({
@@ -72,7 +79,12 @@ const ShowAds = () => {
               <section className="show-ad container p-2" key={_id}>
                 <p className='ad-name m-2'>{itemName}</p>
                 <span>Posted on {postingTime}</span><br />
-                <button className='buy-now' data-toggle="modal" data-target="#orderTakingModal">Buy Now</button>
+                {
+                  loggedIn?
+                  <button className='buy-now' data-toggle="modal" data-target="#orderTakingModal">Buy Now</button>
+                  :
+                  <span className='buy-now' onClick={()=>history.push('/login')}>Login to order</span>
+                }
                 <div className="modal" tabIndex="-1" role="dialog" id='orderTakingModal'>
                   <div className="modal-dialog" role="document">
                     <div className="modal-content">
