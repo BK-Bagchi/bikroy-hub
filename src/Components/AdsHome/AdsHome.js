@@ -8,7 +8,8 @@ import axios from 'axios';
 const AdsHome = () => {
     const history = useHistory()
     const [adsInfo, setAdsInfo] = useState([])
-    const showAdsHome= adsInfo.slice(-5).reverse()
+    const [adsToShow, setAdsToShow] = useState(5)
+    const showAdsHome= adsInfo.slice(-adsToShow).reverse()
 
     useEffect(() => {
         axios.get('http://localhost:4000/getAdsInfo')
@@ -32,7 +33,7 @@ const AdsHome = () => {
                         const {_id, itemName, description, price, imageURL, postingTime}= adsHome
                         
                         return (
-                            <div className='card' key={_id} style={{maxHeight: '440px', maxWidth: '230px'}} onClick={()=>{
+                            <div className='card' key={_id} style={{maxHeight: '440px', maxWidth: '230px', minHeight: '400px', minWidth: '200px'}} onClick={()=>{
                                 localStorage.setItem('adId', _id)
                                 history.push('/showAds')
                             }}>
@@ -50,6 +51,11 @@ const AdsHome = () => {
                     })
                 }
             </div>
+            {
+                (adsInfo.length> adsToShow)?
+                    <p className='see-more-ads' onClick={() =>setAdsToShow(adsToShow+2)}>See more</p>:
+                    <p className='see-more-ads' onClick={() =>setAdsToShow(5)}>See less</p>
+            }
         </section>
     );
 };

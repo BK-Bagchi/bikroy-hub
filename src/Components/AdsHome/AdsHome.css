@@ -21,3 +21,12 @@
     padding: 2px 10px;
     margin-top: 5px;
 }
+.ads-home .see-more-ads{
+    font-size: 20px;
+    color: #149777;
+}
+.ads-home .see-more-ads:hover{
+    color: rgb(51, 128, 216);
+    text-decoration: underline;
+    cursor: pointer;
+}
