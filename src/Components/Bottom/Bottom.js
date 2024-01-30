@@ -55,7 +55,7 @@ const Bottom = () => {
                 </div>
             </section>
             <footer>
-                Copyright &copy; bkbagchi.dipto
+                Copyright &copy; bkbagchi.dipto {new Date().getFullYear()}
             </footer>
         </>
     );
