@@ -1,148 +1,205 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Bottom from '../Bottom/Bottom';
-import Navbar from '../Top/Navbar';
-import './PostAd.css';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "../Sign/FirebaseConfig";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Bottom from "../Bottom/Bottom";
+import Navbar from "../Top/Navbar";
+import "./PostAd.css";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const PostAd = () => {
-    const history= useHistory()
-    const [formData, setFromData]= useState({
-        brand:'',
-        category: '',
-        contactNumber:0,
-        description: '',
-        imageURL: '',
-        itemName:'',
-        postingTime:'',
-        price:'',
-        userEmail:localStorage.getItem('email')
-    })
+  const history = useHistory();
+  const [imageUpload, setImageUpload] = useState(null);
+  const [formData, setFormData] = useState({
+    brand: "",
+    category: "",
+    phoneNumber: "",
+    description: "",
+    photoURL: "",
+    itemName: "",
+    postingTime: "",
+    price: "",
+    email: localStorage.getItem("email"),
+  });
 
-    const [imageUpload, setImageUpload] = useState();
-    const uploadFile = () => {
-        if (!imageUpload) return;
-    
-        const imageRef = ref(storage, `9jacoder/images/${imageUpload.name}`);
-    
-        uploadBytes(imageRef, imageUpload).then((snapshot) => {
-          getDownloadURL(snapshot.ref).then((url) => {
-            console.log(url);
-            setFromData({
-                ...formData,
-                imageURL: url
-            })
-          });
-        });
+  useEffect(() => {
+    const date = new Date();
+    const futureDateTime = new Date(date.getTime() + 6 * 60 * 60 * 1000);
+    const nowDateTime = `${futureDateTime.getFullYear()}-${(
+      futureDateTime.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, "0")}-${futureDateTime
+      .getDate()
+      .toString()
+      .padStart(2, "0")} ${futureDateTime
+      .getHours()
+      .toString()
+      .padStart(2, "0")}:${futureDateTime
+      .getMinutes()
+      .toString()
+      .padStart(2, "0")}:${futureDateTime
+      .getSeconds()
+      .toString()
+      .padStart(2, "0")}`;
+
+    setFormData((prevData) => ({
+      ...prevData,
+      postingTime: nowDateTime,
+    }));
+  }, []);
+
+  const handleFormInput = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const uploadPhoto = async (imageFile) => {
+    const apiKey = "a6609c70246923f822d6ce28a766ead7"; // get free from imgbb.com
+    const formData = new FormData();
+    formData.append("image", imageFile);
+
+    const res = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+    return data.data.url; // public image URL
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const photoURL = await uploadPhoto(imageUpload);
+      const dataToSend = {
+        ...formData,
+        photoURL: photoURL || "",
       };
 
-    // console.log(formData);
+      await axios.post("http://localhost:4000/postAdds", dataToSend, {
+        headers: { "Content-Type": "application/json" },
+      });
 
-    useEffect(()=>{
-        const date = new Date();
-        const futureDateTime = new Date(date.getTime() + 6 * 60 * 60 * 1000);
-        const nowDateTime = `${futureDateTime.getFullYear()}-${(futureDateTime.getMonth() + 1)
-            .toString()
-            .padStart(2, '0')}-${futureDateTime.getDate().toString().padStart(2, '0')} ${futureDateTime.getHours().toString().padStart(2, '0')}:${futureDateTime.getMinutes().toString().padStart(2, '0')}:${futureDateTime.getSeconds().toString().padStart(2, '0')}`;
-
-        setFromData({
-            ...formData,
-            postingTime: nowDateTime
-        })
-    },[])
-    // console.log(formData);
-
-    const handelFormInput= (e)=>{
-        const {name, value}= e.target
-        setFromData({
-            ...formData,
-            [name]: value
-        })
+      history.push("/viewPostedAds");
+    } catch (error) {
+      console.error("Error submitting post:", error);
     }
+  };
 
-    const handelSubmit = (e)=>{
-        e.preventDefault()
-        itemInfo()
-        // console.log(formData)
-    }
+  return (
+    <>
+      <Navbar />
+      <section className="post-ad container">
+        <div className="post-ad-form">
+          <form
+            className="d-flex flex-column align-items-center"
+            onSubmit={handleSubmit}
+          >
+            <div className="form-fields">
+              <p>Item name</p>
+              <input
+                type="text"
+                placeholder="Item name"
+                name="itemName"
+                onChange={handleFormInput}
+                required
+              />
+            </div>
 
-    const itemInfo = ()=>{
-        axios.post('http://localhost:4000/postAds', formData, {
-            headers: {'Content-Type': 'application/json',}
-            })
-            .then((response) => {
-                // Parse the response as JSON and handle it here
-                console.log('this is axios post method',response.data);
-            })
-            .catch((error) => {
-                // Handle any errors
-                console.error('Error:', error);
-            });
-        
-        history.push('/viewPostedAds')
-    }
-    return (
-        <>
-            <Navbar/>
-            <section className="post-ad container">
-                <div className="post-ad-form">
-                    <form className="d-flex flex-column align-items-center" onSubmit={handelSubmit}>
-                        <div className="form-fields">
-                            <p>Item name</p>
-                            <input type="text" placeholder="Item name" name='itemName' onBlur={handelFormInput}/>
-                        </div>
-                        <div className="form-fields">
-                            <p>Brand name</p>
-                            <input type="text" placeholder="Brand name" name='brand' onBlur={handelFormInput}/>
-                        </div>
-                        <div className="form-fields">
-                            <p>Item Price</p>
-                            <input type="number" placeholder="Price" name="price" onBlur={handelFormInput}/>
-                        </div>
-                        <div className="form-fields" onBlur={handelFormInput}>
-                            <p>Category</p>
-                            <select name="category" id="category" style={{margin: '10px'}}>
-                                <option value="" style={{display: "none"}}>Select Item Category</option>
-                                <option value="Electronic">Electronic</option>
-                                <option value="Vehicle">Vehicle</option>
-                                <option value="Mobile">Mobile</option>
-                                <option value="Laptop">Laptop</option>
-                            </select>
-                        </div>
-                <div className="edit-picture w-100 d-flex align-items-center justify-content-center">
-                  {
-                    (formData.imageURL)?
-                        <img className="picture w-25" src={formData.imageURL} alt="Edit pic" />
-                    : 
-                        null
-                  }
-                </div>
-                        <div className="form-fields">
-                            <p>Upload photo</p>
-                            <input type="file" onChange={(event) => {
-                                setImageUpload(event.target.files[0])}}
-                                onBlur={() =>uploadFile()}
-                            style={{margin: '10px'}}/>
-                            {/* <button onClick={uploadFile}>Upload</button> */}
-                        </div>
-                        <div className="form-fields">
-                            <p>Item description</p>
-                            <textarea name="description" placeholder="Product Description" onBlur={handelFormInput}></textarea>
-                        </div>
-                        <div className="form-fields">
-                            <p>Your contact</p>
-                            <input type="number" placeholder="Your Contact" name='contactNumber' onBlur={handelFormInput}/>
-                        </div>
-                        <button type="submit" className="submit-btn">Post Ad</button>
-                    </form>
-                </div>
-            </section>
-            <Bottom/>
-        </>
-    );
+            <div className="form-fields">
+              <p>Brand name</p>
+              <input
+                type="text"
+                placeholder="Brand name"
+                name="brand"
+                onChange={handleFormInput}
+                required
+              />
+            </div>
+
+            <div className="form-fields">
+              <p>Item Price</p>
+              <input
+                type="text"
+                placeholder="Price"
+                name="price"
+                onChange={handleFormInput}
+                required
+              />
+            </div>
+
+            <div className="form-fields">
+              <p>Category</p>
+              <select
+                name="category"
+                id="category"
+                onChange={handleFormInput}
+                required
+                style={{ margin: "10px" }}
+              >
+                <option value="">Select Item Category</option>
+                <option value="Electronic">Electronic</option>
+                <option value="Vehicle">Vehicle</option>
+                <option value="Mobile">Mobile</option>
+                <option value="Laptop">Laptop</option>
+              </select>
+            </div>
+
+            <div className="edit-picture w-100 d-flex align-items-center justify-content-center">
+              {imageUpload && (
+                <img
+                  className="picture w-25"
+                  src={URL.createObjectURL(imageUpload)}
+                  alt="Preview"
+                />
+              )}
+            </div>
+
+            <div className="form-fields d-flex align-items-center">
+              <p>Upload photo</p>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setImageUpload(e.target.files[0])}
+                style={{ margin: "10px" }}
+                required
+              />
+            </div>
+
+            <div className="form-fields">
+              <p>Item description</p>
+              <textarea
+                name="description"
+                placeholder="Product Description"
+                onChange={handleFormInput}
+                required
+              ></textarea>
+            </div>
+
+            <div className="form-fields">
+              <p>Your contact</p>
+              <input
+                type="text"
+                placeholder="Your Contact"
+                name="phoneNumber"
+                onChange={handleFormInput}
+                required
+              />
+            </div>
+
+            <button type="submit" className="submit-btn">
+              Post Ad
+            </button>
+          </form>
+        </div>
+      </section>
+      <Bottom />
+    </>
+  );
 };
 
 export default PostAd;
