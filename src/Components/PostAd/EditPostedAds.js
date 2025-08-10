@@ -27,7 +27,7 @@ const EditPostedAds = () => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:4000/editPostedAddsByAnUser?userEmail=${userEmail}&_id=${adId}`
+        `https://bikroydotcom-server.onrender.com/editPostedAddsByAnUser?userEmail=${userEmail}&_id=${adId}`
       )
       .then((response) => {
         // console.log("Response:", response.data);
@@ -89,36 +89,35 @@ const EditPostedAds = () => {
         ...editableAd,
         photoURL: photoURL || "",
       };
-      axios
-        .put(`http://localhost:4000/updateAdds?adId=${adId}`, dataToUpdate, {
+
+      const response = await axios.put(
+        `https://bikroydotcom-server.onrender.com/updateAdds?adId=${adId}`,
+        dataToUpdate,
+        {
           headers: { "Content-Type": "application/json" },
-        })
-        .then((response) => {
-          console.log("Update successful:", response.data);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+        }
+      );
+
+      console.log("Update successful:", response.data);
       history.push("/viewPostedAds");
     } catch (error) {
       console.error("Error submitting post:", error);
     }
   };
 
-  const deleteAd = (e, adId) => {
+  const deleteAd = async (e, adId) => {
     e.preventDefault();
-    // console.log(adId)
-    axios
-      .post(`http://localhost:4000/deleteAdds?adId=${adId}`, {
-        headers: { "Content-Type": "application/json" },
-      })
-      .then((response) => {
-        console.log("Response:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-    history.push("/viewPostedAds");
+    try {
+      const response = await axios.post(
+        `https://bikroydotcom-server.onrender.com/deleteAdds?adId=${adId}`,
+        {},
+        { headers: { "Content-Type": "application/json" } }
+      );
+      console.log("Response:", response.data);
+      history.push("/viewPostedAds");
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   const handleFormInput = (e) => {

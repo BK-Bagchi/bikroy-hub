@@ -13,7 +13,7 @@ const Search = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/getAddsInfo")
+      .get("https://bikroydotcom-server.onrender.com/getAddsInfo")
       .then((response) => {
         // console.log('Response:', response.data);
         setAdsInfo(response.data);

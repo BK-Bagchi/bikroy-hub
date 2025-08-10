@@ -80,9 +80,13 @@ const PostAd = () => {
         photoURL: photoURL || "",
       };
 
-      await axios.post("http://localhost:4000/postAdds", dataToSend, {
-        headers: { "Content-Type": "application/json" },
-      });
+      await axios.post(
+        "https://bikroydotcom-server.onrender.com/postAdds",
+        dataToSend,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       history.push("/viewPostedAds");
     } catch (error) {

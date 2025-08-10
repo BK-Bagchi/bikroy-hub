@@ -26,7 +26,9 @@ const ViewGotOrders = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/getPostedAddsByAnUser?userEmail=${userEmail}`)
+      .get(
+        `https://bikroydotcom-server.onrender.com/getPostedAddsByAnUser?userEmail=${userEmail}`
+      )
       .then((response) => {
         // console.log('Response:', response.data);
         setAdsInfo(response.data.userAds);
@@ -37,7 +39,7 @@ const ViewGotOrders = () => {
       });
 
     axios
-      .get("http://localhost:4000/getOrdersInfo")
+      .get("https://bikroydotcom-server.onrender.com/getOrdersInfo")
       .then((response) => {
         // console.log('Response:', response.data);
         setOrders(response.data);

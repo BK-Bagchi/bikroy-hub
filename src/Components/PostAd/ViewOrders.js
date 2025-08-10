@@ -22,7 +22,9 @@ const ViewOrders = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/ordersByAnUser?userEmail=${userEmail}`)
+      .get(
+        `https://bikroydotcom-server.onrender.com/ordersByAnUser?userEmail=${userEmail}`
+      )
       .then((response) => {
         // console.log("Response:", response.data.userOrders);
         setOrders(response.data.userOrders);
@@ -32,7 +34,7 @@ const ViewOrders = () => {
       });
 
     axios
-      .get("http://localhost:4000/getAddsInfo")
+      .get("https://bikroydotcom-server.onrender.com/getAddsInfo")
       .then((response) => {
         // console.log('Response:', response.data);
         setAdsInfo(response.data);
@@ -46,9 +48,12 @@ const ViewOrders = () => {
   const cancelOrder = (orderId) => {
     // console.log(orderId)
     axios
-      .post(`http://localhost:4000/deleteOrder?orderId=${orderId}`, {
-        headers: { "Content-Type": "application/json" },
-      })
+      .post(
+        `https://bikroydotcom-server.onrender.com/deleteOrder?orderId=${orderId}`,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      )
       .then((response) => {
         console.log("Response:", response.data);
         window.location.reload();

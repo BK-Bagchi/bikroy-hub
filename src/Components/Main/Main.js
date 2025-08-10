@@ -62,7 +62,7 @@ const Main = () => {
           <Route path="/paymentFailed">
             <Fail />
           </Route>
-          <Route path="/cancel">
+          <Route path="/cancelT">
             <ShowAds />
           </Route>
           <Route path="/viewMyOrders">

@@ -25,46 +25,46 @@ const OrderDetails = () => {
   // console.log(orderElementsDetails);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:4000/getPostedAddsByAnUser?userEmail=${userEmail}`)
-      .then((response) => {
-        // console.log('Response:', response.data);
-        setAdsInfo(response.data.userAds);
-      })
-      .catch((error) => {
-        console.error("Error:", error.message);
-      });
+    const fetchData = async () => {
+      try {
+        const adsResponse = await axios.get(
+          `https://bikroydotcom-server.onrender.com/getPostedAddsByAnUser?userEmail=${userEmail}`
+        );
+        setAdsInfo(adsResponse.data.userAds);
+      } catch (error) {
+        console.error("Error fetching user ads:", error.message);
+      }
 
-    axios
-      .get("http://localhost:4000/getOrdersInfo")
-      .then((response) => {
-        // console.log('Response:', response.data);
-        setOrders(response.data);
-      })
-      .catch((error) => {
-        console.error("Error:", error.message);
-      });
+      try {
+        const ordersResponse = await axios.get(
+          "https://bikroydotcom-server.onrender.com/getOrdersInfo"
+        );
+        setOrders(ordersResponse.data);
+      } catch (error) {
+        console.error("Error fetching orders info:", error.message);
+      }
+    };
+
+    if (userEmail) {
+      fetchData();
+    }
   }, [userEmail]);
   //   console.log(orders, adsInfo)
 
-  const cancelOrder = (orderId) => {
-    // console.log(orderId)
-    axios
-      .post(
-        "http://localhost:4000/deleteOrder",
-        { orderId },
+  const cancelOrder = async (orderId) => {
+    try {
+      const response = await axios.post(
+        `https://bikroydotcom-server.onrender.com/deleteOrder?orderId= ${orderId}`,
         {
           headers: { "Content-Type": "application/json" },
         }
-      )
-      .then((response) => {
-        console.log("Response:", response.data);
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-    history.push("/viewGotOrders");
+      );
+      console.log("Response:", response.data);
+      window.location.reload();
+      history.push("/viewGotOrders");
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (

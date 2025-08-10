@@ -25,7 +25,9 @@ const ShowAds = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/getSpecificAdd/?addId=${addId}`)
+      .get(
+        `https://bikroydotcom-server.onrender.com/getSpecificAdd/?addId=${addId}`
+      )
       .then((response) => {
         // console.log("Response:", response.data);
         setAdsInfo([response.data]);
@@ -48,9 +50,13 @@ const ShowAds = () => {
     console.log(sendPaymentInfo);
 
     axios
-      .post("http://localhost:4000/placeOrder", sendPaymentInfo, {
-        headers: { "Content-Type": "application/json" },
-      })
+      .post(
+        "https://bikroydotcom-server.onrender.com/placeOrder",
+        sendPaymentInfo,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      )
       .then((response) => {
         // Parse the response as JSON and handle it here
         console.log("this is axios post method", response.data);

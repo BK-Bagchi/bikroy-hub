@@ -21,10 +21,13 @@ const MyProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/getProfileInfo?userEmail=${myEmail}`)
+      .get(
+        `https://bikroydotcom-server.onrender.com/getProfileInfo?userEmail=${myEmail}`
+      )
       .then((response) => {
         // console.log('Response:', response.data);
-        setFromData(response.data[0]);
+        if (response.data && response.data.length > 0)
+          setFromData(response.data[0]);
       })
       .catch((error) => {
         // Handle errors here
@@ -47,19 +50,19 @@ const MyProfile = () => {
     history.push("/myProfile");
   };
 
-  const postProfileInfo = () => {
-    axios
-      .post("http://localhost:4000/postProfileInfo", formData, {
-        headers: { "Content-Type": "application/json" },
-      })
-      .then((response) => {
-        // Parse the response as JSON and handle it here
-        console.log("this is axios post method", response.data);
-      })
-      .catch((error) => {
-        // Handle any errors
-        console.error("Error:", error);
-      });
+  const postProfileInfo = async () => {
+    try {
+      const response = await axios.post(
+        "https://bikroydotcom-server.onrender.com/postProfileInfo",
+        formData,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      console.log("this is axios post method", response.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (

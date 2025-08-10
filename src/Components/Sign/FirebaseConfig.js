@@ -23,7 +23,7 @@ export const signInWithGoogle = () => {
   const userLogin = (displayName, email, photoURL) => {
     axios
       .post(
-        "http://localhost:4000/userLogin",
+        "https://bikroydotcom-server.onrender.com/userLogin",
         { displayName, email, photoURL },
         {
           headers: { "Content-Type": "application/json" },

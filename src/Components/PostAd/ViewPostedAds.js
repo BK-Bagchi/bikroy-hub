@@ -11,7 +11,9 @@ const ViewPostedAds = () => {
   const [postedAds, setPostedAds] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/getPostedAddsByAnUser?userEmail=${userEmail}`)
+      .get(
+        `https://bikroydotcom-server.onrender.com/getPostedAddsByAnUser?userEmail=${userEmail}`
+      )
       .then((response) => {
         // console.log("Response:", response.data);
         setPostedAds(response.data.userAds);

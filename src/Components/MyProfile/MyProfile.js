@@ -22,13 +22,15 @@ const MyProfile = () => {
   //setting profile info for temporary use
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/getProfileInfo?userEmail=${myEmail}`)
+      .get(
+        `https://bikroydotcom-server.onrender.com/getProfileInfo?userEmail=${myEmail}`
+      )
       .then((response) => {
         // console.log('Response:', response.data);
-        setProfileInfo(response.data[0]);
+        if (response.data && response.data.length > 0) 
+          setProfileInfo(response.data[0]);
       })
       .catch((error) => {
-        // Handle errors here
         console.error("Error:", error.message);
       });
   }, [myEmail]);
