@@ -4,19 +4,21 @@ import axios from "axios";
 
 const Categories = () => {
   const [adsInfo, setAdsInfo] = useState([]);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
-    axios
-      .get("https://bikroydotcom-server.onrender.com/getAddsInfo")
-      .then((response) => {
-        // console.log('Response:', response.data);
+    const fetchAddsInfo = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/getAddsInfo`);
         setAdsInfo(response.data);
-      })
-      .catch((error) => {
-        // Handle errors here
+      } catch (error) {
         console.error("Error:", error.message);
-      });
-  }, []);
+      }
+    };
+
+    fetchAddsInfo();
+  }, [API_BASE_URL]);
+
   // console.log(adsInfo)
 
   const countAdByCategory = adsInfo.reduce((acc, ad) => {

@@ -7,6 +7,7 @@ const ViewOrders = () => {
   const userEmail = localStorage.getItem("email");
   const [orders, setOrders] = useState([]);
   const [adsInfo, setAdsInfo] = useState([]);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const orderElementsDetails = orders
     .map((order) => {
@@ -21,46 +22,39 @@ const ViewOrders = () => {
   // console.log(orderElementsDetails);
 
   useEffect(() => {
-    axios
-      .get(
-        `https://bikroydotcom-server.onrender.com/ordersByAnUser?userEmail=${userEmail}`
-      )
-      .then((response) => {
-        // console.log("Response:", response.data.userOrders);
-        setOrders(response.data.userOrders);
-      })
-      .catch((error) => {
-        console.error("Error:", error.message);
-      });
+    const fetchData = async () => {
+      try {
+        const [ordersResponse, adsResponse] = await Promise.all([
+          axios.get(`${API_BASE_URL}/ordersByAnUser?userEmail=${userEmail}`),
+          axios.get(`${API_BASE_URL}/getAddsInfo`),
+        ]);
 
-    axios
-      .get("https://bikroydotcom-server.onrender.com/getAddsInfo")
-      .then((response) => {
-        // console.log('Response:', response.data);
-        setAdsInfo(response.data);
-      })
-      .catch((error) => {
-        console.error("Error:", error.message);
-      });
-  }, [userEmail]);
+        if (ordersResponse.data) setOrders(ordersResponse.data.userOrders);
+        if (adsResponse.data) setAdsInfo(adsResponse.data);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    };
+
+    if (userEmail) fetchData();
+  }, [userEmail, API_BASE_URL]);
+
   //   console.log(orders, adsInfo)
 
-  const cancelOrder = (orderId) => {
-    // console.log(orderId)
-    axios
-      .post(
-        `https://bikroydotcom-server.onrender.com/deleteOrder?orderId=${orderId}`,
+  const cancelOrder = async (orderId) => {
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}/deleteOrder?orderId=${orderId}`,
+        {},
         {
           headers: { "Content-Type": "application/json" },
         }
-      )
-      .then((response) => {
-        console.log("Response:", response.data);
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+      );
+      console.log("Response:", response.data);
+      window.location.reload();
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (

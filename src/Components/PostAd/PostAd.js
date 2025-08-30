@@ -20,6 +20,7 @@ const PostAd = () => {
     price: "",
     email: localStorage.getItem("email"),
   });
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
     const date = new Date();
@@ -57,7 +58,7 @@ const PostAd = () => {
   };
 
   const uploadPhoto = async (imageFile) => {
-    const apiKey = "a6609c70246923f822d6ce28a766ead7"; // get free from imgbb.com
+    const apiKey = process.env.REACT_APP_API_KEY; // get free from imgbb.com
     const formData = new FormData();
     formData.append("image", imageFile);
 
@@ -80,13 +81,9 @@ const PostAd = () => {
         photoURL: photoURL || "",
       };
 
-      await axios.post(
-        "https://bikroydotcom-server.onrender.com/postAdds",
-        dataToSend,
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      await axios.post(`${API_BASE_URL}/postAdds`, dataToSend, {
+        headers: { "Content-Type": "application/json" },
+      });
 
       history.push("/viewPostedAds");
     } catch (error) {

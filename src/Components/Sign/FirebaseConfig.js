@@ -4,6 +4,7 @@ import { getFirestore } from "@firebase/firestore";
 import { getStorage } from "firebase/storage";
 import axios from "axios";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const firebaseConfig = {
   apiKey: "AIzaSyA52_mYh6mOk2IMbrFM9ky1d3oVeUh9_F8",
   authDomain: "bikroydot-com.firebaseapp.com",
@@ -20,23 +21,19 @@ export const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
 export const signInWithGoogle = () => {
-  const userLogin = (displayName, email, photoURL) => {
-    axios
-      .post(
-        "https://bikroydotcom-server.onrender.com/userLogin",
+  const userLogin = async (displayName, email, photoURL) => {
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}/userLogin`,
         { displayName, email, photoURL },
         {
           headers: { "Content-Type": "application/json" },
         }
-      )
-      .then((response) => {
-        // Parse the response as JSON and handle it here
-        console.log("this is axios post method", response.data);
-      })
-      .catch((error) => {
-        // Handle any errors
-        console.error("Error:", error);
-      });
+      );
+      console.log("Axios POST response:", response.data);
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
   };
 
   signInWithPopup(auth, provider)

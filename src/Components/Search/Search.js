@@ -10,19 +10,20 @@ const Search = () => {
   const history = useHistory();
   const searchItemName = localStorage.getItem("searchItem");
   const [adsInfo, setAdsInfo] = useState([]);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
-    axios
-      .get("https://bikroydotcom-server.onrender.com/getAddsInfo")
-      .then((response) => {
-        // console.log('Response:', response.data);
+    const fetchAddsInfo = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/getAddsInfo`);
         setAdsInfo(response.data);
-      })
-      .catch((error) => {
-        // Handle errors here
+      } catch (error) {
         console.error("Error:", error.message);
-      });
-  }, [searchItemName]);
+      }
+    };
+
+    if (searchItemName) fetchAddsInfo();
+  }, [searchItemName, API_BASE_URL]);
 
   const searchItemDetails = adsInfo.filter(
     (add) => add.category === searchItemName

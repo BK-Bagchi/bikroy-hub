@@ -13,6 +13,7 @@ const ShowAds = () => {
   useEffect(() => {
     isLoggedIn(localStorage.getItem("isLoggedIn"));
   }, [loggedIn]);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const addId = localStorage.getItem("adId");
   const [adsInfo, setAdsInfo] = useState([]);
@@ -24,19 +25,20 @@ const ShowAds = () => {
   });
 
   useEffect(() => {
-    axios
-      .get(
-        `https://bikroydotcom-server.onrender.com/getSpecificAdd/?addId=${addId}`
-      )
-      .then((response) => {
-        // console.log("Response:", response.data);
-        setAdsInfo([response.data]);
-      })
-      .catch((error) => {
-        // Handle errors here
+    const fetchSpecificAdd = async () => {
+      try {
+        const response = await axios.get(
+          `${API_BASE_URL}/getSpecificAdd/?addId=${addId}`
+        );
+        setAdsInfo([response.data]); // Wrap in array to keep consistent structure
+      } catch (error) {
         console.error("Error:", error.message);
-      });
-  }, [addId]);
+      }
+    };
+
+    if (addId) fetchSpecificAdd();
+  }, [addId, API_BASE_URL]);
+
   // console.log(adsInfo);
 
   const orderNow = () => {
@@ -50,13 +52,9 @@ const ShowAds = () => {
     console.log(sendPaymentInfo);
 
     axios
-      .post(
-        "https://bikroydotcom-server.onrender.com/placeOrder",
-        sendPaymentInfo,
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      )
+      .post(`${API_BASE_URL}/placeOrder`, sendPaymentInfo, {
+        headers: { "Content-Type": "application/json" },
+      })
       .then((response) => {
         // Parse the response as JSON and handle it here
         console.log("this is axios post method", response.data);

@@ -9,20 +9,23 @@ const ViewPostedAds = () => {
 
   const userEmail = localStorage.getItem("email");
   const [postedAds, setPostedAds] = useState([]);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
-    axios
-      .get(
-        `https://bikroydotcom-server.onrender.com/getPostedAddsByAnUser?userEmail=${userEmail}`
-      )
-      .then((response) => {
-        // console.log("Response:", response.data);
+    const fetchPostedAds = async () => {
+      try {
+        const response = await axios.get(
+          `${API_BASE_URL}/getPostedAddsByAnUser?userEmail=${userEmail}`
+        );
         setPostedAds(response.data.userAds);
-      })
-      .catch((error) => {
-        // Handle errors here
+      } catch (error) {
         console.error("Error:", error.message);
-      });
-  }, [userEmail]);
+      }
+    };
+
+    if (userEmail) fetchPostedAds();
+  }, [userEmail, API_BASE_URL]);
+
   // console.log(postedAds)
 
   return (

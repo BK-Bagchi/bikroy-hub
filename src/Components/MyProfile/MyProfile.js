@@ -18,22 +18,26 @@ const MyProfile = () => {
     phoneNumber: "",
     aboutYourBusiness: "",
   });
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   //setting profile info for temporary use
   useEffect(() => {
-    axios
-      .get(
-        `https://bikroydotcom-server.onrender.com/getProfileInfo?userEmail=${myEmail}`
-      )
-      .then((response) => {
-        // console.log('Response:', response.data);
-        if (response.data && response.data.length > 0) 
+    const fetchProfileInfo = async () => {
+      try {
+        const response = await axios.get(
+          `${API_BASE_URL}/getProfileInfo?userEmail=${myEmail}`
+        );
+
+        if (response.data && response.data.length > 0)
           setProfileInfo(response.data[0]);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error:", error.message);
-      });
-  }, [myEmail]);
+      }
+    };
+
+    if (myEmail) fetchProfileInfo();
+  }, [myEmail, API_BASE_URL]);
+
   //   console.log(profileInfo)
 
   return (

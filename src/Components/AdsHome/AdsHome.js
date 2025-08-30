@@ -9,19 +9,21 @@ const AdsHome = () => {
   const [adsInfo, setAdsInfo] = useState([]);
   const [adsToShow, setAdsToShow] = useState(5);
   const showAdsHome = adsInfo.slice(-adsToShow).reverse();
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
-    axios
-      .get("https://bikroydotcom-server.onrender.com/getAddsInfo")
-      .then((response) => {
-        // console.log('Response:', response.data);
+    const fetchAdsInfo = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/getAddsInfo`);
         setAdsInfo(response.data);
-      })
-      .catch((error) => {
-        // Handle errors here
+      } catch (error) {
         console.error("Error:", error.message);
-      });
-  }, []);
+      }
+    };
+
+    fetchAdsInfo();
+  }, [API_BASE_URL]);
+
   // console.log(adsInfo)
 
   return (

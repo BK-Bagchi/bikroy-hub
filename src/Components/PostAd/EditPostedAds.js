@@ -23,20 +23,23 @@ const EditPostedAds = () => {
     postingTime: "",
     price: "",
   });
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
-    axios
-      .get(
-        `https://bikroydotcom-server.onrender.com/editPostedAddsByAnUser?userEmail=${userEmail}&_id=${adId}`
-      )
-      .then((response) => {
-        // console.log("Response:", response.data);
+    const fetchEditableAd = async () => {
+      try {
+        const response = await axios.get(
+          `${API_BASE_URL}/editPostedAddsByAnUser?userEmail=${userEmail}&_id=${adId}`
+        );
         setEditableAd(response.data.add);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error:", error.message);
-      });
-  }, [userEmail, adId]);
+      }
+    };
+
+    if (userEmail && adId) fetchEditableAd();
+  }, [userEmail, adId, API_BASE_URL]);
+
   // console.log(editableAd)
 
   useEffect(() => {
@@ -67,7 +70,7 @@ const EditPostedAds = () => {
   }, []);
 
   const uploadPhoto = async (imageFile) => {
-    const apiKey = "a6609c70246923f822d6ce28a766ead7"; // get free from imgbb.com
+    const apiKey = process.env.REACT_APP_API_KEY; // get free from imgbb.com
     const formData = new FormData();
     formData.append("image", imageFile);
 
@@ -91,7 +94,7 @@ const EditPostedAds = () => {
       };
 
       const response = await axios.put(
-        `https://bikroydotcom-server.onrender.com/updateAdds?adId=${adId}`,
+        `${API_BASE_URL}/updateAdds?adId=${adId}`,
         dataToUpdate,
         {
           headers: { "Content-Type": "application/json" },
@@ -109,7 +112,7 @@ const EditPostedAds = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `https://bikroydotcom-server.onrender.com/deleteAdds?adId=${adId}`,
+        `${API_BASE_URL}/deleteAdds?adId=${adId}`,
         {},
         { headers: { "Content-Type": "application/json" } }
       );

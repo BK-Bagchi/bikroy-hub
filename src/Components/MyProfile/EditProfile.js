@@ -18,22 +18,22 @@ const MyProfile = () => {
     phoneNumber: "",
     aboutBusiness: "",
   });
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
-    axios
-      .get(
-        `https://bikroydotcom-server.onrender.com/getProfileInfo?userEmail=${myEmail}`
-      )
-      .then((response) => {
-        // console.log('Response:', response.data);
-        if (response.data && response.data.length > 0)
-          setFromData(response.data[0]);
-      })
-      .catch((error) => {
-        // Handle errors here
-        console.error("Error:", error.message);
-      });
-  }, [myEmail]);
+    const fetchProfileInfo = async () => {
+      try {
+        const response = await axios.get(
+          `${API_BASE_URL}/getProfileInfo?userEmail=${myEmail}`
+        );
+        setFromData(response.data[0]);
+      } catch (error) {
+        console.error("Error: " + error.message);
+      }
+    };
+
+    if (myEmail) fetchProfileInfo();
+  }, [myEmail, API_BASE_URL]);
 
   const handelFormInput = (e) => {
     const { name, value } = e.target;
@@ -53,7 +53,7 @@ const MyProfile = () => {
   const postProfileInfo = async () => {
     try {
       const response = await axios.post(
-        "https://bikroydotcom-server.onrender.com/postProfileInfo",
+        `${API_BASE_URL}/postProfileInfo`,
         formData,
         {
           headers: { "Content-Type": "application/json" },

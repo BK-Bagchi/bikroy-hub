@@ -10,6 +10,7 @@ const OrderDetails = () => {
   const userEmail = localStorage.getItem("email");
   const [orders, setOrders] = useState([]);
   const [adsInfo, setAdsInfo] = useState([]);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const orderElementsDetails = orders
     .map((order) => {
@@ -26,35 +27,32 @@ const OrderDetails = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const adsResponse = await axios.get(
-          `https://bikroydotcom-server.onrender.com/getPostedAddsByAnUser?userEmail=${userEmail}`
-        );
-        setAdsInfo(adsResponse.data.userAds);
-      } catch (error) {
-        console.error("Error fetching user ads:", error.message);
-      }
+      if (!userEmail) return;
 
       try {
-        const ordersResponse = await axios.get(
-          "https://bikroydotcom-server.onrender.com/getOrdersInfo"
-        );
+        const [adsResponse, ordersResponse] = await Promise.all([
+          axios.get(
+            `${API_BASE_URL}/getPostedAddsByAnUser?userEmail=${userEmail}`
+          ),
+          axios.get(`${API_BASE_URL}/getOrdersInfo`),
+        ]);
+
+        setAdsInfo(adsResponse.data.userAds);
         setOrders(ordersResponse.data);
       } catch (error) {
-        console.error("Error fetching orders info:", error.message);
+        console.error("Error fetching data:", error.message);
       }
     };
 
-    if (userEmail) {
-      fetchData();
-    }
-  }, [userEmail]);
+    if (userEmail) fetchData();
+  }, [userEmail, API_BASE_URL]);
+
   //   console.log(orders, adsInfo)
 
   const cancelOrder = async (orderId) => {
     try {
       const response = await axios.post(
-        `https://bikroydotcom-server.onrender.com/deleteOrder?orderId= ${orderId}`,
+        `${API_BASE_URL}/deleteOrder?orderId= ${orderId}`,
         {
           headers: { "Content-Type": "application/json" },
         }
