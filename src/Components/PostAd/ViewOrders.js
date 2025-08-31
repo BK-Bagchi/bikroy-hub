@@ -63,12 +63,12 @@ const ViewOrders = () => {
     <>
       <Navbar />
       <section className="ads-home container">
-        {orderElementsDetails.length === 0 ? (
-          <p>You have not placed any order</p>
-        ) : showLoader ? (
-          <div class="spinner-grow text-dark" role="status">
-            <span class="visually-hidden">Loading...</span>
+        {showLoader ? (
+          <div className="spinner-grow text-dark" role="status">
+            <span className="visually-hidden">Loading...</span>
           </div>
+        ) : orderElementsDetails.length === 0 ? (
+          <p>You have not placed any order</p>
         ) : (
           <>
             <p>Placed orders(click to cancel)</p>

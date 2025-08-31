@@ -34,12 +34,12 @@ const ViewPostedAds = () => {
     <>
       <Navbar />
       <section className="ads-home container">
-        {postedAds.length === 0 ? (
-          <p>You have not posted any ads</p>
-        ) : showLoader ? (
-          <div class="spinner-grow text-dark" role="status">
-            <span class="visually-hidden">Loading...</span>
+        {showLoader ? (
+          <div className="spinner-grow text-dark" role="status">
+            <span className="visually-hidden">Loading...</span>
           </div>
+        ) : postedAds.length === 0 ? (
+          <p>You have not posted any ads</p>
         ) : (
           <>
             <p>Posted ads (click to edit or delete)</p>

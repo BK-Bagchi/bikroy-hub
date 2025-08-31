@@ -51,20 +51,24 @@ const ShowAds = () => {
     };
     console.log(sendPaymentInfo);
 
-    axios
-      .post(`${API_BASE_URL}/placeOrder`, sendPaymentInfo, {
-        headers: { "Content-Type": "application/json" },
-      })
-      .then((response) => {
-        // Parse the response as JSON and handle it here
-        console.log("this is axios post method", response.data);
-        //redirects to the payment page of sslcommerz
+    const postAdAsync = async () => {
+      try {
+        const response = await axios.post(
+          `${API_BASE_URL}/placeOrder`,
+          sendPaymentInfo,
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        // Redirect to the payment page of sslcommerz
         window.location.replace(response.data.url);
-      })
-      .catch((error) => {
-        // Handle any errors
+      } catch (error) {
         console.error("Error:", error);
-      });
+      }
+    };
+    //prettier-ignore
+    if(paymentInfo.shippingAddress && paymentInfo.phoneNumber && paymentInfo.postCode) postAdAsync();
+    else alert("Please fill up all the fields.");
   };
 
   const handelFormInput = (e) => {
@@ -165,6 +169,7 @@ const ShowAds = () => {
                           placeholder="Your Shipping Address"
                           name="shippingAddress"
                           onChange={handelFormInput}
+                          required
                         />
                       </div>
                       <div className="form-fields">

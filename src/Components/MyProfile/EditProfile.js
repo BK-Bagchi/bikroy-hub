@@ -43,10 +43,10 @@ const MyProfile = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(formData);
-    postProfileInfo();
+    await postProfileInfo();
     history.push("/myProfile");
   };
 
@@ -59,7 +59,7 @@ const MyProfile = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
-      console.log("this is axios post method", response.data);
+      if (response) return alert(response.data.message);
     } catch (error) {
       console.error("Error:", error);
     }

@@ -41,8 +41,8 @@ const AdsHome = () => {
             adsHome;
           if (showLoader)
             return (
-              <div class="spinner-grow text-dark" role="status">
-                <span class="visually-hidden">Loading...</span>
+              <div className="spinner-grow text-dark" role="status">
+                <span className="visually-hidden">Loading...</span>
               </div>
             );
           else {

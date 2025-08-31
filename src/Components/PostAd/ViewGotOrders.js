@@ -57,12 +57,12 @@ const ViewGotOrders = () => {
     <>
       <Navbar />
       <section className="ads-home container">
-        {orderElementsDetails.length === 0 ? (
-          <p>You have not got any order</p>
-        ) : showLoader ? (
-          <div class="spinner-grow text-dark" role="status">
-            <span class="visually-hidden">Loading...</span>
+        {showLoader ? (
+          <div className="spinner-grow text-dark" role="status">
+            <span className="visually-hidden">Loading...</span>
           </div>
+        ) : orderElementsDetails.length === 0 ? (
+          <p>You have not recieved any order yet</p>
         ) : (
           <>
             <p>Got orders (click to see details, accept or refuse)</p>

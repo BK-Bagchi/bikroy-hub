@@ -81,10 +81,14 @@ const PostAd = () => {
         photoURL: photoURL || "",
       };
 
-      await axios.post(`${API_BASE_URL}/postAdds`, dataToSend, {
-        headers: { "Content-Type": "application/json" },
-      });
-
+      const response = await axios.post(
+        `${API_BASE_URL}/postAdds`,
+        dataToSend,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      if (response) alert("Add posted successfully.");
       history.push("/viewPostedAds");
     } catch (error) {
       console.error("Error submitting post:", error);

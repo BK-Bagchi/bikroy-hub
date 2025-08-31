@@ -87,10 +87,12 @@ const EditPostedAds = () => {
     e.preventDefault();
 
     try {
-      const photoURL = await uploadPhoto(imageUpload);
+      let photoURL = editableAd.photoURL;
+      if (imageUpload) photoURL = await uploadPhoto(imageUpload);
+
       const dataToUpdate = {
         ...editableAd,
-        photoURL: photoURL || "",
+        photoURL: photoURL,
       };
 
       const response = await axios.put(
@@ -101,7 +103,7 @@ const EditPostedAds = () => {
         }
       );
 
-      console.log("Update successful:", response.data);
+      if (response) alert("Add updated successfully.");
       history.push("/viewPostedAds");
     } catch (error) {
       console.error("Error submitting post:", error);
@@ -116,7 +118,7 @@ const EditPostedAds = () => {
         {},
         { headers: { "Content-Type": "application/json" } }
       );
-      console.log("Response:", response.data);
+      if (response) alert("Add deleted successfully.");
       history.push("/viewPostedAds");
     } catch (error) {
       console.error("Error:", error);
@@ -215,7 +217,6 @@ const EditPostedAds = () => {
                 accept="image/*"
                 onChange={(e) => setImageUpload(e.target.files[0])}
                 style={{ margin: "10px" }}
-                required
               />
             </div>
 
