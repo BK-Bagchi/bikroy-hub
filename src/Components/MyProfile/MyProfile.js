@@ -71,14 +71,14 @@ const MyProfile = () => {
             <input type="text" value={myName} name="name" readOnly />
             <input
               type="text"
-              value={profileInfo.businessName}
+              value={profileInfo.businessName || ""}
               name="businessName"
               placeholder="Edit profile to enter your business name"
               readOnly
             />
             <input
               type="text"
-              value={profileInfo.phoneNumber}
+              value={profileInfo.phoneNumber || ""}
               name="phoneNumber"
               placeholder="Edit profile to enter your phone number"
               readOnly

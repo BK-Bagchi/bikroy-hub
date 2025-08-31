@@ -7,6 +7,7 @@ const ViewOrders = () => {
   const userEmail = localStorage.getItem("email");
   const [orders, setOrders] = useState([]);
   const [adsInfo, setAdsInfo] = useState([]);
+  const [showLoader, setShowLoader] = useState(true);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const orderElementsDetails = orders
@@ -31,6 +32,7 @@ const ViewOrders = () => {
 
         if (ordersResponse.data) setOrders(ordersResponse.data.userOrders);
         if (adsResponse.data) setAdsInfo(adsResponse.data);
+        setShowLoader(false);
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
@@ -63,6 +65,10 @@ const ViewOrders = () => {
       <section className="ads-home container">
         {orderElementsDetails.length === 0 ? (
           <p>You have not placed any order</p>
+        ) : showLoader ? (
+          <div class="spinner-grow text-dark" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
         ) : (
           <>
             <p>Placed orders(click to cancel)</p>

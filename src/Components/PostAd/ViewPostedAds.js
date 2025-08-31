@@ -9,6 +9,7 @@ const ViewPostedAds = () => {
 
   const userEmail = localStorage.getItem("email");
   const [postedAds, setPostedAds] = useState([]);
+  const [showLoader, setShowLoader] = useState(true);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
@@ -18,6 +19,7 @@ const ViewPostedAds = () => {
           `${API_BASE_URL}/getPostedAddsByAnUser?userEmail=${userEmail}`
         );
         setPostedAds(response.data.userAds);
+        setShowLoader(false);
       } catch (error) {
         console.error("Error:", error.message);
       }
@@ -34,6 +36,10 @@ const ViewPostedAds = () => {
       <section className="ads-home container">
         {postedAds.length === 0 ? (
           <p>You have not posted any ads</p>
+        ) : showLoader ? (
+          <div class="spinner-grow text-dark" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
         ) : (
           <>
             <p>Posted ads (click to edit or delete)</p>
@@ -80,7 +86,6 @@ const ViewPostedAds = () => {
           </>
         )}
       </section>
-
       <Bottom />
     </>
   );

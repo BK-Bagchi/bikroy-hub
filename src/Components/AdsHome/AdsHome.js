@@ -7,7 +7,10 @@ import axios from "axios";
 const AdsHome = () => {
   const history = useHistory();
   const [adsInfo, setAdsInfo] = useState([]);
-  const [adsToShow, setAdsToShow] = useState(5);
+  const [showLoader, setShowLoader] = useState(true);
+  const [adsToShow, setAdsToShow] = useState(
+    adsInfo.length > 5 ? 5 : adsInfo.length
+  );
   const showAdsHome = adsInfo.slice(-adsToShow).reverse();
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -16,6 +19,7 @@ const AdsHome = () => {
       try {
         const response = await axios.get(`${API_BASE_URL}/getAddsInfo`);
         setAdsInfo(response.data);
+        setShowLoader(false);
       } catch (error) {
         console.error("Error:", error.message);
       }
@@ -24,57 +28,72 @@ const AdsHome = () => {
     fetchAdsInfo();
   }, [API_BASE_URL]);
 
-  // console.log(adsInfo)
-
   return (
     <section className="ads-home container">
-      <p>Recently posted(click to see details)</p>
+      {adsInfo.length > 0 ? (
+        <p>Recently posted(click to see details)</p>
+      ) : (
+        <p>No adds to show</p>
+      )}
       <div className="card-group d-flex justify-content-center">
         {showAdsHome.map((adsHome) => {
           const { _id, itemName, description, price, photoURL, postingTime } =
             adsHome;
-
-          return (
-            <div
-              className="card"
-              key={_id}
-              style={{
-                maxHeight: "440px",
-                maxWidth: "230px",
-                minHeight: "400px",
-                minWidth: "200px",
-              }}
-              onClick={() => {
-                localStorage.setItem("adId", _id);
-                history.push("/showAds");
-              }}
-            >
-              <img
-                className="card-img-top"
-                src={photoURL}
-                alt="Card image cap"
-              />
-              <div className="card-body">
-                <h5 className="card-title">{itemName}</h5>
-                <p className="card-text">{description}</p>
-                <span className="card-text price">Price: {price}</span>
+          if (showLoader)
+            return (
+              <div class="spinner-grow text-dark" role="status">
+                <span class="visually-hidden">Loading...</span>
               </div>
-              <div className="card-footer">
-                <small className="text-muted">Posted on {postingTime}</small>
+            );
+          else {
+            return (
+              <div
+                className="card"
+                key={_id}
+                style={{
+                  maxHeight: "440px",
+                  maxWidth: "230px",
+                  minHeight: "400px",
+                  minWidth: "200px",
+                }}
+                onClick={() => {
+                  localStorage.setItem("adId", _id);
+                  history.push("/showAds");
+                }}
+              >
+                <img
+                  className="card-img-top"
+                  src={photoURL}
+                  alt="Card image cap"
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{itemName}</h5>
+                  <p className="card-text">{description}</p>
+                  <span className="card-text price">Price: {price}</span>
+                </div>
+                <div className="card-footer">
+                  <small className="text-muted">Posted on {postingTime}</small>
+                </div>
               </div>
-            </div>
-          );
+            );
+          }
         })}
       </div>
-      {adsInfo.length > adsToShow ? (
-        <p className="see-more-ads" onClick={() => setAdsToShow(adsToShow + 2)}>
-          See more
-        </p>
-      ) : (
-        <p className="see-more-ads" onClick={() => setAdsToShow(5)}>
-          See less
-        </p>
-      )}
+      {adsInfo.length > 0 &&
+        (adsInfo.length > adsToShow ? (
+          <p
+            className="see-more-ads"
+            onClick={() => setAdsToShow(adsToShow + 2)}
+          >
+            See more
+          </p>
+        ) : (
+          adsInfo.length > 5 && ( // show "See less" only if ads are more than 5
+            <p className="see-more-ads" onClick={() => setAdsToShow(5)}>
+              See less
+            </p>
+          )
+        ))}
     </section>
   );
 };

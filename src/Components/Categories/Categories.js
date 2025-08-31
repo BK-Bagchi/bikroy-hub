@@ -4,6 +4,7 @@ import axios from "axios";
 
 const Categories = () => {
   const [adsInfo, setAdsInfo] = useState([]);
+  const [showLoader, setShowLoader] = useState(true);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
@@ -11,6 +12,7 @@ const Categories = () => {
       try {
         const response = await axios.get(`${API_BASE_URL}/getAddsInfo`);
         setAdsInfo(response.data);
+        setShowLoader(false);
       } catch (error) {
         console.error("Error:", error.message);
       }
@@ -26,7 +28,6 @@ const Categories = () => {
     acc[category] = (acc[category] || 0) + 1;
     return acc;
   }, {});
-  //   console.log(countByCategory)
 
   return (
     <section className="container categories">
@@ -44,7 +45,20 @@ const Categories = () => {
               />
               <h5 className="card-title">Mobile</h5>
               <p className="card-text">
-                Total Ads: <b>{countAdByCategory.Mobile}</b>
+                {showLoader ? (
+                  <div class="spinner-grow text-dark" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                ) : (
+                  <>
+                    Total Ads:{" "}
+                    {countAdByCategory.Mobile ? (
+                      <b>{countAdByCategory.Mobile}</b>
+                    ) : (
+                      <b>0</b>
+                    )}
+                  </>
+                )}
               </p>
             </div>
           </div>
@@ -59,7 +73,20 @@ const Categories = () => {
               />
               <h5 className="card-title">Electronics</h5>
               <p className="card-text">
-                Total Ads: <b>{countAdByCategory.Electronic}</b>
+                {showLoader ? (
+                  <div class="spinner-grow text-dark" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                ) : (
+                  <>
+                    Total Ads:{" "}
+                    {countAdByCategory.Electronic ? (
+                      <b>{countAdByCategory.Electronic}</b>
+                    ) : (
+                      <b>0</b>
+                    )}
+                  </>
+                )}
               </p>
             </div>
           </div>
@@ -74,7 +101,20 @@ const Categories = () => {
               />
               <h5 className="card-title">Vehicle</h5>
               <p className="card-text">
-                Total Ads: <b>{countAdByCategory.Vehicle}</b>
+                {showLoader ? (
+                  <div class="spinner-grow text-dark" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                ) : (
+                  <>
+                    Total Ads:{" "}
+                    {countAdByCategory.Vehicle ? (
+                      <b>{countAdByCategory.Vehicle}</b>
+                    ) : (
+                      <b>0</b>
+                    )}
+                  </>
+                )}
               </p>
             </div>
           </div>
@@ -89,7 +129,20 @@ const Categories = () => {
               />
               <h5 className="card-title">Laptop</h5>
               <p className="card-text">
-                Total Ads: <b>{countAdByCategory.Laptop}</b>
+                {showLoader ? (
+                  <div class="spinner-grow text-dark" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                ) : (
+                  <>
+                    Total Ads:{" "}
+                    {countAdByCategory.Laptop ? (
+                      <b>{countAdByCategory.Laptop}</b>
+                    ) : (
+                      <b>0</b>
+                    )}
+                  </>
+                )}
               </p>
             </div>
           </div>
