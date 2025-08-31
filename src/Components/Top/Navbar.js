@@ -19,8 +19,8 @@ const Navbar = () => {
             <div className="d-flex justify-content-center" id="navbarText">
               <img
                 className="logo-small"
-                src={require(`../../Resources/images/logo-small.png`)}
-                alt="bikroy.com"
+                src={require(`../../Resources/images/Bikroy_hub_white_bg.PNG`)}
+                alt="bikroyhub logo"
                 onClick={() => {
                   history.push("/");
                 }}
@@ -54,7 +54,7 @@ const Navbar = () => {
       </section>
       <section className="middle">
         <div className="name">
-          <p>Bikroy.com</p>
+          <p>BikroyHub</p>
         </div>
       </section>
     </>
