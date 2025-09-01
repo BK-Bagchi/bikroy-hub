@@ -17,35 +17,39 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-
 const provider = new GoogleAuthProvider();
 
 export const signInWithGoogle = () => {
-  const userLogin = async (displayName, email, photoURL) => {
-    try {
-      const response = await axios.post(
-        `${API_BASE_URL}/userLogin`,
-        { displayName, email, photoURL },
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      console.log("Axios POST response:", response.data);
-    } catch (error) {
-      console.error("Error during login:", error);
-    }
-  };
-
   signInWithPopup(auth, provider)
-    .then((result) => {
+    .then(async (result) => {
       const { displayName, email, photoURL } = result.user;
-      userLogin(displayName, email, photoURL);
+      const idToken = await result.user.getIdToken();
 
-      localStorage.setItem("displayName", displayName);
-      localStorage.setItem("email", email);
-      localStorage.setItem("photoURL", photoURL);
-      localStorage.setItem("isLoggedIn", "true");
-      window.location.href = "/myAccount";
+      try {
+        // 🔹 Send ID Token to backend (backend will verify & issue JWT)
+        const response = await axios.post(
+          `${API_BASE_URL}/userLogin`,
+          { idToken, displayName, email, photoURL },
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+
+        console.log("Backend login response:", response.data);
+
+        // 🔹 Save backend JWT in localStorage
+        localStorage.setItem("accessToken", response.data.token);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+
+        //for now
+        localStorage.setItem("displayName", response.data.user.displayName);
+        localStorage.setItem("email", response.data.user.email);
+        localStorage.setItem("photoURL", response.data.user.photoURL);
+        localStorage.setItem("isLoggedIn", "true");
+        window.location.href = "/myAccount";
+      } catch (error) {
+        console.error("Error during login:", error);
+      }
     })
     .catch((error) => {
       const { code, message, email, credential } = error;
