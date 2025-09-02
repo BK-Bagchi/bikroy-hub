@@ -70,18 +70,21 @@ const MyProfile = () => {
               <img src={profileInfo.photoURL} alt="User Profile Pic" />
             </div>
             <input
+              className="sm:w-50 w-75"
               type="text"
               value={profileInfo.displayName}
               name="name"
               readOnly
             />
             <input
+              className="sm:w-50 w-75"
               type="text"
               value={profileInfo.email}
               name="email"
               readOnly
             />
             <input
+              className="sm:w-50 w-75"
               type="text"
               value={profileInfo.businessName || ""}
               name="businessName"
@@ -89,15 +92,17 @@ const MyProfile = () => {
               readOnly
             />
             <input
+              className="sm:w-50 w-75"
               type="text"
               value={profileInfo.phoneNumber || ""}
               name="phoneNumber"
               placeholder="Edit profile to enter your phone number"
               readOnly
             />
-            <div className="about-user">
+            <div className="about-user sm:w-50 w-75">
               <p>About business</p>
               <textarea
+                className="w-100"
                 name="aboutYourBusiness"
                 value={profileInfo.aboutBusiness}
                 placeholder="Edit profile to enter your business"

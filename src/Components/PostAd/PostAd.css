@@ -1,52 +1,64 @@
-.post-ad, .edit-ad{
-    background: #E7EDEE;
-    height: 100% !important;
-    margin: 20px auto;
-    padding: 20px 0;
-    border-radius: 5px;
+.post-ad,
+.edit-ad {
+  background: #e7edee;
+  height: 100% !important;
+  margin: 20px auto;
+  padding: 20px 0;
+  border-radius: 5px;
 }
 
-.post-ad form input[type="text"], input[type="number"], textarea, .edit-ad form input[type="text"], input[type="number"], textarea{
-    width: 40%;
-    height: 40px;
-    margin-bottom: 15px;
-    border: none;
-    border-radius: 5px;
-    padding: 2px 5px;
+.post-ad form input[type="text"],
+input[type="number"],
+textarea,
+.edit-ad form input[type="text"],
+input[type="number"],
+textarea {
+  height: 40px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 5px;
+  padding: 2px 5px;
 }
-.post-ad form textarea, .edit-ad form textarea{
-    height: 150px !important;
-    width: 100%;
+.post-ad form textarea,
+.edit-ad form textarea {
+  height: 150px !important;
+  width: 100%;
 }
-.post-ad form input[type="checkbox"], .edit-ad form input[type="checkbox"]{
-    width: 20px;
-    height: 20px;
+.post-ad form input[type="checkbox"],
+.edit-ad form input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
 }
-.post-ad .condition, .edit-ad .condition{
-    width: 40%;
+.post-ad .condition,
+.edit-ad .condition {
+  width: 40%;
 }
-.post-ad .submit-btn, .edit-ad .submit-btn{
-    background: white;
-    color: #149777;
-    font-weight: bold;
-    border: none;
-    height: 35px;
-    border-radius: 5px;
-    padding: 0 20px;
+.post-ad .submit-btn,
+.edit-ad .submit-btn {
+  background: white;
+  color: #149777;
+  font-weight: bold;
+  border: none;
+  height: 35px;
+  border-radius: 5px;
+  padding: 0 20px;
 }
-.post-ad label, .edit-ad label{
-    margin: 0 10px;
+.post-ad label,
+.edit-ad label {
+  margin: 0 10px;
 }
 
-.post-ad .form-fields, .edit-ad .form-fields{
-    display: flex;
-    min-width: 40%;
-    justify-content: space-between;
+.post-ad .form-fields,
+.edit-ad .form-fields {
+  display: flex;
+  min-width: 40%;
+  justify-content: space-between;
 }
 
-.post-ad .form-fields input, .edit-ad .form-fields input{
-    width: 80% !important;
+.post-ad .form-fields input,
+.edit-ad .form-fields input {
+  width: 80% !important;
 }
-.edit-ad .edit-picture .picture{
-    border-radius: 5px;   
+.edit-ad .edit-picture .picture {
+  border-radius: 5px;
 }

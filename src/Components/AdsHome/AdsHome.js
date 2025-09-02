@@ -44,7 +44,7 @@ const AdsHome = () => {
             adsHome;
           return (
             <div
-              className="card"
+              className="card mx-auto"
               key={_id}
               style={{
                 maxHeight: "440px",

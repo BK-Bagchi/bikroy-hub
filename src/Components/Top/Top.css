@@ -1,53 +1,48 @@
-.top, .middle, .search-box{
-    background-color: #149777;
+.top,
+.middle,
+.search-box {
+  background-color: #149777;
 }
-.top p{
-    color: white;
+.top p {
+  color: white;
 }
-.middle p{
-    color: white;
-    font-size: 100px;
-    text-align: center;
+.middle p {
+  color: white;
+  font-size: clamp(2rem, 20vw, 6rem);
+  text-align: center;
 }
-.container{
-    height: 70px;
+.container {
+  height: 70px;
 }
-p{
-    margin: 0;
+p {
+  margin: 0;
 }
-.top .logo-small{
-    width: 120px;
-    border-radius: 5px;
+.top .logo-small {
+  width: 120px;
+  border-radius: 5px;
 }
-.top .login{
-    background: white;
-    color: #149777;
-    font-weight: bold;
-    border: none;
-    width: 75px;
-    height: 35px;
-    border-radius: 5px;
-    cursor: pointer;
+.top .login {
+  background: white;
+  color: #149777;
+  font-weight: bold;
+  border: none;
+  width: 75px;
+  height: 35px;
+  border-radius: 5px;
+  cursor: pointer;
 }
-.top .myAccountLoginBtn{
-    cursor: pointer;
-    height: 50px !important;
-    width: 50px !important;
-    border-radius: 50%;
+.top .myAccountLoginBtn {
+  cursor: pointer;
+  height: 50px !important;
+  width: 50px !important;
+  border-radius: 50%;
 }
-.search-box .search-btn input{
-    width: 50%;
-    height: 40px;
-    border: none;
-    border-radius: 5px;
-    padding: 2px 5px;
-    margin: 0 10px;
-}
-.search-box .search-btn button{
-    width: 80px;
-    background: white;
-    color: #149777;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
+.search-box button {
+  width: 80px;
+  background: white;
+  color: #149777;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
 }

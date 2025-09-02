@@ -1,13 +1,16 @@
-.categories{
-    height: 100% !important;
+.categories {
+  height: 100% !important;
 }
-.categories .card-icon{
-    display: block;
-    height: 70px !important;
-    width: 70px !important;
-    margin: auto;
+.categories .card-icon {
+  display: block;
+  height: 70px !important;
+  width: 70px !important;
+  margin: auto;
 }
-.categories .card-title{
-    margin: 0px;
-    margin-top: 10px;
+.categories .card-title {
+  margin: 0px;
+  margin-top: 10px;
+}
+.col-sm-3 {
+  min-width: 148px !important;
 }

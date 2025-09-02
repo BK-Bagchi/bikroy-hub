@@ -87,8 +87,14 @@ const MyProfile = () => {
             <div className="profile-picture">
               <img src={myProfilePicture} alt="User Profile Pic" />
             </div>
-            <input type="text" value={myName} readOnly />
             <input
+              className="sm:w-50 w-75"
+              type="text"
+              value={myName}
+              readOnly
+            />
+            <input
+              className="sm:w-50 w-75"
               type="text"
               placeholder="Enter Your Business name"
               name="businessName"
@@ -96,18 +102,20 @@ const MyProfile = () => {
               onChange={handelFormInput}
             />
             <input
+              className="sm:w-50 w-75"
               type="text"
               placeholder="Enter Your Contact"
               name="phoneNumber"
               value={formData.phoneNumber}
               onChange={handelFormInput}
             />
-            <div className="about-user">
+            <div className="about-user sm:w-50 w-75">
               <p>
                 Write something about your business so that others can connect
                 to you.
               </p>
               <textarea
+                className="w-100"
                 placeholder="About your business..."
                 name="aboutBusiness"
                 value={formData.aboutBusiness}
@@ -115,7 +123,7 @@ const MyProfile = () => {
               ></textarea>
             </div>
             <button type="submit" className="submit-btn">
-              Submit
+              Update Profile
             </button>
           </form>
         </div>

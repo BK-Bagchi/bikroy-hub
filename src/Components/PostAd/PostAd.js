@@ -99,14 +99,15 @@ const PostAd = () => {
     <>
       <Navbar />
       <section className="post-ad container">
-        <div className="post-ad-form">
+        <div className="post-ad-form px-3">
           <form
             className="d-flex flex-column align-items-center"
             onSubmit={handleSubmit}
           >
-            <div className="form-fields">
+            <div className="form-fields w-100">
               <p>Item name</p>
               <input
+                className="sm:w-50 w-75"
                 type="text"
                 placeholder="Item name"
                 name="itemName"
@@ -115,9 +116,10 @@ const PostAd = () => {
               />
             </div>
 
-            <div className="form-fields">
+            <div className="form-fields w-100">
               <p>Brand name</p>
               <input
+                className="sm:w-50 w-75"
                 type="text"
                 placeholder="Brand name"
                 name="brand"
@@ -126,9 +128,10 @@ const PostAd = () => {
               />
             </div>
 
-            <div className="form-fields">
+            <div className="form-fields w-100">
               <p>Item Price</p>
               <input
+                className="sm:w-50 w-75"
                 type="text"
                 placeholder="Price"
                 name="price"
@@ -137,7 +140,7 @@ const PostAd = () => {
               />
             </div>
 
-            <div className="form-fields">
+            <div className="form-fields w-100">
               <p>Category</p>
               <select
                 name="category"
@@ -164,9 +167,10 @@ const PostAd = () => {
               )}
             </div>
 
-            <div className="form-fields d-flex align-items-center">
+            <div className="form-fields w-100 d-flex align-items-center">
               <p>Upload photo</p>
               <input
+                className="sm:w-50 w-75"
                 type="file"
                 accept="image/*"
                 onChange={(e) => setImageUpload(e.target.files[0])}
@@ -175,7 +179,7 @@ const PostAd = () => {
               />
             </div>
 
-            <div className="form-fields">
+            <div className="form-fields w-100">
               <p>Item description</p>
               <textarea
                 name="description"
@@ -185,9 +189,10 @@ const PostAd = () => {
               ></textarea>
             </div>
 
-            <div className="form-fields">
+            <div className="form-fields w-100">
               <p>Your contact</p>
               <input
+                className="sm:w-50 w-75"
                 type="text"
                 placeholder="Your Contact"
                 name="phoneNumber"

@@ -43,7 +43,7 @@ const ViewPostedAds = () => {
         ) : (
           <>
             <p>Posted ads (click to edit or delete)</p>
-            <div className="card-group d-flex justify-content-center">
+            <div className="card-group d-flex justify-content-center align-items-center">
               {[...postedAds].reverse().map((postedAdsByAnUser) => {
                 const {
                   _id,

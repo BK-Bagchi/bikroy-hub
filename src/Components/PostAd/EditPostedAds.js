@@ -136,13 +136,13 @@ const EditPostedAds = () => {
   return (
     <>
       <Navbar />
-      <section className="post-ad container">
-        <div className="post-ad-form">
+      <section className="edit-ad container">
+        <div className="edit-ad-form px-3">
           <form
             className="d-flex flex-column align-items-center"
             onSubmit={updateAd}
           >
-            <div className="form-fields">
+            <div className="form-fields w-100">
               <p>Item name</p>
               <input
                 type="text"
@@ -154,7 +154,7 @@ const EditPostedAds = () => {
               />
             </div>
 
-            <div className="form-fields">
+            <div className="form-fields w-100">
               <p>Brand name</p>
               <input
                 type="text"
@@ -166,7 +166,7 @@ const EditPostedAds = () => {
               />
             </div>
 
-            <div className="form-fields">
+            <div className="form-fields w-100">
               <p>Item Price</p>
               <input
                 type="text"
@@ -178,7 +178,7 @@ const EditPostedAds = () => {
               />
             </div>
 
-            <div className="form-fields">
+            <div className="form-fields w-100">
               <p>Category</p>
               <select
                 name="category"
@@ -210,7 +210,7 @@ const EditPostedAds = () => {
               )}
             </div>
 
-            <div className="form-fields d-flex align-items-center">
+            <div className="form-fields w-100 d-flex align-items-center">
               <p>Upload photo</p>
               <input
                 type="file"
@@ -220,7 +220,7 @@ const EditPostedAds = () => {
               />
             </div>
 
-            <div className="form-fields">
+            <div className="form-fields w-100">
               <p>Item description</p>
               <textarea
                 name="description"
@@ -231,7 +231,7 @@ const EditPostedAds = () => {
               ></textarea>
             </div>
 
-            <div className="form-fields">
+            <div className="form-fields w-100">
               <p>Your contact</p>
               <input
                 type="text"
