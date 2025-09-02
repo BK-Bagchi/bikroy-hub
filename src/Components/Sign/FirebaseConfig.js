@@ -34,11 +34,10 @@ export const signInWithGoogle = () => {
             headers: { "Content-Type": "application/json" },
           }
         );
-
-        console.log("Backend login response:", response.data);
+        // console.log("Backend login response:", response.data);
 
         // 🔹 Save backend JWT in localStorage
-        localStorage.setItem("accessToken", response.data.token);
+        localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.user));
 
         //for now

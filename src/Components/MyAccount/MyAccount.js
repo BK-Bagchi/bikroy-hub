@@ -1,12 +1,12 @@
-import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Bottom from '../Bottom/Bottom';
 import Navbar from '../Top/Navbar';
 import './MyAccount.css'
+import useAuth from '../../Hooks/JWTDecode';
 
 const MyAccount = () => {
     const history= useHistory();
-
+    const { logout } = useAuth();
     return (
         <>
             <Navbar/>
@@ -28,7 +28,7 @@ const MyAccount = () => {
                         history.push('/postAds');
                     }}>Post Your Add Now</button>
                     <button className="post-add-btn" onClick={()=>{
-                        localStorage.setItem("isLoggedIn", "");
+                        logout();
                         history.push('/');
                     }}>Logout</button>
                 </div>
@@ -36,6 +36,7 @@ const MyAccount = () => {
             <Bottom/>
         </>
     );
+
 };
 
 export default MyAccount;

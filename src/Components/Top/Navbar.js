@@ -1,15 +1,9 @@
-import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import useAuth from "../../Hooks/JWTDecode";
 
 const Navbar = () => {
+  const { isLoggedIn, user } = useAuth();
   const history = useHistory();
-  const photoURL = localStorage.getItem("photoURL");
-  const [loggedIn, isLoggedIn] = useState(localStorage.getItem("isLoggedIn"));
-  useEffect(() => {
-    isLoggedIn(localStorage.getItem("isLoggedIn"));
-  }, [loggedIn]);
-
-  // (loggedIn)?console.log("tureR"):console.log("falseR");
 
   return (
     <>
@@ -27,11 +21,12 @@ const Navbar = () => {
               />
             </div>
             <div className="d-flex justify-content-center" id="navbarText">
-              {loggedIn ? (
+              {isLoggedIn ? (
                 <img
                   className="myAccountLoginBtn"
                   src={
-                    photoURL || require("../../Resources/images/Default_DP.png")
+                    user.photoURL ||
+                    require("../../Resources/images/Default_DP.png")
                   }
                   alt="Profile at navbar"
                   onClick={() => {
