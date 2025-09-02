@@ -4,29 +4,32 @@ import Navbar from "../Top/Navbar";
 import Bottom from "../Bottom/Bottom";
 import "./MyProfile.css";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import useAuth from "../../Hooks/JWTDecode";
 
 const MyProfile = () => {
   const history = useHistory();
-  const myName = localStorage.getItem("displayName");
-  const myProfilePicture = localStorage.getItem("photoURL");
-  const myEmail = localStorage.getItem("email");
+  const { logout } = useAuth();
   const [profileInfo, setProfileInfo] = useState({
     _id: 13,
-    name: myName,
-    profilePicture: myProfilePicture,
+    displayName: "myName",
+    email: "myEmail",
+    photoURL: "myProfilePicture",
     businessName: "",
     phoneNumber: "",
     aboutYourBusiness: "",
   });
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const token = localStorage.getItem("token");
 
   //setting profile info for temporary use
   useEffect(() => {
     const fetchProfileInfo = async () => {
       try {
-        const response = await axios.get(
-          `${API_BASE_URL}/getProfileInfo?userEmail=${myEmail}`
-        );
+        const response = await axios.get(`${API_BASE_URL}/getProfileInfo`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (response.data && response.data.length > 0)
           setProfileInfo(response.data[0]);
@@ -35,10 +38,8 @@ const MyProfile = () => {
       }
     };
 
-    if (myEmail) fetchProfileInfo();
-  }, [myEmail, API_BASE_URL]);
-
-  //   console.log(profileInfo)
+    if (token) fetchProfileInfo();
+  }, [token, API_BASE_URL]);
 
   return (
     <>
@@ -56,7 +57,7 @@ const MyProfile = () => {
           <p
             className="text text-right"
             onClick={() => {
-              localStorage.setItem("isLoggedIn", "");
+              logout();
               history.push("/");
             }}
           >
@@ -66,9 +67,20 @@ const MyProfile = () => {
         <div className="profile-form">
           <form className="d-flex flex-column align-items-center">
             <div className="profile-picture">
-              <img src={myProfilePicture} alt="User Profile Pic" />
+              <img src={profileInfo.photoURL} alt="User Profile Pic" />
             </div>
-            <input type="text" value={myName} name="name" readOnly />
+            <input
+              type="text"
+              value={profileInfo.displayName}
+              name="name"
+              readOnly
+            />
+            <input
+              type="text"
+              value={profileInfo.email}
+              name="email"
+              readOnly
+            />
             <input
               type="text"
               value={profileInfo.businessName || ""}
