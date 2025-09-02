@@ -4,10 +4,14 @@ import Navbar from "../Top/Navbar";
 import Bottom from "../Bottom/Bottom";
 import "./ShowAds.css";
 import axios from "axios";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useHistory,
+  useLocation,
+} from "react-router-dom/cjs/react-router-dom.min";
 
 const ShowAds = () => {
   const history = useHistory();
+  const location = useLocation();
   const userEmail = localStorage.getItem("email");
   const [loggedIn, isLoggedIn] = useState(localStorage.getItem("isLoggedIn"));
   useEffect(() => {
@@ -15,7 +19,8 @@ const ShowAds = () => {
   }, [loggedIn]);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-  const addId = localStorage.getItem("adId");
+  const queryParams = new URLSearchParams(location.search);
+  const addId = queryParams.get("adId");
   const [adsInfo, setAdsInfo] = useState([]);
   const [paymentInfo, setPaymentInfo] = useState({
     shippingAddress: "",

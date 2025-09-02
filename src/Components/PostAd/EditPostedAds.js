@@ -4,19 +4,26 @@ import Navbar from "../Top/Navbar";
 import Bottom from "../Bottom/Bottom";
 import axios from "axios";
 import "./PostAd.css";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useHistory,
+  useLocation,
+} from "react-router-dom/cjs/react-router-dom.min";
+import useAuth from "../../Hooks/JWTDecode";
 
 const EditPostedAds = () => {
   const history = useHistory();
-  const userEmail = localStorage.getItem("email");
-  const adId = localStorage.getItem("adId");
+  const location = useLocation();
+  const { user } = useAuth();
+  const userEmail = user?.email || "";
+  const queryParams = new URLSearchParams(location.search);
+  const adId = queryParams.get("adId");
   const [imageUpload, setImageUpload] = useState(null);
   const [editableAd, setEditableAd] = useState({
     _id: "",
     brand: "",
     category: "",
     description: "",
-    email: localStorage.getItem("email"),
+    email: userEmail,
     itemName: "",
     phoneNumber: "",
     photoURL: "",

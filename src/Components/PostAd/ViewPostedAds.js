@@ -60,8 +60,7 @@ const ViewPostedAds = () => {
                     key={_id}
                     style={{ maxHeight: "440px", maxWidth: "230px" }}
                     onClick={() => {
-                      localStorage.setItem("adId", _id);
-                      history.push("/editPostedAds");
+                      history.push("/editPostedAds?adId=" + _id);
                     }}
                   >
                     <img

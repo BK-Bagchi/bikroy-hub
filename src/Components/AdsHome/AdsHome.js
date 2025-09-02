@@ -56,8 +56,7 @@ const AdsHome = () => {
                 minWidth: "200px",
               }}
               onClick={() => {
-                localStorage.setItem("adId", _id);
-                history.push("/showAds");
+                history.push("/showAds?adId=" + _id);
               }}
             >
               <img

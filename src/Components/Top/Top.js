@@ -17,7 +17,7 @@ const Top = () => {
     e.preventDefault();
     const formattedText = capitalizeFirstLetter(searchItem); //capitalize the first letter only
     localStorage.setItem("searchItem", formattedText);
-    history.push("/search");
+    history.push("/search?searchItem=" + formattedText);
   };
   return (
     <>

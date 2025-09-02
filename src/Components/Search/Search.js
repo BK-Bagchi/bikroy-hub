@@ -4,11 +4,16 @@ import About from "../About/About";
 import Bottom from "../Bottom/Bottom";
 import Navbar from "../Top/Navbar";
 import axios from "axios";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useHistory,
+  useLocation,
+} from "react-router-dom/cjs/react-router-dom.min";
 
 const Search = () => {
   const history = useHistory();
-  const searchItemName = localStorage.getItem("searchItem");
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const searchItemName = queryParams.get("searchItem");
   const [adsInfo, setAdsInfo] = useState([]);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -43,7 +48,7 @@ const Search = () => {
                   itemName,
                   description,
                   price,
-                  imageURL,
+                  photoURL,
                   postingTime,
                 } = showSearch;
 
@@ -53,13 +58,12 @@ const Search = () => {
                     key={_id}
                     style={{ maxHeight: "440px", maxWidth: "230px" }}
                     onClick={() => {
-                      localStorage.setItem("adId", _id);
-                      history.push("/showAds");
+                      history.push("/showAds?adId=" + _id);
                     }}
                   >
                     <img
                       className="card-img-top"
-                      src={imageURL}
+                      src={photoURL}
                       alt="Card img cap"
                     />
                     <div className="card-body">
