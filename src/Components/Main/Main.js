@@ -19,6 +19,7 @@ import ViewOrders from "../PostAd/ViewOrders";
 import ViewGotOrders from "../PostAd/ViewGotOrders";
 import OrderDetails from "../PostAd/OrderDetails";
 import Search from "../Search/Search";
+import Admin from "../Admin/Admin";
 
 const Main = () => {
   return (
@@ -31,6 +32,9 @@ const Main = () => {
             <Categories />
             <About />
             <Bottom />
+          </Route>
+          <Route path="/admin">
+            <Admin />
           </Route>
           <Route path="/myAccount">
             <MyAccount />
