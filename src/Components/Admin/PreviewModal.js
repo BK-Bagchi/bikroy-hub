@@ -1,10 +1,10 @@
 import { Modal, Button } from "react-bootstrap";
 import "./Admin.css";
 
-const PreviewModal = ({ show, handleClose, post, acceptAd, deleteAd }) => {
+const PreviewModal = ({ show, handleClose, post, updateAddStatus }) => {
+  if (!post) return null;
   //prettier-ignore
-  const { _id,brand, category, description,itemName, phoneNumber, photoURL, postingTime, price,userInfo } = post;
-  console.log(post);
+  const { _id, brand, category, description,itemName, phoneNumber, photoURL, postingTime, price, status, userInfo } = post;
   const { displayName, email, phoneNumber: userPhoneNumber } = userInfo[0];
 
   return (
@@ -39,9 +39,14 @@ const PreviewModal = ({ show, handleClose, post, acceptAd, deleteAd }) => {
                 </div>
                 <div className="row mb-2">
                     <div className="col-md-6">
-                    <strong>Phone:</strong> {phoneNumber}
+                    <strong>Status:</strong> {status.charAt(0).toUpperCase() + status.slice(1)} {/* capitalize the first letter only */}
                     </div>
                     <div className="col-md-6">
+                    <strong>Phone:</strong> {phoneNumber}
+                    </div>
+                </div>
+                <div className="row mb-2">
+                    <div className="col-md-12">
                     <strong>Photo:</strong>{" "}
                     <img
                         src={photoURL}
@@ -52,12 +57,10 @@ const PreviewModal = ({ show, handleClose, post, acceptAd, deleteAd }) => {
                     </div>
                 </div>
                 <div className="row mb-2">
-                    <div className="col-md-12">
+                    <div className="col-md-6">
                     <strong>Description:</strong> {description}
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-12">
+                    <div className="col-md-6">
                     <strong>Posted At:</strong>{" "}
                     {new Date(postingTime).toLocaleString()}
                     </div>
@@ -89,11 +92,11 @@ const PreviewModal = ({ show, handleClose, post, acceptAd, deleteAd }) => {
                 </div>
             )}
             <div className="d-flex justify-content-center">
-                <Button className="mx-4 my-2" variant="success" onClick={() => acceptAd(_id)}>
-                Accept
+                <Button className="mx-4 my-2" variant="success" onClick={() => updateAddStatus(_id, "approved")}>
+                Approve
                 </Button>
-                <Button className="mx-4 my-2" variant="danger" onClick={() => deleteAd(_id)}>
-                Decline
+                <Button className="mx-4 my-2" variant="danger" onClick={() => updateAddStatus(_id, "rejected")}>
+                Reject
                 </Button>
                 <Button className="mx-4 my-2" variant="secondary" onClick={handleClose}>
                 Close

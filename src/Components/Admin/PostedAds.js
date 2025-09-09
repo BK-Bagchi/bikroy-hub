@@ -9,8 +9,15 @@ const Posts = () => {
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const [showModal, setShowModal] = useState(false);
-  const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
+  const [selectedPost, setSelectedPost] = useState(null);
+  const handleShow = (post) => {
+    setSelectedPost(post);
+    setShowModal(true);
+  };
+  const handleClose = () => {
+    setSelectedPost(null);
+    setShowModal(false);
+  };
 
   useEffect(() => {
     const fetchPostedAds = async () => {
@@ -24,35 +31,21 @@ const Posts = () => {
     };
     fetchPostedAds();
   }, [API_BASE_URL]);
-  const acceptAd = async (adId) => {
-    console.log("adId", adId);
-    // try {
-    //   const response = await axios.post(
-    //     `${API_BASE_URL}/acceptAdd?adId=${adId}`,
-    //     {},
-    //     {
-    //       headers: { "Content-Type": "application/json" },
-    //     }
-    //   );
-    //   if (response) alert("Add accepted successfully.");
-    // } catch (error) {
-    //   console.error("Error:", error.message);
-    // }
-  };
-  const deleteAd = async (adId) => {
-    console.log("adId", adId);
-    // try {
-    //   const response = await axios.post(
-    //     `${API_BASE_URL}/deleteAdd?adId=${adId}`,
-    //     {},
-    //     {
-    //       headers: { "Content-Type": "application/json" },
-    //     }
-    //   );
-    //   if (response) alert("Add deleted successfully.");
-    // } catch (error) {
-    //   console.error("Error:", error.message);
-    // }
+  const updateAddStatus = async (adId, status) => {
+    try {
+      const response = await axios.put(
+        `${API_BASE_URL}/updateAddStatus`,
+        { adId, status: `${status}` },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (response.status === 200) alert(`Ad ${status} successfully.`);
+      window.location.reload();
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
   };
   // console.log("postedAds:", postedAds);
 
@@ -77,34 +70,38 @@ const Posts = () => {
             </thead>
             <tbody>
               {postedAds.map((post, index) => {
-                const { _id, category, itemName, price, userInfo } = post;
-                const user = userInfo[0];
+                // prettier-ignore
+                const { _id, category, itemName, price, status, userInfo } = post;
+                const { displayName } = userInfo[0];
 
                 return (
                   <>
                     <tr key={_id}>
                       <td>{index + 1}</td>
                       <td>{itemName}</td>
-                      <td>{user.displayName}</td>
+                      <td>{displayName}</td>
                       <td>{category}</td>
                       <td>{price}</td>
-                      <td>Pending</td>
+                      <td>
+                        {status.charAt(0).toUpperCase() + status.slice(1)}
+                      </td>
                       <td className="d-flex justify-content-center">
                         {/* prettier-ignore */}
-                        <Button variant="info" size="sm" className="me-2 mr-1" onClick={handleShow}>
+                        <Button variant="info" size="sm" className="me-2 mr-1" onClick={() => handleShow(post)}>
                           Preview
                         </Button>
-                        <Button variant="danger" size="sm">
+                        {/* prettier-ignore */}
+                        <Button variant="danger" size="sm" onClick={() => updateAddStatus(_id, "rejected")}>
                           Reject
                         </Button>
                       </td>
                     </tr>
-                    {/* prettier-ignore */}
-                    <PreviewModal show={showModal} handleClose={handleClose} post={post} acceptAd={acceptAd} deleteAd={deleteAd} />
                   </>
                 );
               })}
             </tbody>
+            {/* prettier-ignore */}
+            <PreviewModal show={showModal} handleClose={handleClose} post={selectedPost} updateAddStatus={updateAddStatus} />
           </>
         )}
       </Table>
