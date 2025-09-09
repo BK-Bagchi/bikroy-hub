@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Navbar from "../Top/Navbar";
 import Bottom from "../Bottom/Bottom";
-import Posts from "./Posts";
+import PostedAds from "./PostedAds";
 import Disputes from "./Disputes";
 import useAuth from "../../Hooks/JWTDecode";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
@@ -11,7 +11,6 @@ const Admin = () => {
   const [activeTab, setActiveTab] = useState("posts");
   const { logout } = useAuth();
 
-  // Dummy Components for each section
   const Logout = () => {
     logout();
     history.push("/");
@@ -20,13 +19,13 @@ const Admin = () => {
   const renderContent = () => {
     switch (activeTab) {
       case "posts":
-        return <Posts />;
+        return <PostedAds />;
       case "disputes":
         return <Disputes />;
       case "logout":
         return <Logout />;
       default:
-        return <Posts />;
+        return <PostedAds />;
     }
   };
 
@@ -47,7 +46,7 @@ const Admin = () => {
                   }`}
                   onClick={() => setActiveTab("posts")}
                 >
-                  Posts
+                  Preview Posts
                 </button>
               </li>
               <li className="nav-item">
