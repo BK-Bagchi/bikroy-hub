@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Navbar from "../Top/Navbar";
 import Bottom from "../Bottom/Bottom";
-import PostedAds from "./PostedAds";
-import Disputes from "./Disputes";
+import PostedAds from "./PreviewAds/PreviewAds";
+import Disputes from "./DisputesDismiss/Disputes";
 import useAuth from "../../Hooks/JWTDecode";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 

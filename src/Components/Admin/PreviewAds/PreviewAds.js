@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Table, Button } from "react-bootstrap";
-import PreviewModal from "./PreviewModal";
+import PreviewModal from "./Modal";
 
 const Posts = () => {
   const [postedAds, setPostedAds] = useState([]);

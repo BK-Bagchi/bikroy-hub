@@ -1,5 +1,5 @@
 import { Modal, Button } from "react-bootstrap";
-import "./Admin.css";
+import "../Admin.css";
 
 const PreviewModal = ({ show, handleClose, post, updateAddStatus }) => {
   if (!post) return null;
