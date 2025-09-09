@@ -76,7 +76,6 @@ const OrderDetails = () => {
           matchingItems;
         return (
           <section className="show-ad container p-2" key={_id}>
-            <p className="ad-name m-2">{itemName}</p>
             <button
               className="accept-order"
               onClick={() => history.push("/viewGotOrders")}
@@ -89,10 +88,17 @@ const OrderDetails = () => {
             >
               Decline Order
             </button>
+            <button
+              className="report-issue"
+              onClick={() => alert("Dispute Management Under Processing")}
+            >
+              Report Issue
+            </button>
             <div className="ad-picture w-100 d-flex align-items-center justify-content-center">
               <img className="picture w-25" src={photoURL} alt="Product pic" />
             </div>
             <div className="description d-flex flex-column align-items-center justify-content-center my-3">
+              <p className="ad-name m-2">{itemName}</p>
               <div className="product-price">
                 <p className="price">Tk. {price}</p>
               </div>

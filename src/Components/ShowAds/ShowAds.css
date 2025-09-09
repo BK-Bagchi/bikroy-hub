@@ -1,60 +1,70 @@
-.show-ad{
-    background: #E7EDEE;
-    height: 100% !important;
-    margin: 20px auto;
-    padding: 20px 0;
-    border-radius: 5px;
+.show-ad {
+  background: #e7edee;
+  height: 100% !important;
+  margin: 20px auto;
+  padding: 20px 0;
+  border-radius: 5px;
 }
-.show-ad .ad-name{
-    font-size:20px;
-    font-weight: 600;
+.show-ad .ad-name {
+  font-size: 20px;
+  font-weight: 600;
 }
-.show-ad .ad-picture .picture{
- border-radius: 5px;   
+.show-ad .ad-picture .picture {
+  border-radius: 5px;
 }
 /* .show-ad .description{
     display: flex !important;
 } */
 
-.show-ad .price{
-    color: #149777;
-    font-weight: bold;
-    font-size: 25px;
+.show-ad .price {
+  color: #149777;
+  font-weight: bold;
+  font-size: 25px;
 }
-.show-ad .details div{
-    padding: 20px;
+.show-ad .details div {
+  padding: 20px;
 }
-.show-ad .details div h6{
-    text-align: center;
+.show-ad .details div h6 {
+  text-align: center;
 }
-.show-ad .details p, .show-ad .description p{
-    background: white;
-    margin: 2px;
-    padding:5px 20px;
-    border-radius: 5px;
+.show-ad .details p,
+.show-ad .description p {
+  background: white;
+  margin: 2px;
+  padding: 5px 20px;
+  border-radius: 5px;
 }
-.show-ad .buy-now, .show-ad .accept-order, .show-ad .decline-order{
-    background: #149777;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 2px 10px;
-    margin-top: 5px;
+.show-ad .buy-now,
+.show-ad .accept-order,
+.show-ad .decline-order,
+.show-ad .report-issue {
+  background: #149777;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 2px 10px;
+  margin-top: 5px;
 }
-.show-ad .accept-order, .show-ad .decline-order{
-    margin: 10px 5px;
+.show-ad .accept-order,
+.show-ad .decline-order,
+.show-ad .report-issue {
+  margin: 10px 5px;
 }
-.show-ad .decline-order{
-    background: #C82333;
+.show-ad .decline-order {
+  background: #c82333;
 }
-.show-ad .modal-body section{
-    background: #E7EDEE;
-    border-radius: 5px;
+.show-ad .report-issue {
+  background: #ffc107;
+  color: black;
 }
-.show-ad .modal-body .form-fields{
-    margin: 10px 0;
-    width: 60%;
+.show-ad .modal-body section {
+  background: #e7edee;
+  border-radius: 5px;
 }
-.show-ad .modal-body input{
-    width: 100% !important;
+.show-ad .modal-body .form-fields {
+  margin: 10px 0;
+  width: 60%;
+}
+.show-ad .modal-body input {
+  width: 100% !important;
 }

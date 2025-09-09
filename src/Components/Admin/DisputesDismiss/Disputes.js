@@ -1,5 +1,3 @@
-// src/components/Admin/Disputes.jsx
-import React from "react";
 import { Table, Button } from "react-bootstrap";
 
 const Disputes = () => {
@@ -7,7 +5,12 @@ const Disputes = () => {
   const disputes = [
     { id: 1, user: "Alice", reason: "Payment issue", status: "Open" },
     { id: 2, user: "Bob", reason: "Product not delivered", status: "Resolved" },
-    { id: 3, user: "Charlie", reason: "Fraudulent activity", status: "Pending" },
+    {
+      id: 3,
+      user: "Charlie",
+      reason: "Fraudulent activity",
+      status: "Pending",
+    },
   ];
 
   return (
@@ -17,7 +20,9 @@ const Disputes = () => {
         <thead>
           <tr>
             <th>#</th>
-            <th>User</th>
+            <th>Buyer</th>
+            <th>Seller</th>
+            <th>Reported By</th>
             <th>Reason</th>
             <th>Status</th>
             <th>Actions</th>
@@ -28,19 +33,14 @@ const Disputes = () => {
             <tr key={dispute.id}>
               <td>{index + 1}</td>
               <td>{dispute.user}</td>
+              <td>{dispute.user}</td>
+              <td>{dispute.user}</td>
               <td>{dispute.reason}</td>
               <td>{dispute.status}</td>
-              <td>
-                <Button
-                  variant="success"
-                  size="sm"
-                  className="me-2"
-                  disabled={dispute.status === "Resolved"}
-                >
-                  Resolve
-                </Button>
-                <Button variant="danger" size="sm">
-                  Delete
+              <td className="d-flex justify-content-center">
+                {/* prettier-ignore */}
+                <Button variant="info" size="sm" className="me-2" disabled={dispute.status === "Resolved"} >
+                  Preview
                 </Button>
               </td>
             </tr>
