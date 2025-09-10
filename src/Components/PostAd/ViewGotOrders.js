@@ -20,6 +20,7 @@ const ViewGotOrders = () => {
         orderId: order.orderId || "qwerty12345",
         productId: order.productId || "qwerty12345",
         orderCredentials: order.orderCredentials,
+        orderStatus: order.orderStatusBySeller || "pending",
         matchingItems: matchingItem || "qwerty12345",
       };
     })
@@ -68,8 +69,8 @@ const ViewGotOrders = () => {
             <p>Got orders (click to see details, accept or refuse)</p>
             <div className="card-group d-flex justify-content-center align-items-center">
               {[...orderElementsDetails].reverse().map((orderElements) => {
-                const { orderId, matchingItems } = orderElements;
-                const { itemName, description, price, photoURL, postingTime } =
+                const { orderId, matchingItems, orderStatus } = orderElements;
+                const { itemName, price, photoURL, postingTime } =
                   matchingItems;
                 return (
                   <div
@@ -79,14 +80,21 @@ const ViewGotOrders = () => {
                     onClick={() => viewOrderDetails(orderId)}
                   >
                     <img
-                      className="card-img-top"
+                      className="card-img-top "
                       src={photoURL}
                       alt="Card img cap"
+                      style={{ height: "300px" }}
                     />
                     <div className="card-body">
                       <h5 className="card-title">{itemName}</h5>
-                      <p className="card-text">{description}</p>
                       <span className="card-text price">Price: {price}</span>
+                      <p>
+                        Order Status:{" "}
+                        <span className="card-text price">
+                          {orderStatus.charAt(0).toUpperCase() +
+                            orderStatus.slice(1)}
+                        </span>
+                      </p>
                     </div>
                     <div className="card-footer">
                       <small className="text-muted">
