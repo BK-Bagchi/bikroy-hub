@@ -19,7 +19,7 @@ const ViewGotOrders = () => {
       return {
         orderId: order.orderId || "qwerty12345",
         productId: order.productId || "qwerty12345",
-        customerCredentials: order.customerCredentials,
+        orderCredentials: order.orderCredentials,
         matchingItems: matchingItem || "qwerty12345",
       };
     })

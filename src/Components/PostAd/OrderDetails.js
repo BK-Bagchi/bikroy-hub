@@ -18,7 +18,7 @@ const OrderDetails = () => {
       return {
         orderId: order.orderId || "qwerty12345",
         productId: order.productId || "qwerty12345",
-        customerCredentials: order.customerCredentials,
+        orderCredentials: order.orderCredentials,
         matchingItems: matchingItem || "qwerty12345",
       };
     })
@@ -69,9 +69,9 @@ const OrderDetails = () => {
     <>
       <Navbar />
       {orderElementsDetails.map((orderElement) => {
-        const { customerCredentials, matchingItems, orderId } = orderElement;
+        const { orderCredentials, matchingItems, orderId } = orderElement;
         const { cus_name, cus_phone, ship_add1, total_amount } =
-          customerCredentials;
+          orderCredentials;
         const { _id, brand, category, description, photoURL, itemName, price } =
           matchingItems;
         return (
