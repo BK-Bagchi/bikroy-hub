@@ -75,7 +75,7 @@ const Main = () => {
           <Route path="/viewGotOrders">
             <ViewGotOrders />
           </Route>
-          <Route path="/orderDetails">
+          <Route path="/orderDetails/:orderId">
             <OrderDetails />
           </Route>
           <Route path="/search">

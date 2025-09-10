@@ -50,7 +50,7 @@ const ViewGotOrders = () => {
   //   console.log(orders, adsInfo)
 
   const viewOrderDetails = (orderId) => {
-    history.push("/orderDetails");
+    history.push(`/orderDetails/${orderId}`);
   };
 
   return (

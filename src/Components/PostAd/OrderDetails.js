@@ -2,52 +2,29 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../Top/Navbar";
 import Bottom from "../Bottom/Bottom";
 import axios from "axios";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 const OrderDetails = () => {
   const history = useHistory();
-
-  const userEmail = localStorage.getItem("email");
-  const [orders, setOrders] = useState([]);
-  const [adsInfo, setAdsInfo] = useState([]);
+  const { orderId } = useParams();
+  const [orderInfo, setOrderInfo] = useState([]);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
-  const orderElementsDetails = orders
-    .map((order) => {
-      const matchingItem = adsInfo.find((ad) => ad._id === order.productId);
-      return {
-        orderId: order.orderId || "qwerty12345",
-        productId: order.productId || "qwerty12345",
-        orderCredentials: order.orderCredentials,
-        matchingItems: matchingItem || "qwerty12345",
-      };
-    })
-    .filter((item) => item.matchingItems !== "qwerty12345");
-  // console.log(orderElementsDetails);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!userEmail) return;
-
       try {
-        const [adsResponse, ordersResponse] = await Promise.all([
-          axios.get(
-            `${API_BASE_URL}/getPostedAddsByAnUser?userEmail=${userEmail}`
-          ),
-          axios.get(`${API_BASE_URL}/getOrdersInfo`),
-        ]);
-
-        setAdsInfo(adsResponse.data.userAds);
-        setOrders(ordersResponse.data);
+        //prettier-ignore
+        const orderResponse = await axios.get( `${API_BASE_URL}/getSpecificOrderInfo?orderId=${orderId}`);
+        setOrderInfo(orderResponse.data);
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
     };
 
-    if (userEmail) fetchData();
-  }, [userEmail, API_BASE_URL]);
+    if (orderId) fetchData();
+  }, [API_BASE_URL, orderId]);
 
-  //   console.log(orders, adsInfo)
+  // console.log(orderInfo);
 
   const cancelOrder = async (orderId) => {
     try {
@@ -57,7 +34,8 @@ const OrderDetails = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
-      console.log("Response:", response.data);
+      // console.log("Response:", response.data);
+      alert(`Order Cancelled ${response.data} Successfully`);
       window.location.reload();
       history.push("/viewGotOrders");
     } catch (error) {
@@ -68,30 +46,19 @@ const OrderDetails = () => {
   return (
     <>
       <Navbar />
-      {orderElementsDetails.map((orderElement) => {
-        const { orderCredentials, matchingItems, orderId } = orderElement;
-        const { cus_name, cus_phone, ship_add1, total_amount } =
-          orderCredentials;
-        const { _id, brand, category, description, photoURL, itemName, price } =
-          matchingItems;
+      {orderInfo.map((order) => {
+        const { _id, addInfo, orderCredentials, orderId } = order;
+        const {photoURL, itemName, price, brand, category, description}= addInfo[0];
+        const {cus_name, cus_phone, ship_add1, total_amount} = orderCredentials;
         return (
           <section className="show-ad container p-2" key={_id}>
-            <button
-              className="accept-order"
-              onClick={() => history.push("/viewGotOrders")}
-            >
+            <button className="accept-order" onClick={() => history.push("/viewGotOrders")} >
               Accept Order
             </button>
-            <button
-              className="decline-order"
-              onClick={() => cancelOrder(orderId)}
-            >
+            <button className="decline-order" onClick={() => cancelOrder(orderId)} >
               Decline Order
             </button>
-            <button
-              className="report-issue"
-              onClick={() => alert("Dispute Management Under Processing")}
-            >
+            <button className="report-issue" onClick={() => alert("Dispute Management Under Processing")} >
               Report Issue
             </button>
             <div className="ad-picture w-100 d-flex align-items-center justify-content-center">
