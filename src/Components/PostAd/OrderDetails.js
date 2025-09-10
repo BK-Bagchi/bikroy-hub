@@ -26,17 +26,17 @@ const OrderDetails = () => {
 
   // console.log(orderInfo);
 
-  const cancelOrder = async (orderId) => {
+  const actionOnOrder = async (orderId, status) => {
     try {
-      const response = await axios.post(
-        `${API_BASE_URL}/deleteOrder?orderId= ${orderId}`,
+      const response = await axios.patch(
+        `${API_BASE_URL}/updateOrderStatusBySeller?orderId=${orderId}`,
+        { status: `${status}` },
         {
           headers: { "Content-Type": "application/json" },
         }
       );
-      // console.log("Response:", response.data);
-      alert(`Order Cancelled ${response.data} Successfully`);
-      window.location.reload();
+      console.log("Response:", response.data);
+      alert(`Order ${status} Successfully`);
       history.push("/viewGotOrders");
     } catch (error) {
       console.error("Error:", error);
@@ -52,11 +52,11 @@ const OrderDetails = () => {
         const {cus_name, cus_phone, ship_add1, total_amount} = orderCredentials;
         return (
           <section className="show-ad container p-2" key={_id}>
-            <button className="accept-order" onClick={() => history.push("/viewGotOrders")} >
+            <button className="accept-order" onClick={() => actionOnOrder(orderId, "accepted")} >
               Accept Order
             </button>
-            <button className="decline-order" onClick={() => cancelOrder(orderId)} >
-              Decline Order
+            <button className="decline-order" onClick={() => actionOnOrder(orderId, "cancelled")} >
+              Cancel Order
             </button>
             <button className="report-issue" onClick={() => alert("Dispute Management Under Processing")} >
               Report Issue
