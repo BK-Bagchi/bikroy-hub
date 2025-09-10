@@ -57,7 +57,7 @@ const Main = () => {
           <Route path="/viewPostedAds">
             <ViewPostedAds />
           </Route>
-          <Route path="/editPostedAds">
+          <Route path="/editPostedAds/:adId">
             <EditPostedAds />
           </Route>
           <Route path="/paymentSuccess">

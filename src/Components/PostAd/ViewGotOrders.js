@@ -50,10 +50,6 @@ const ViewGotOrders = () => {
 
   //   console.log(orders, adsInfo)
 
-  const viewOrderDetails = (orderId) => {
-    history.push(`/orderDetails/${orderId}`);
-  };
-
   return (
     <>
       <Navbar />
@@ -63,7 +59,7 @@ const ViewGotOrders = () => {
             <span className="visually-hidden">Loading...</span>
           </div>
         ) : orderElementsDetails.length === 0 ? (
-          <p>You have not recieved any order yet</p>
+          <p>You have not received any order yet</p>
         ) : (
           <>
             <p>Got orders (click to see details, accept or refuse)</p>
@@ -77,7 +73,7 @@ const ViewGotOrders = () => {
                     className="card"
                     key={orderId}
                     style={{ maxHeight: "440px", maxWidth: "230px" }}
-                    onClick={() => viewOrderDetails(orderId)}
+                    onClick={() => history.push(`/orderDetails/${orderId}`)}
                   >
                     <img
                       className="card-img-top "
