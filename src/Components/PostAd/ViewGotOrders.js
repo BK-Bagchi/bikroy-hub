@@ -73,7 +73,9 @@ const ViewGotOrders = () => {
                     className="card"
                     key={orderId}
                     style={{ maxHeight: "440px", maxWidth: "230px" }}
-                    onClick={() => history.push(`/orderDetails/${orderId}`)}
+                    onClick={() =>
+                      history.push(`/sellerOrderDetails/${orderId}`)
+                    }
                   >
                     <img
                       className="card-img-top "

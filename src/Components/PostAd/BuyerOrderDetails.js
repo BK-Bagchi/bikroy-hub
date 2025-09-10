@@ -1,0 +1,95 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import axios from "axios";
+import Bottom from "../Bottom/Bottom";
+import Navbar from "../Top/Navbar";
+
+const BuyerOrderDetails = () => {
+  const { adId } = useParams();
+  const [adInfo, setAdInfo] = useState([]);
+  const [showLoader, setShowLoader] = useState(true);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        //prettier-ignore
+        const response = await axios.get(`${API_BASE_URL}/getSpecificOrderInfoByAdInfo?addId=${adId}`);
+        setAdInfo(response.data);
+        setShowLoader(false);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    };
+
+    if (adId) fetchData();
+  }, [API_BASE_URL, adId]);
+  // console.log(adInfo);
+
+  const actionOnOrder = (id) => {
+    alert("Wait... Its Under Processing " + id);
+  };
+  return (
+    <>
+      <Navbar />
+      {adInfo.map((ad) => {
+        //prettier-ignore
+        const { _id, photoURL, itemName, price, brand, category, description, orderInfo } =
+          ad;
+        const { _id: orderInfoId } = orderInfo[0];
+        return (
+          <section className="show-ad container p-2" key={_id}>
+            <button
+              className="accept-order"
+              onClick={() => actionOnOrder(orderInfoId, "accepted")}
+            >
+              Accept Order
+            </button>
+            <button
+              className="decline-order"
+              onClick={() => actionOnOrder(orderInfoId, "cancelled")}
+            >
+              Cancel Order
+            </button>
+            <button
+              className="report-issue"
+              onClick={() => alert("Dispute Management Under Processing")}
+            >
+              Report Issue
+            </button>
+            <div className="ad-picture w-100 d-flex align-items-center justify-content-center">
+              <img className="picture w-25" src={photoURL} alt="Product pic" />
+            </div>
+            <div className="description d-flex flex-column align-items-center justify-content-center my-3">
+              <p className="ad-name m-2">{itemName}</p>
+              <div className="product-price">
+                <p className="price">Tk. {price}</p>
+              </div>
+              <div className="details d-flex flex-wrap">
+                <div>
+                  <h6>Brand Name</h6>
+                  <p>{brand}</p>
+                </div>
+                <div>
+                  <h6>Model</h6>
+                  <p>{itemName}</p>
+                </div>
+                <div>
+                  <h6>Category</h6>
+                  <p>{category}</p>
+                </div>
+              </div>
+              <div className="description">
+                <h6 className="text-center">Product Description</h6>
+                <p>{description}</p>
+              </div>
+            </div>
+          </section>
+        );
+      })}
+      <Bottom />
+    </>
+  );
+};
+
+export default BuyerOrderDetails;

@@ -17,9 +17,10 @@ import Success from "../PaymentNotification/Success";
 import Fail from "../PaymentNotification/Fail";
 import ViewOrders from "../PostAd/ViewOrders";
 import ViewGotOrders from "../PostAd/ViewGotOrders";
-import OrderDetails from "../PostAd/OrderDetails";
+import SellerOrderDetails from "../PostAd/SellerOrderDetails";
 import Search from "../Search/Search";
 import Admin from "../Admin/Admin";
+import BuyerOrderDetails from "../PostAd/BuyerOrderDetails";
 
 const Main = () => {
   return (
@@ -75,8 +76,11 @@ const Main = () => {
           <Route path="/viewGotOrders">
             <ViewGotOrders />
           </Route>
-          <Route path="/orderDetails/:orderId">
-            <OrderDetails />
+          <Route path="/buyerOrderDetails/:adId">
+            <BuyerOrderDetails />
+          </Route>
+          <Route path="/sellerOrderDetails/:orderId">
+            <SellerOrderDetails />
           </Route>
           <Route path="/search">
             <Search />

@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../Top/Navbar";
 import Bottom from "../Bottom/Bottom";
 import axios from "axios";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const ViewOrders = () => {
+  const history = useHistory();
   const userEmail = localStorage.getItem("email");
   const [orders, setOrders] = useState([]);
   const [adsInfo, setAdsInfo] = useState([]);
@@ -14,7 +16,6 @@ const ViewOrders = () => {
     .map((order) => {
       const matchingItem = adsInfo.find((ad) => ad._id === order.productId);
       return {
-        orderId: order.orderId || "qwerty12345",
         productId: order.productId || "qwerty12345",
         matchingItems: matchingItem || "qwerty12345",
       };
@@ -71,24 +72,25 @@ const ViewOrders = () => {
           <p>You have not placed any order</p>
         ) : (
           <>
-            <p>Placed orders(click to cancel)</p>
+            <p>Placed orders (click to see details)</p>
             <div className="card-group d-flex justify-content-center align-items-center">
               {[...orderElementsDetails].reverse().map((orderElements) => {
-                const { orderId, matchingItems } = orderElements;
-                const { itemName, description, price, photoURL, postingTime } =
+                const { matchingItems } = orderElements;
+                //prettier-ignore
+                const { _id: id, itemName, description, price, photoURL, postingTime } =
                   matchingItems;
-
                 return (
                   <div
                     className="card"
-                    key={orderId}
+                    key={id}
                     style={{ maxHeight: "440px", maxWidth: "230px" }}
-                    onClick={() => cancelOrder(orderId)}
+                    onClick={() => history.push(`/buyerOrderDetails/${id}`)}
                   >
                     <img
                       className="card-img-top"
                       src={photoURL}
                       alt="Card img cap"
+                      style={{ height: "300px" }}
                     />
                     <div className="card-body">
                       <h5 className="card-title">{itemName}</h5>

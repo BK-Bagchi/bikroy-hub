@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../Top/Navbar";
 import Bottom from "../Bottom/Bottom";
 import axios from "axios";
-import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useHistory,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
 
-const OrderDetails = () => {
+const SellerOrderDetails = () => {
   const history = useHistory();
   const { orderId } = useParams();
   const [orderInfo, setOrderInfo] = useState([]);
+  const [showLoader, setShowLoader] = useState(true);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
@@ -48,17 +52,28 @@ const OrderDetails = () => {
       <Navbar />
       {orderInfo.map((order) => {
         const { _id, addInfo, orderCredentials, orderId } = order;
-        const {photoURL, itemName, price, brand, category, description}= addInfo[0];
-        const {cus_name, cus_phone, ship_add1, total_amount} = orderCredentials;
+        const { photoURL, itemName, price, brand, category, description } =
+          addInfo[0];
+        const { cus_name, cus_phone, ship_add1, total_amount } =
+          orderCredentials;
         return (
           <section className="show-ad container p-2" key={_id}>
-            <button className="accept-order" onClick={() => actionOnOrder(orderId, "accepted")} >
+            <button
+              className="accept-order"
+              onClick={() => actionOnOrder(orderId, "accepted")}
+            >
               Accept Order
             </button>
-            <button className="decline-order" onClick={() => actionOnOrder(orderId, "cancelled")} >
+            <button
+              className="decline-order"
+              onClick={() => actionOnOrder(orderId, "cancelled")}
+            >
               Cancel Order
             </button>
-            <button className="report-issue" onClick={() => alert("Dispute Management Under Processing")} >
+            <button
+              className="report-issue"
+              onClick={() => alert("Dispute Management Under Processing")}
+            >
               Report Issue
             </button>
             <div className="ad-picture w-100 d-flex align-items-center justify-content-center">
@@ -112,4 +127,4 @@ const OrderDetails = () => {
   );
 };
 
-export default OrderDetails;
+export default SellerOrderDetails;
