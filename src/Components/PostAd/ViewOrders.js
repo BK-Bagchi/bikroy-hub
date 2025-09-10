@@ -16,6 +16,7 @@ const ViewOrders = () => {
     .map((order) => {
       const matchingItem = adsInfo.find((ad) => ad._id === order.productId);
       return {
+        orderStatus: order.orderStatusByBuyer || "ordered",
         productId: order.productId || "qwerty12345",
         matchingItems: matchingItem || "qwerty12345",
       };
@@ -42,23 +43,7 @@ const ViewOrders = () => {
     if (userEmail) fetchData();
   }, [userEmail, API_BASE_URL]);
 
-  //   console.log(orders, adsInfo)
-
-  const cancelOrder = async (orderId) => {
-    try {
-      const response = await axios.post(
-        `${API_BASE_URL}/deleteOrder?orderId=${orderId}`,
-        {},
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      console.log("Response:", response.data);
-      window.location.reload();
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+  // console.log(orders, adsInfo);
 
   return (
     <>
@@ -75,7 +60,7 @@ const ViewOrders = () => {
             <p>Placed orders (click to see details)</p>
             <div className="card-group d-flex justify-content-center align-items-center">
               {[...orderElementsDetails].reverse().map((orderElements) => {
-                const { matchingItems } = orderElements;
+                const { matchingItems, orderStatus } = orderElements;
                 //prettier-ignore
                 const { _id: id, itemName, description, price, photoURL, postingTime } =
                   matchingItems;
@@ -96,6 +81,13 @@ const ViewOrders = () => {
                       <h5 className="card-title">{itemName}</h5>
                       <p className="card-text">{description}</p>
                       <span className="card-text price">Price: {price}</span>
+                      <p>
+                        Order Status:{" "}
+                        <span className="card-text price">
+                          {orderStatus.charAt(0).toUpperCase() +
+                            orderStatus.slice(1)}
+                        </span>
+                      </p>
                     </div>
                     <div className="card-footer">
                       <small className="text-muted">

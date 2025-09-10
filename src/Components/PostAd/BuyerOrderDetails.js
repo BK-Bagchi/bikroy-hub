@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useHistory,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
 import axios from "axios";
 import Bottom from "../Bottom/Bottom";
 import Navbar from "../Top/Navbar";
 
 const BuyerOrderDetails = () => {
   const { adId } = useParams();
+  const history = useHistory();
   const [adInfo, setAdInfo] = useState([]);
   const [showLoader, setShowLoader] = useState(true);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
@@ -26,8 +30,21 @@ const BuyerOrderDetails = () => {
   }, [API_BASE_URL, adId]);
   // console.log(adInfo);
 
-  const actionOnOrder = (id) => {
-    alert("Wait... Its Under Processing " + id);
+  const actionOnOrder = async (orderId, status) => {
+    try {
+      const response = await axios.patch(
+        `${API_BASE_URL}/updateOrderStatusByBuyer?orderId=${orderId}`,
+        { status: `${status}` },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      console.log("Response:", response.data);
+      alert(`Order ${status} Successfully`);
+      history.push("/viewMyOrders");
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
   return (
     <>
@@ -36,18 +53,18 @@ const BuyerOrderDetails = () => {
         //prettier-ignore
         const { _id, photoURL, itemName, price, brand, category, description, orderInfo } =
           ad;
-        const { _id: orderInfoId } = orderInfo[0];
+        const { orderId } = orderInfo[0];
         return (
           <section className="show-ad container p-2" key={_id}>
-            <button
+            {/* <button
               className="accept-order"
-              onClick={() => actionOnOrder(orderInfoId, "accepted")}
+              onClick={() => actionOnOrder(orderId, "ordered")}
             >
               Accept Order
-            </button>
+            </button> */}
             <button
               className="decline-order"
-              onClick={() => actionOnOrder(orderInfoId, "cancelled")}
+              onClick={() => actionOnOrder(orderId, "cancelled")}
             >
               Cancel Order
             </button>
