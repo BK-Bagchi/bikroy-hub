@@ -20,6 +20,7 @@ const SellerOrderDetails = () => {
         //prettier-ignore
         const orderResponse = await axios.get( `${API_BASE_URL}/getSpecificOrderInfo?orderId=${orderId}`);
         setOrderInfo(orderResponse.data);
+        setShowLoader(false);
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
@@ -50,7 +51,13 @@ const SellerOrderDetails = () => {
   return (
     <>
       <Navbar />
-      {orderInfo.map((order) => {
+      {
+        showLoader?(
+          <div className="loader">
+            <p className="text-center">Loading...</p>
+          </div>
+        ):(
+        orderInfo.map((order) => {
         const { _id, addInfo, orderCredentials, orderId } = order;
         const { photoURL, itemName, price, brand, category, description } =
           addInfo[0];
@@ -121,7 +128,9 @@ const SellerOrderDetails = () => {
             </div>
           </section>
         );
-      })}
+      })
+        )
+      }
       <Bottom />
     </>
   );

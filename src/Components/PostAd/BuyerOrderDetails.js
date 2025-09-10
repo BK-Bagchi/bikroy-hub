@@ -49,61 +49,71 @@ const BuyerOrderDetails = () => {
   return (
     <>
       <Navbar />
-      {adInfo.map((ad) => {
-        //prettier-ignore
-        const { _id, photoURL, itemName, price, brand, category, description, orderInfo } =
+      {showLoader ? (
+        <div className="loader">
+          <p className="text-center">Loading...</p>
+        </div>
+      ) : (
+        adInfo.map((ad) => {
+          //prettier-ignore
+          const { _id, photoURL, itemName, price, brand, category, description, orderInfo } =
           ad;
-        const { orderId } = orderInfo[0];
-        return (
-          <section className="show-ad container p-2" key={_id}>
-            {/* <button
+          const { orderId } = orderInfo[0];
+          return (
+            <section className="show-ad container p-2" key={_id}>
+              {/* <button
               className="accept-order"
               onClick={() => actionOnOrder(orderId, "ordered")}
             >
               Accept Order
             </button> */}
-            <button
-              className="decline-order"
-              onClick={() => actionOnOrder(orderId, "cancelled")}
-            >
-              Cancel Order
-            </button>
-            <button
-              className="report-issue"
-              onClick={() => alert("Dispute Management Under Processing")}
-            >
-              Report Issue
-            </button>
-            <div className="ad-picture w-100 d-flex align-items-center justify-content-center">
-              <img className="picture w-25" src={photoURL} alt="Product pic" />
-            </div>
-            <div className="description d-flex flex-column align-items-center justify-content-center my-3">
-              <p className="ad-name m-2">{itemName}</p>
-              <div className="product-price">
-                <p className="price">Tk. {price}</p>
+              <button
+                className="decline-order"
+                onClick={() => actionOnOrder(orderId, "cancelled")}
+              >
+                Cancel Order
+              </button>
+              <button
+                className="report-issue"
+                onClick={() => alert("Dispute Management Under Processing")}
+              >
+                Report Issue
+              </button>
+              <div className="ad-picture w-100 d-flex align-items-center justify-content-center">
+                <img
+                  className="picture w-25"
+                  src={photoURL}
+                  alt="Product pic"
+                />
               </div>
-              <div className="details d-flex flex-wrap">
-                <div>
-                  <h6>Brand Name</h6>
-                  <p>{brand}</p>
+              <div className="description d-flex flex-column align-items-center justify-content-center my-3">
+                <p className="ad-name m-2">{itemName}</p>
+                <div className="product-price">
+                  <p className="price">Tk. {price}</p>
                 </div>
-                <div>
-                  <h6>Model</h6>
-                  <p>{itemName}</p>
+                <div className="details d-flex flex-wrap">
+                  <div>
+                    <h6>Brand Name</h6>
+                    <p>{brand}</p>
+                  </div>
+                  <div>
+                    <h6>Model</h6>
+                    <p>{itemName}</p>
+                  </div>
+                  <div>
+                    <h6>Category</h6>
+                    <p>{category}</p>
+                  </div>
                 </div>
-                <div>
-                  <h6>Category</h6>
-                  <p>{category}</p>
+                <div className="description">
+                  <h6 className="text-center">Product Description</h6>
+                  <p>{description}</p>
                 </div>
               </div>
-              <div className="description">
-                <h6 className="text-center">Product Description</h6>
-                <p>{description}</p>
-              </div>
-            </div>
-          </section>
-        );
-      })}
+            </section>
+          );
+        })
+      )}
       <Bottom />
     </>
   );
