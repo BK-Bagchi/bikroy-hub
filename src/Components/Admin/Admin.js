@@ -1,15 +1,16 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Navbar from "../Top/Navbar";
 import Bottom from "../Bottom/Bottom";
-import PostedAds from "./PreviewAds/PreviewAds";
+import PreviewAds from "./PreviewAds/PreviewAds";
 import Disputes from "./DisputesDismiss/Disputes";
+import PreviewOrders from "./PreviewOrders/PreviewOrders";
 import useAuth from "../../Hooks/JWTDecode";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const Admin = () => {
   const history = useHistory();
-  const [activeTab, setActiveTab] = useState("posts");
   const { logout } = useAuth();
+  const [activeTab, setActiveTab] = useState("posts");
 
   const Logout = () => {
     logout();
@@ -19,13 +20,15 @@ const Admin = () => {
   const renderContent = () => {
     switch (activeTab) {
       case "posts":
-        return <PostedAds />;
+        return <PreviewAds />;
       case "disputes":
         return <Disputes />;
       case "logout":
         return <Logout />;
+      case "orders":
+        return <PreviewOrders />;
       default:
-        return <PostedAds />;
+        return <PreviewAds />;
     }
   };
 
@@ -47,6 +50,16 @@ const Admin = () => {
                   onClick={() => setActiveTab("posts")}
                 >
                   Preview Posts
+                </button>
+              </li>
+              <li className="nav-item">
+                <button
+                  className={`btn w-100 text-start mb-2 ${
+                    activeTab === "orders" ? "btn-info" : "btn-outline-info"
+                  }`}
+                  onClick={() => setActiveTab("orders")}
+                >
+                  Preview Orders
                 </button>
               </li>
               <li className="nav-item">

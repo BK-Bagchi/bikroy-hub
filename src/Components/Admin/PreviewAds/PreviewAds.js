@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Table, Button } from "react-bootstrap";
 import PreviewModal from "./Modal";
 
-const Posts = () => {
+const PreviewAds = () => {
   const [postedAds, setPostedAds] = useState([]);
   const [showLoader, setShowLoader] = useState(true);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
@@ -109,4 +109,4 @@ const Posts = () => {
   );
 };
 
-export default Posts;
+export default PreviewAds;
