@@ -68,11 +68,11 @@ const PreviewModal = ({ show, handleClose, post, updateAddStatus }) => {
                 </div>
             </div>
 
-            {/* Author Info */}
+            {/* Seller Info */}
             {userInfo && userInfo.length > 0 && (
                 <div className="card border-success">
                 <div className="card-header bg-success text-white">
-                    Author Info
+                    Seller Info
                 </div>
                 <div className="card-body">
                     <div className="row mb-2">

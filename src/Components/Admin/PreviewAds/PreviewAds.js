@@ -61,7 +61,7 @@ const Posts = () => {
               <tr>
                 <th>#</th>
                 <th>Product Name</th>
-                <th>Author</th>
+                <th>Seller</th>
                 <th>Category</th>
                 <th>Price</th>
                 <th>Status</th>
