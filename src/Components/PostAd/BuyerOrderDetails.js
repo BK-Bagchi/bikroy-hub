@@ -40,7 +40,19 @@ const BuyerOrderDetails = () => {
         }
       );
       console.log("Response:", response.data);
-      alert(`Order ${status} Successfully`);
+      if (status === "cancelled") {
+        const dispute = await axios.patch(
+          `${API_BASE_URL}/disputeManagement?orderId=${orderId}`,
+          { reportedBy: "buyer", reason: "refund" },
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+
+        console.log("Response:", dispute.data);
+        alert("Order Cancelled and Refund Process Initiated Successfully");
+        history.push("/viewMyOrders");
+      } else if (status === "accepted") alert(`Order ${status} Successfully`);
       history.push("/viewMyOrders");
     } catch (error) {
       console.error("Error:", error);
