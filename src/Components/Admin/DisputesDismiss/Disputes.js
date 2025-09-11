@@ -1,52 +1,114 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { Table, Button } from "react-bootstrap";
 
 const Disputes = () => {
-  // Dummy disputes data
-  const disputes = [
-    { id: 1, user: "Alice", reason: "Payment issue", status: "Open" },
-    { id: 2, user: "Bob", reason: "Product not delivered", status: "Resolved" },
-    {
-      id: 3,
-      user: "Charlie",
-      reason: "Fraudulent activity",
-      status: "Pending",
-    },
-  ];
+  const [disputes, setDisputes] = useState([]);
+  const [showLoader, setShowLoader] = useState(true);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+  useEffect(() => {
+    const fetchDisputes = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/getDisputesInfo`);
+        setDisputes(response.data);
+        setShowLoader(false);
+      } catch (error) {
+        console.error("Error fetching disputes:", error);
+      }
+    };
+    fetchDisputes();
+  }, [API_BASE_URL]);
+  // console.log(disputes);
+
+  const handelDispute = (_id, reason) => {
+    // console.log(_id, reason);
+    alert(`${reason.toUpperCase()} Under Process`);
+    window.confirm(`${reason.toUpperCase()} Under Process`);
+  };
 
   return (
     <div>
       <h2 className="mb-4">⚠️ Handle Disputes</h2>
-      <Table striped bordered hover responsive>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Buyer</th>
-            <th>Seller</th>
-            <th>Reported By</th>
-            <th>Reason</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {disputes.map((dispute, index) => (
-            <tr key={dispute.id}>
-              <td>{index + 1}</td>
-              <td>{dispute.user}</td>
-              <td>{dispute.user}</td>
-              <td>{dispute.user}</td>
-              <td>{dispute.reason}</td>
-              <td>{dispute.status}</td>
-              <td className="d-flex justify-content-center">
-                {/* prettier-ignore */}
-                <Button variant="info" size="sm" className="me-2" disabled={dispute.status === "Resolved"} >
-                  Preview
-                </Button>
-              </td>
+      {showLoader ? (
+        <p className="text-center">Loading...</p>
+      ) : (
+        <Table striped bordered hover responsive>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Buyer</th>
+              <th>Seller</th>
+              <th>Report</th>
+              <th>Status</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {disputes.map((disputeItems, index) => {
+              // prettier-ignore
+              const { _id, customerInfo, dispute, sellerInfo } = disputeItems
+              const { displayName: buyerName } = customerInfo[0];
+              const { displayName: sellerName } = sellerInfo[0];
+              const { status, report } = dispute;
+              return (
+                <tr key={_id}>
+                  <td>{index + 1}</td>
+                  <td>{buyerName}</td>
+                  <td>{sellerName}</td>
+                  <td>
+                    <table className="table table-bordered mb-0">
+                      <thead>
+                        <tr>
+                          <th>Reported By</th>
+                          <th>Reason</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {report.map((r, i) => (
+                          <tr key={i}>
+                            <td>{r.reportedBy}</td>
+                            {r.reason === "refund" ? (
+                              <td>
+                                <span>Refund </span>
+                                <Button
+                                  variant="success"
+                                  size="sm"
+                                  onClick={() => {
+                                    handelDispute(_id, r.reason);
+                                  }}
+                                >
+                                  Refund
+                                </Button>
+                              </td>
+                            ) : r.reason === "claim_money" ? (
+                              <td>
+                                <span>Claim Money </span>
+                                <Button variant="warning" size="sm">
+                                  Claim Money
+                                </Button>
+                              </td>
+                            ) : (
+                              r.reason
+                            )}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </td>
+                  <td>{status}</td>
+                  <td className="d-flex justify-content-center">
+                    {/* prettier-ignore */}
+                    <Button variant="info" size="sm" className="me-2" disabled={dispute.status === "Resolved"} >
+                  Preview
+                  </Button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      )}
     </div>
   );
 };

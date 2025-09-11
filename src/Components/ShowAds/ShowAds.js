@@ -98,11 +98,8 @@ const ShowAds = () => {
             <span>Posted on {postingTime}</span>
             <br />
             {loggedIn ? (
-              <button
-                className="buy-now"
-                data-toggle="modal"
-                data-target="#orderTakingModal"
-              >
+              // prettier-ignore
+              <button className="buy-now" data-toggle="modal" data-target="#orderTakingModal" >
                 Buy Now
               </button>
             ) : (
@@ -110,22 +107,14 @@ const ShowAds = () => {
                 Login to order
               </span>
             )}
-            <div
-              className="modal"
-              tabIndex="-1"
-              role="dialog"
-              id="orderTakingModal"
-            >
+            {/* prettier-ignore */}
+            <div className="modal"  tabIndex="-1" role="dialog" id="orderTakingModal"  >
               <div className="modal-dialog" role="document">
                 <div className="modal-content">
                   <div className="modal-header">
                     <h5 className="modal-title">Payment Info</h5>
-                    <button
-                      type="button"
-                      className="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                    >
+                    {/* prettier-ignore */}
+                    <button type="button" className="close" data-dismiss="modal" aria-label="Close" >
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
@@ -134,58 +123,33 @@ const ShowAds = () => {
                     <section className="d-flex flex-column align-items-center">
                       <div className="form-fields">
                         <p>Shipping Name</p>
-                        <input
-                          type="text"
-                          placeholder="Your Name"
-                          name="userName"
-                          value={localStorage.getItem("displayName")}
-                        />
+                        {/* prettier-ignore */}
+                        <input type="text" placeholder="Your Name" name="userName" value={localStorage.getItem("displayName")} />
                       </div>
                       <div className="form-fields">
                         <p>Contact Email</p>
-                        <input
-                          type="text"
-                          placeholder="Your Email"
-                          name="userEmail"
-                          value={localStorage.getItem("email")}
-                        />
+                        {/* prettier-ignore */}
+                        <input type="text" placeholder="Your Email" name="userEmail" value={localStorage.getItem("email")} />
                       </div>
                       <div className="form-fields">
                         <p>Item Price</p>
-                        <input
-                          type="text"
-                          placeholder="Price"
-                          name="price"
-                          value={price}
-                        />
+                        {/* prettier-ignore */}
+                        <input type="text"  placeholder="Price" ame="price" value={price} />
                       </div>
                       <div className="form-fields">
                         <p>Address</p>
-                        <input
-                          type="text"
-                          placeholder="Your Shipping Address"
-                          name="shippingAddress"
-                          onChange={handelFormInput}
-                          required
-                        />
+                        {/* prettier-ignore */}
+                        <input type="text" placeholder="Your Shipping Address" name="shippingAddress" onChange={handelFormInput} required />
                       </div>
                       <div className="form-fields">
                         <p>Contact</p>
-                        <input
-                          type="text"
-                          placeholder="Your Contact"
-                          name="phoneNumber"
-                          onChange={handelFormInput}
-                        />
+                        {/* prettier-ignore */}
+                        <input type="text" placeholder="Your Contact"  name="phoneNumber" onChange={handelFormInput} />
                       </div>
                       <div className="form-fields">
                         <p>Post code</p>
-                        <input
-                          type="text"
-                          placeholder="Your Post Code"
-                          name="postCode"
-                          onChange={handelFormInput}
-                        />
+                        {/* prettier-ignore */}
+                        <input type="text" placeholder="Your Post Code" name="postCode" onChange={handelFormInput} />
                       </div>
                     </section>
                   </div>
