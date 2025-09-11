@@ -17,10 +17,7 @@ const ViewGotOrders = () => {
     .map((order) => {
       const matchingItem = adsInfo.find((ad) => ad._id === order.productId);
       return {
-        orderId: order.orderId || "qwerty12345",
-        productId: order.productId || "qwerty12345",
-        orderCredentials: order.orderCredentials,
-        orderStatus: order.orderStatusBySeller || "pending",
+        order,
         matchingItems: matchingItem || "qwerty12345",
       };
     })
@@ -65,32 +62,28 @@ const ViewGotOrders = () => {
             <p>Got orders (click to see details, accept or refuse)</p>
             <div className="card-group d-flex justify-content-center align-items-center">
               {[...orderElementsDetails].reverse().map((orderElements) => {
-                const { orderId, matchingItems, orderStatus } = orderElements;
+                const { order, matchingItems } = orderElements;
                 const { itemName, price, photoURL, postingTime } =
                   matchingItems;
-                return (
-                  <div
-                    className="card"
-                    key={orderId}
-                    style={{ maxHeight: "440px", maxWidth: "230px" }}
+                const { orderId, orderStatusByBuyer, orderStatusBySeller } =
+                  order;
+                return orderStatusByBuyer !== "cancelled" ? (
+                  // prettier-ignore
+                  <div className="card" key={orderId} style={{ maxHeight: "440px", maxWidth: "230px" }}
                     onClick={() =>
                       history.push(`/sellerOrderDetails/${orderId}`)
                     }
                   >
-                    <img
-                      className="card-img-top "
-                      src={photoURL}
-                      alt="Card img cap"
-                      style={{ height: "300px" }}
-                    />
+                    {/* prettier-ignore */}
+                    <img className="card-img-top " src={photoURL} alt="Card img cap" style={{ height: "300px" }} />
                     <div className="card-body">
                       <h5 className="card-title">{itemName}</h5>
                       <span className="card-text price">Price: {price}</span>
                       <p>
                         Order Status:{" "}
                         <span className="card-text price">
-                          {orderStatus.charAt(0).toUpperCase() +
-                            orderStatus.slice(1)}
+                          {orderStatusBySeller.charAt(0).toUpperCase() +
+                            orderStatusBySeller.slice(1)}
                         </span>
                       </p>
                     </div>
@@ -100,6 +93,8 @@ const ViewGotOrders = () => {
                       </small>
                     </div>
                   </div>
+                ) : (
+                  <></>
                 );
               })}
             </div>

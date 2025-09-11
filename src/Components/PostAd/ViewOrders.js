@@ -16,8 +16,7 @@ const ViewOrders = () => {
     .map((order) => {
       const matchingItem = adsInfo.find((ad) => ad._id === order.productId);
       return {
-        orderStatus: order.orderStatusByBuyer || "ordered",
-        productId: order.productId || "qwerty12345",
+        order,
         matchingItems: matchingItem || "qwerty12345",
       };
     })
@@ -60,11 +59,12 @@ const ViewOrders = () => {
             <p>Placed orders (click to see details)</p>
             <div className="card-group d-flex justify-content-center align-items-center">
               {[...orderElementsDetails].reverse().map((orderElements) => {
-                const { matchingItems, orderStatus } = orderElements;
+                const { matchingItems, order } = orderElements;
                 //prettier-ignore
-                const { _id: id, itemName, description, price, photoURL, postingTime } =
+                const { _id: id, itemName, price, photoURL, postingTime } =
                   matchingItems;
-                return (
+                const { orderStatusByBuyer, orderStatusBySeller } = order;
+                return orderStatusBySeller !== "cancelled" ? (
                   <div
                     className="card"
                     key={id}
@@ -79,13 +79,12 @@ const ViewOrders = () => {
                     />
                     <div className="card-body">
                       <h5 className="card-title">{itemName}</h5>
-                      <p className="card-text">{description}</p>
                       <span className="card-text price">Price: {price}</span>
                       <p>
                         Order Status:{" "}
                         <span className="card-text price">
-                          {orderStatus.charAt(0).toUpperCase() +
-                            orderStatus.slice(1)}
+                          {orderStatusByBuyer.charAt(0).toUpperCase() +
+                            orderStatusByBuyer.slice(1)}
                         </span>
                       </p>
                     </div>
@@ -95,6 +94,8 @@ const ViewOrders = () => {
                       </small>
                     </div>
                   </div>
+                ) : (
+                  <></>
                 );
               })}
             </div>

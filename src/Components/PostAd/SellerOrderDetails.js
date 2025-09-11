@@ -41,7 +41,26 @@ const SellerOrderDetails = () => {
         }
       );
       console.log("Response:", response.data);
+
       alert(`Order ${status} Successfully`);
+      history.push("/viewGotOrders");
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const claimMoney = async (orderId) => {
+    try {
+      const response = await axios.patch(
+        `${API_BASE_URL}/disputeManagement?orderId=${orderId}`,
+        { reportedBy: "seller", reason: "claim_money" },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      console.log("Response:", response.data);
+
+      alert(`Money Claimed Successfully`);
       history.push("/viewGotOrders");
     } catch (error) {
       console.error("Error:", error);
@@ -58,31 +77,29 @@ const SellerOrderDetails = () => {
           </div>
         ):(
         orderInfo.map((order) => {
-        const { _id, addInfo, orderCredentials, orderId } = order;
+        const { _id, addInfo, orderCredentials, orderId, paymentMethod } = order;
         const { photoURL, itemName, price, brand, category, description } =
           addInfo[0];
         const { cus_name, cus_phone, ship_add1, total_amount } =
           orderCredentials;
         return (
           <section className="show-ad container p-2" key={_id}>
-            <button
-              className="accept-order"
-              onClick={() => actionOnOrder(orderId, "accepted")}
-            >
+            {/* prettier-ignore */}
+            <button className="accept-order" onClick={() => actionOnOrder(orderId, "accepted")} >
               Accept Order
             </button>
-            <button
-              className="decline-order"
-              onClick={() => actionOnOrder(orderId, "cancelled")}
-            >
+            {/* prettier-ignore */}
+            <button className="decline-order" onClick={() => actionOnOrder(orderId, "cancelled")} >
               Cancel Order
             </button>
-            <button
-              className="report-issue"
-              onClick={() => alert("Dispute Management Under Processing")}
-            >
-              Report Issue
+            {/* prettier-ignore */}
+            {paymentMethod === "online" ? (
+              <button className="report-issue" onClick={() => claimMoney(orderId)} >
+              Claim Money
             </button>
+            ):(
+              <></>
+            )}
             <div className="ad-picture w-100 d-flex align-items-center justify-content-center">
               <img className="picture w-25" src={photoURL} alt="Product pic" />
             </div>
@@ -115,6 +132,10 @@ const SellerOrderDetails = () => {
                 <div>
                   <h6>Shipping Address</h6>
                   <p>{ship_add1}</p>
+                </div>
+                <div>
+                  <h6>Payment Method</h6>
+                  <p>{paymentMethod.toUpperCase()}</p>
                 </div>
                 <div>
                   <h6>Total paid amount</h6>

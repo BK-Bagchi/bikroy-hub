@@ -19,7 +19,7 @@ const Disputes = () => {
     };
     fetchDisputes();
   }, [API_BASE_URL]);
-  // console.log(disputes);
+  console.log(disputes);
 
   const handelDispute = (_id, reason) => {
     // console.log(_id, reason);
@@ -71,10 +71,8 @@ const Disputes = () => {
                             {r.reason === "refund" ? (
                               <td>
                                 <span>Refund </span>
-                                <Button
-                                  variant="success"
-                                  size="sm"
-                                  onClick={() => {
+                                {/* prettier-ignore */}
+                                <Button variant="success"  size="sm" onClick={() => {
                                     handelDispute(_id, r.reason);
                                   }}
                                 >
@@ -84,7 +82,11 @@ const Disputes = () => {
                             ) : r.reason === "claim_money" ? (
                               <td>
                                 <span>Claim Money </span>
-                                <Button variant="warning" size="sm">
+                                {/* prettier-ignore */}
+                                <Button variant="warning" size="sm" onClick={() => {
+                                    handelDispute(_id, r.reason);
+                                  }}
+                                >
                                   Claim Money
                                 </Button>
                               </td>
