@@ -33,8 +33,8 @@ const BuyerOrderDetails = () => {
   const actionOnOrder = async (orderId, status) => {
     try {
       const response = await axios.patch(
-        `${API_BASE_URL}/updateOrderStatusByBuyer?orderId=${orderId}`,
-        { status: `${status}` },
+        `${API_BASE_URL}/updateOrderStatusByPerson?orderId=${orderId}`,
+        { status: `${status}`, person: "buyer" },
         {
           headers: { "Content-Type": "application/json" },
         }

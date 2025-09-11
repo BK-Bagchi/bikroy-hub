@@ -22,13 +22,13 @@ const PreviewOrders = () => {
 
     fetchData();
   }, [API_BASE_URL]);
-  console.log(orderInfo);
+  //   console.log(orderInfo);
 
   const handleAdminStatus = async (orderId, status) => {
     try {
       const response = await axios.patch(
-        `${API_BASE_URL}/updateOrderStatusByAdmin?orderId=${orderId}`,
-        { status: `${status}` },
+        `${API_BASE_URL}/updateOrderStatusByPerson?orderId=${orderId}`,
+        { status: `${status}`, person: "admin" },
         {
           headers: { "Content-Type": "application/json" },
         }
