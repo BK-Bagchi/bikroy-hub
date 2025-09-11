@@ -19,7 +19,7 @@ const Disputes = () => {
     };
     fetchDisputes();
   }, [API_BASE_URL]);
-  console.log(disputes);
+  // console.log(disputes);
 
   const handelDispute = (_id, reason) => {
     // console.log(_id, reason);
@@ -87,7 +87,7 @@ const Disputes = () => {
                                     handelDispute(_id, r.reason);
                                   }}
                                 >
-                                  Claim Money
+                                  Disburse Money
                                 </Button>
                               </td>
                             ) : (
