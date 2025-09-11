@@ -46,11 +46,12 @@ const ShowAds = () => {
 
   // console.log(adsInfo);
 
-  const orderNow = () => {
+  const orderNow = (paymentMethod) => {
     const { email, ...rest } = adsInfo[0];
     const sendPaymentInfo = {
       ...paymentInfo,
       ...rest,
+      paymentMethod: paymentMethod,
       sellerEmail: email,
       userName: localStorage.getItem("displayName"),
     };
@@ -65,7 +66,7 @@ const ShowAds = () => {
             headers: { "Content-Type": "application/json" },
           }
         );
-        // Redirect to the payment page of sslcommerz
+        // On online payment, redirects to the sslcommerz getaway. Or to success_url if paymentMethod is cod
         window.location.replace(response.data.url);
       } catch (error) {
         console.error("Error:", error);
@@ -88,17 +89,8 @@ const ShowAds = () => {
     <>
       <Navbar />
       {adsInfo.map((thisAd) => {
-        const {
-          _id,
-          brand,
-          category,
-          phoneNumber,
-          description,
-          photoURL,
-          itemName,
-          postingTime,
-          price,
-        } = thisAd;
+        //prettier-ignore
+        const { _id, brand, category, phoneNumber, description, photoURL, itemName, postingTime, price } = thisAd;
 
         return (
           <section className="show-ad container p-2" key={_id}>
@@ -199,18 +191,16 @@ const ShowAds = () => {
                   </div>
                   {/* pop up ends */}
                   <div className="modal-footer">
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      data-dismiss="modal"
-                    >
+                    {/* prettier-ignore */}
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal" >
                       Cancel
                     </button>
-                    <button
-                      type="button"
-                      className="btn btn-primary"
-                      onClick={orderNow}
-                    >
+                    {/* prettier-ignore */}
+                    <button type="button" className="btn btn-info" onClick={()=> orderNow("cod")} >
+                      Cash on Delivery
+                    </button>
+                    {/* prettier-ignore */}
+                    <button type="button" className="btn btn-primary" onClick={()=> orderNow("online")} >
                       Pay Now
                     </button>
                   </div>
