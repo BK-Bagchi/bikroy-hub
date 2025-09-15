@@ -42,6 +42,10 @@ const PreviewOrders = () => {
     }
   };
 
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   return (
     <div className="container mt-4">
       <h3 className="mb-3">📦 All Orders</h3>
@@ -52,8 +56,8 @@ const PreviewOrders = () => {
           <table className="table table-striped table-bordered align-middle">
             <thead className="table-dark">
               <tr>
-                <th>BuyerName</th>
-                <th>Seller Name</th>
+                <th>Buyer</th>
+                <th>Seller</th>
                 <th>Payment Method & Status</th>
                 <th>Shipment Status</th>
                 <th>Buyer Status</th>
@@ -75,7 +79,17 @@ const PreviewOrders = () => {
                       <td>{buyerName}</td>
                       <td>{sellerName}</td>
                       <td>
-                        {paymentMethod}
+                        {
+                          <span
+                            className={`badge px-4 py-2 my-1 ${
+                              paymentMethod === "online"
+                                ? "bg-success"
+                                : "bg-info"
+                            }`}
+                          >
+                            {capitalizeFirstLetter(paymentMethod)}
+                          </span>
+                        }
                         {" & "}
                         <span
                           className={`badge px-4 py-2 ${
@@ -95,12 +109,44 @@ const PreviewOrders = () => {
                               : "bg-success"
                           }`}
                         >
-                          {shipmentStatus}
+                          {capitalizeFirstLetter(shipmentStatus)}
                         </span>
                       </td>
-                      <td>{orderStatusByBuyer}</td>
-                      <td>{orderStatusBySeller}</td>
-                      <td>{orderStatusByAdmin}</td>
+                      <td>
+                        <span
+                          className={`badge px-4 py-2 ${
+                            orderStatusByBuyer === "ordered"
+                              ? "bg-info"
+                              : "bg-danger"
+                          }`}
+                        >
+                          {capitalizeFirstLetter(orderStatusByBuyer)}
+                        </span>
+                      </td>
+                      <td>
+                        <span
+                          className={`badge px-4 py-2 ${
+                            orderStatusBySeller === "accepted"
+                              ? "bg-info"
+                              : orderStatusBySeller === "cancelled"
+                              ? "bg-danger"
+                              : "bg-secondary"
+                          }`}
+                        >
+                          {capitalizeFirstLetter(orderStatusBySeller)}
+                        </span>
+                      </td>
+                      <td>
+                        <span
+                          className={`badge px-4 py-2 ${
+                            orderStatusByAdmin === "running"
+                              ? "bg-info"
+                              : "bg-danger"
+                          }`}
+                        >
+                          {capitalizeFirstLetter(orderStatusByAdmin)}
+                        </span>
+                      </td>
                       <td>
                         <button
                           className="btn btn-sm btn-info my-1"
