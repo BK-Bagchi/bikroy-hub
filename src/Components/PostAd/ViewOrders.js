@@ -45,20 +45,19 @@ const ViewOrders = () => {
             <div className="card-group d-flex justify-content-center align-items-center">
               {[...ordersInfo].reverse().map((orderElements) => {
                 //prettier-ignore
-                const { _id: id,  orderStatusBySeller, orderStatusByBuyer,addsInfo } =
+                const { _id: id, orderId, orderStatusBySeller, orderStatusByBuyer ,addsInfo } =
                   orderElements;
-                const { _id, itemName, price, photoURL, postingTime } =
-                  addsInfo[0];
+                const { itemName, price, photoURL, postingTime } = addsInfo[0];
                 return orderStatusBySeller !== "cancelled" ? (
                   // prettier-ignore
-                  <div className="card" key={id} style={{ maxHeight: "440px", maxWidth: "230px" }} onClick={() => history.push(`/buyerOrderDetails/${_id}`)} >
+                  <div className="card" key={id} style={{ maxHeight: "440px", maxWidth: "230px" }} onClick={() => history.push(`/buyerOrderDetails/${orderId}`)} >
                     {/* prettier-ignore */}
                     <img  className="card-img-top" src={photoURL} alt="Card img cap" style={{ height: "300px" }} />
                     <div className="card-body">
                       <h5 className="card-title">{itemName}</h5>
                       <span className="card-text price">Price: {price}</span>
                       <p>
-                        Order Status:{" "}
+                        Buyer Status:{" "}
                         <span className="card-text price">
                           {orderStatusByBuyer.charAt(0).toUpperCase() +
                             orderStatusByBuyer.slice(1)}

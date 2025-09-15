@@ -8,9 +8,9 @@ import Bottom from "../Bottom/Bottom";
 import Navbar from "../Top/Navbar";
 
 const BuyerOrderDetails = () => {
-  const { adId } = useParams();
+  const { orderId } = useParams();
   const history = useHistory();
-  const [adInfo, setAdInfo] = useState([]);
+  const [orderInfo, setOrderInfo] = useState([]);
   const [showLoader, setShowLoader] = useState(true);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -18,17 +18,17 @@ const BuyerOrderDetails = () => {
     const fetchData = async () => {
       try {
         //prettier-ignore
-        const response = await axios.get(`${API_BASE_URL}/getSpecificOrderInfoByAdInfo?addId=${adId}`);
-        setAdInfo(response.data);
+        const response = await axios.get(`${API_BASE_URL}/getSpecificOrderInfo?orderId=${orderId}`);
+        setOrderInfo(response.data);
         setShowLoader(false);
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
     };
 
-    if (adId) fetchData();
-  }, [API_BASE_URL, adId]);
-  // console.log(adInfo);
+    if (orderId) fetchData();
+  }, [API_BASE_URL, orderId]);
+  // console.log(orderInfo);
 
   const actionOnOrder = async (orderId, status) => {
     try {
@@ -66,11 +66,11 @@ const BuyerOrderDetails = () => {
           <p className="text-center">Loading...</p>
         </div>
       ) : (
-        adInfo.map((ad) => {
+        orderInfo.map((order) => {
           //prettier-ignore
-          const { _id, photoURL, itemName, price, brand, category, description, orderInfo } =
-          ad;
-          const { orderId } = orderInfo[0];
+          const { orderId, addInfo } = order;
+          // prettier-ignore
+          const { _id, photoURL, itemName, price, brand, category, description,  } = addInfo[0];
           return (
             <section className="show-ad container p-2" key={_id}>
               {/* <button
@@ -79,24 +79,17 @@ const BuyerOrderDetails = () => {
             >
               Accept Order
             </button> */}
-              <button
-                className="decline-order"
-                onClick={() => actionOnOrder(orderId, "cancelled")}
-              >
+              {/* prettier-ignore */}
+              <button className="decline-order" onClick={() => actionOnOrder(orderId, "cancelled")} >
                 Cancel Order
               </button>
-              <button
-                className="report-issue"
-                onClick={() => alert("Dispute Management Under Processing")}
-              >
+              {/* prettier-ignore */}
+              <button  className="report-issue"  onClick={() => alert("Dispute Management Under Processing")} >
                 Report Issue
               </button>
               <div className="ad-picture w-100 d-flex align-items-center justify-content-center">
-                <img
-                  className="picture w-25"
-                  src={photoURL}
-                  alt="Product pic"
-                />
+                {/* prettier-ignore */}
+                <img className="picture w-25" src={photoURL} alt="Product pic" />
               </div>
               <div className="description d-flex flex-column align-items-center justify-content-center my-3">
                 <p className="ad-name m-2">{itemName}</p>

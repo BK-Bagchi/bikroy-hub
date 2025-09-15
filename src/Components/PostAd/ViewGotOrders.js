@@ -63,7 +63,7 @@ const ViewGotOrders = () => {
                       <h5 className="card-title">{itemName}</h5>
                       <span className="card-text price">Price: {price}</span>
                       <p>
-                        Order Status:{" "}
+                        Seller Status:{" "}
                         <span className="card-text price">
                           {orderStatusBySeller.charAt(0).toUpperCase() +
                             orderStatusBySeller.slice(1)}
