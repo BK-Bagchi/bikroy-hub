@@ -87,15 +87,8 @@ const PreviewAds = () => {
                       <td>{category}</td>
                       <td>{price}</td>
                       <td>
-                        <span
-                          className={`badge px-4 py-2 text-white ${
-                            status === "approved"
-                              ? "bg-success"
-                              : status === "rejected"
-                              ? "bg-danger"
-                              : "bg-info"
-                          }`}
-                        >
+                        {/* prettier-ignore */}
+                        <span className={`badge px-4 py-2 text-white ${ status === "approved" ? "bg-success" : status === "rejected" ? "bg-danger" : "bg-info" }`} >
                           {capitalizeFirstLetter(status)}
                         </span>
                       </td>

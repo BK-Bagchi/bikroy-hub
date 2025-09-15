@@ -80,84 +80,48 @@ const PreviewOrders = () => {
                       <td>{sellerName}</td>
                       <td>
                         {
-                          <span
-                            className={`badge text-white px-4 py-2 my-1 ${
-                              paymentMethod === "online"
-                                ? "bg-success"
-                                : "bg-info"
-                            }`}
-                          >
+                          // prettier-ignore
+                          <span className={`badge text-white px-4 py-2 my-1 ${ paymentMethod === "online" ? "bg-success" : "bg-info"  }`} >
                             {capitalizeFirstLetter(paymentMethod)}
                           </span>
                         }
                         {" & "}
-                        <span
-                          className={`badge text-white px-4 py-2 ${
-                            paymentStatus ? "bg-success" : "bg-danger"
-                          }`}
-                        >
+                        {/* prettier-ignore */}
+                        <span className={`badge text-white px-4 py-2 ${ paymentStatus ? "bg-success" : "bg-danger" }`} >
                           {paymentStatus ? "Paid" : "Unpaid"}
                         </span>
                       </td>
                       <td>
-                        <span
-                          className={`badge px-4 py-2 ${
-                            shipmentStatus === "pending"
-                              ? "bg-warning"
-                              : shipmentStatus === "shipped"
-                              ? "bg-info"
-                              : "bg-success"
-                          }`}
-                        >
+                        {/* prettier-ignore */}
+                        <span className={`badge px-4 py-2 ${ shipmentStatus === "pending" ? "bg-warning" : shipmentStatus === "shipped" ? "bg-info" : "bg-success" }`} >
                           {capitalizeFirstLetter(shipmentStatus)}
                         </span>
                       </td>
                       <td>
-                        <span
-                          className={`badge text-white px-4 py-2 ${
-                            orderStatusByBuyer === "ordered"
-                              ? "bg-info"
-                              : "bg-danger"
-                          }`}
-                        >
+                        {/* prettier-ignore */}
+                        <span className={`badge text-white px-4 py-2 ${ orderStatusByBuyer === "ordered" ? "bg-info" : "bg-danger"  }`} >
                           {capitalizeFirstLetter(orderStatusByBuyer)}
                         </span>
                       </td>
                       <td>
-                        <span
-                          className={`badge text-white px-4 py-2 ${
-                            orderStatusBySeller === "accepted"
-                              ? "bg-info"
-                              : orderStatusBySeller === "cancelled"
-                              ? "bg-danger"
-                              : "bg-secondary"
-                          }`}
-                        >
+                        {/* prettier-ignore */}
+                        <span className={`badge text-white px-4 py-2 ${ orderStatusBySeller === "accepted" ? "bg-info" : orderStatusBySeller === "cancelled" ? "bg-danger" : "bg-secondary" }`} >
                           {capitalizeFirstLetter(orderStatusBySeller)}
                         </span>
                       </td>
                       <td>
-                        <span
-                          className={`badge text-white px-4 py-2 ${
-                            orderStatusByAdmin === "running"
-                              ? "bg-info"
-                              : "bg-danger"
-                          }`}
-                        >
+                        {/* prettier-ignore */}
+                        <span className={`badge text-white px-4 py-2 ${ orderStatusByAdmin === "running" ? "bg-info" : "bg-danger"  }`} >
                           {capitalizeFirstLetter(orderStatusByAdmin)}
                         </span>
                       </td>
                       <td>
-                        <button
-                          className="btn btn-sm btn-info my-1"
-                          onClick={() => handleAdminStatus(orderId, "running")}
-                        >
+                        {/* prettier-ignore */}
+                        <button className="btn btn-sm btn-info my-1" onClick={() => handleAdminStatus(orderId, "running")} >
                           Running
                         </button>
-                        <button
-                          className="btn btn-sm btn-danger my-1"
-                          onClick={() => handleAdminStatus(orderId, "aborted")}
-                        >
+                        {/* prettier-ignore */}
+                        <button className="btn btn-sm btn-danger my-1" onClick={() => handleAdminStatus(orderId, "aborted")} >
                           Abort
                         </button>
                       </td>
