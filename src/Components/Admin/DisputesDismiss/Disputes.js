@@ -21,10 +21,24 @@ const Disputes = () => {
   }, [API_BASE_URL]);
   // console.log(disputes);
 
-  const handelDispute = (_id, reason) => {
-    // console.log(_id, reason);
-    alert(`${reason.toUpperCase()} Under Process`);
-    window.confirm(`${reason.toUpperCase()} Under Process`);
+  const handelDispute = async (_id, productId, reason) => {
+    const message =
+      reason === "refund"
+        ? "Want to go for Refund?"
+        : "Want to go for Claim Money?";
+    const disputeDecision = window.confirm(message);
+
+    if (disputeDecision) {
+      const response = await axios.patch(
+        `${API_BASE_URL}/adminResolveDispute?id=${_id}`,
+        {
+          _id: productId,
+          resolution: `${reason} resolved by admin`,
+        }
+      );
+      //redirects to payment gateway
+      window.location.replace(response.data.url);
+    }
   };
 
   return (
@@ -47,10 +61,11 @@ const Disputes = () => {
           <tbody>
             {disputes.map((disputeItems, index) => {
               // prettier-ignore
-              const { _id, customerInfo, dispute, sellerInfo } = disputeItems
+              const { _id, productId, customerInfo, dispute, sellerInfo } = disputeItems
               const { displayName: buyerName } = customerInfo[0];
               const { displayName: sellerName } = sellerInfo[0];
               const { status, report } = dispute;
+
               return (
                 <tr key={_id}>
                   <td>{index + 1}</td>
@@ -73,7 +88,7 @@ const Disputes = () => {
                                 <span>Refund </span>
                                 {/* prettier-ignore */}
                                 <Button variant="success"  size="sm" onClick={() => {
-                                    handelDispute(_id, r.reason);
+                                    handelDispute(_id, productId, r.reason);
                                   }}
                                 >
                                   Refund
@@ -84,7 +99,7 @@ const Disputes = () => {
                                 <span>Claim Money </span>
                                 {/* prettier-ignore */}
                                 <Button variant="warning" size="sm" onClick={() => {
-                                    handelDispute(_id, r.reason);
+                                    handelDispute(_id, productId, r.reason);
                                   }}
                                 >
                                   Disburse Money
