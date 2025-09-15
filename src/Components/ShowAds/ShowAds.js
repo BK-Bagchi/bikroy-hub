@@ -53,7 +53,7 @@ const ShowAds = () => {
       sellerEmail: email,
       userName: localStorage.getItem("displayName"),
     };
-    console.log(sendPaymentInfo);
+    // console.log(sendPaymentInfo);
 
     const postAdAsync = async () => {
       try {
@@ -197,6 +197,16 @@ const ShowAds = () => {
               </div>
               <div className="description">
                 <p>{description}</p>
+              </div>
+            </div>
+            <div>
+              <div className="d-flex justify-content-center my-3">
+                <button
+                  className="btn btn-primary"
+                  onClick={() => alert("Chat with seller is coming soon.")}
+                >
+                  <i className="bi bi-chat-dots me-2"></i> Chat with Seller
+                </button>
               </div>
             </div>
           </section>
