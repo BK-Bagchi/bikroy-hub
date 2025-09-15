@@ -7,35 +7,19 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 const ViewGotOrders = () => {
   const history = useHistory();
 
+  const [ordersInfo, setOrdersInfo] = useState([]);
   const userEmail = localStorage.getItem("email");
-  const [orders, setOrders] = useState([]);
-  const [adsInfo, setAdsInfo] = useState([]);
   const [showLoader, setShowLoader] = useState(true);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
-  const orderElementsDetails = orders
-    .map((order) => {
-      const matchingItem = adsInfo.find((ad) => ad._id === order.productId);
-      return {
-        order,
-        matchingItems: matchingItem || "qwerty12345",
-      };
-    })
-    .filter((item) => item.matchingItems !== "qwerty12345");
-  // console.log(orderElementsDetails);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [adsResponse, ordersResponse] = await Promise.all([
-          axios.get(
-            `${API_BASE_URL}/getPostedAddsByAnUser?userEmail=${userEmail}`
-          ),
-          axios.get(`${API_BASE_URL}/getOrdersInfo`),
-        ]);
-
-        if (adsResponse.data) setAdsInfo(adsResponse.data.userAds);
-        if (ordersResponse.data) setOrders(ordersResponse.data);
+        const gotOrdersResponse = await axios.get(
+          `${API_BASE_URL}/postedOrGotOrdersByABuyerOrSeller?userEmail=${userEmail}&person=seller`
+        );
+        if (gotOrdersResponse.data)
+          setOrdersInfo(gotOrdersResponse.data.response);
         setShowLoader(false);
       } catch (error) {
         console.error("Error fetching data:", error.message);
@@ -55,21 +39,20 @@ const ViewGotOrders = () => {
           <div className="spinner-grow text-dark" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
-        ) : orderElementsDetails.length === 0 ? (
+        ) : ordersInfo.length === 0 ? (
           <p>You have not received any order yet</p>
         ) : (
           <>
             <p>Got orders (click to see details, accept or refuse)</p>
             <div className="card-group d-flex justify-content-center align-items-center">
-              {[...orderElementsDetails].reverse().map((orderElements) => {
-                const { order, matchingItems } = orderElements;
-                const { itemName, price, photoURL, postingTime } =
-                  matchingItems;
-                const { orderId, orderStatusByBuyer, orderStatusBySeller } =
-                  order;
+              {[...ordersInfo].reverse().map((orderElements) => {
+                // prettier-ignore
+                const { orderStatusBySeller, orderStatusByBuyer, orderId, addsInfo } = orderElements;
+                const { _id, itemName, price, photoURL, postingTime } =
+                  addsInfo[0];
                 return orderStatusByBuyer !== "cancelled" ? (
                   // prettier-ignore
-                  <div className="card" key={orderId} style={{ maxHeight: "440px", maxWidth: "230px" }}
+                  <div className="card" key={_id} style={{ maxHeight: "440px", maxWidth: "230px" }}
                     onClick={() =>
                       history.push(`/sellerOrderDetails/${orderId}`)
                     }
