@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./AdsHome.css";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import axios from "axios";
@@ -58,7 +58,7 @@ const AdsHome = () => {
                 minWidth: "200px",
               }}
               onClick={() => {
-                history.push("/showAds?adId=" + _id);
+                history.push(`/showAds/${_id}`);
               }}
             >
               <img

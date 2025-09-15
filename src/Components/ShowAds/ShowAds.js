@@ -6,12 +6,12 @@ import "./ShowAds.css";
 import axios from "axios";
 import {
   useHistory,
-  useLocation,
+  useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
 
 const ShowAds = () => {
   const history = useHistory();
-  const location = useLocation();
+  const { addId } = useParams();
   const userEmail = localStorage.getItem("email");
   const [loggedIn, isLoggedIn] = useState(localStorage.getItem("isLoggedIn"));
   useEffect(() => {
@@ -19,8 +19,6 @@ const ShowAds = () => {
   }, [loggedIn]);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-  const queryParams = new URLSearchParams(location.search);
-  const addId = queryParams.get("adId");
   const [adsInfo, setAdsInfo] = useState([]);
   const [paymentInfo, setPaymentInfo] = useState({
     shippingAddress: "",

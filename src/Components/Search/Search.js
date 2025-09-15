@@ -58,7 +58,7 @@ const Search = () => {
                     key={_id}
                     style={{ maxHeight: "440px", maxWidth: "230px" }}
                     onClick={() => {
-                      history.push("/showAds?adId=" + _id);
+                      history.push(`/showAds/${_id}`);
                     }}
                   >
                     <img
