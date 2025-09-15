@@ -81,7 +81,7 @@ const PreviewOrders = () => {
                       <td>
                         {
                           <span
-                            className={`badge px-4 py-2 my-1 ${
+                            className={`badge text-white px-4 py-2 my-1 ${
                               paymentMethod === "online"
                                 ? "bg-success"
                                 : "bg-info"
@@ -92,7 +92,7 @@ const PreviewOrders = () => {
                         }
                         {" & "}
                         <span
-                          className={`badge px-4 py-2 ${
+                          className={`badge text-white px-4 py-2 ${
                             paymentStatus ? "bg-success" : "bg-danger"
                           }`}
                         >
@@ -114,7 +114,7 @@ const PreviewOrders = () => {
                       </td>
                       <td>
                         <span
-                          className={`badge px-4 py-2 ${
+                          className={`badge text-white px-4 py-2 ${
                             orderStatusByBuyer === "ordered"
                               ? "bg-info"
                               : "bg-danger"
@@ -125,7 +125,7 @@ const PreviewOrders = () => {
                       </td>
                       <td>
                         <span
-                          className={`badge px-4 py-2 ${
+                          className={`badge text-white px-4 py-2 ${
                             orderStatusBySeller === "accepted"
                               ? "bg-info"
                               : orderStatusBySeller === "cancelled"
@@ -138,7 +138,7 @@ const PreviewOrders = () => {
                       </td>
                       <td>
                         <span
-                          className={`badge px-4 py-2 ${
+                          className={`badge text-white px-4 py-2 ${
                             orderStatusByAdmin === "running"
                               ? "bg-info"
                               : "bg-danger"

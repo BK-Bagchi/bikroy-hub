@@ -49,6 +49,10 @@ const PreviewAds = () => {
   };
   // console.log("postedAds:", postedAds);
 
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   return (
     <div>
       <h2 className="mb-4">📑 Manage Posts</h2>
@@ -83,7 +87,17 @@ const PreviewAds = () => {
                       <td>{category}</td>
                       <td>{price}</td>
                       <td>
-                        {status.charAt(0).toUpperCase() + status.slice(1)}
+                        <span
+                          className={`badge px-4 py-2 text-white ${
+                            status === "approved"
+                              ? "bg-success"
+                              : status === "rejected"
+                              ? "bg-danger"
+                              : "bg-info"
+                          }`}
+                        >
+                          {capitalizeFirstLetter(status)}
+                        </span>
                       </td>
                       <td className="d-flex justify-content-center">
                         {/* prettier-ignore */}

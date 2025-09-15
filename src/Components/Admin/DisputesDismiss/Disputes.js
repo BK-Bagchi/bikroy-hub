@@ -41,6 +41,10 @@ const Disputes = () => {
     }
   };
 
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   return (
     <div>
       <h2 className="mb-4">⚠️ Handle Disputes</h2>
@@ -82,10 +86,25 @@ const Disputes = () => {
                       <tbody>
                         {report.map((r, i) => (
                           <tr key={i}>
-                            <td>{r.reportedBy}</td>
+                            <td>
+                              {
+                                <span
+                                  className={`badge px-4 py-2 my-1 text-white ${
+                                    r.reportedBy === "buyer"
+                                      ? "bg-success"
+                                      : "bg-info"
+                                  }`}
+                                >
+                                  {capitalizeFirstLetter(r.reportedBy)}
+                                </span>
+                              }
+                            </td>
                             {r.reason === "refund" ? (
                               <td>
-                                <span>Refund </span>
+                                {/* prettier-ignore */}
+                                <span className={`badge px-4 py-2 mx-1 text-white bg-success`} >
+                                  Refund{" "}
+                                </span>
                                 {/* prettier-ignore */}
                                 <Button variant="success"  size="sm" onClick={() => {
                                     handelDispute(_id, productId, r.reason);
@@ -96,7 +115,10 @@ const Disputes = () => {
                               </td>
                             ) : r.reason === "claim_money" ? (
                               <td>
-                                <span>Claim Money </span>
+                                {/* prettier-ignore */}
+                                <span className={`badge px-4 py-2 mx-1 bg-warning`} >
+                                  Claim Money{" "}
+                                </span>
                                 {/* prettier-ignore */}
                                 <Button variant="warning" size="sm" onClick={() => {
                                     handelDispute(_id, productId, r.reason);
