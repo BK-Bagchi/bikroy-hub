@@ -80,8 +80,8 @@ const Categories = () => {
                 ) : (
                   <>
                     Total Ads:{" "}
-                    {countAdByCategory.Electronic ? (
-                      <b>{countAdByCategory.Electronic}</b>
+                    {countAdByCategory.Electronics ? (
+                      <b>{countAdByCategory.Electronics}</b>
                     ) : (
                       <b>0</b>
                     )}
