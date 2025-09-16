@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Bottom from "../Bottom/Bottom";
 import Navbar from "../Top/Navbar";
 import "./PostAd.css";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import Categories from "../Database/Categories";
 
 const PostAd = () => {
   const history = useHistory();
@@ -100,107 +101,48 @@ const PostAd = () => {
       <Navbar />
       <section className="post-ad container">
         <div className="post-ad-form px-3">
-          <form
-            className="d-flex flex-column align-items-center"
-            onSubmit={handleSubmit}
-          >
+          <form className="d-flex flex-column align-items-center" onSubmit={handleSubmit} >
             <div className="form-fields w-100">
               <p>Item name</p>
-              <input
-                className="sm:w-50 w-75"
-                type="text"
-                placeholder="Item name"
-                name="itemName"
-                onChange={handleFormInput}
-                required
-              />
+              <input className="sm:w-50 w-75" type="text" placeholder="Item name"  name="itemName" onChange={handleFormInput} required />
             </div>
-
             <div className="form-fields w-100">
               <p>Brand name</p>
-              <input
-                className="sm:w-50 w-75"
-                type="text"
-                placeholder="Brand name"
-                name="brand"
-                onChange={handleFormInput}
-                required
-              />
+              <input className="sm:w-50 w-75"  type="text" placeholder="Brand name" name="brand" onChange={handleFormInput} required />
             </div>
-
             <div className="form-fields w-100">
               <p>Item Price</p>
-              <input
-                className="sm:w-50 w-75"
-                type="text"
-                placeholder="Price"
-                name="price"
-                onChange={handleFormInput}
-                required
-              />
+              <input className="sm:w-50 w-75" type="text" placeholder="Price" name="price" onChange={handleFormInput} required/>
             </div>
-
             <div className="form-fields w-100">
               <p>Category</p>
-              <select
-                name="category"
-                id="category"
-                onChange={handleFormInput}
-                required
-                style={{ margin: "10px" }}
-              >
-                <option value="">Select Item Category</option>
-                <option value="Electronic">Electronic</option>
-                <option value="Vehicle">Vehicle</option>
-                <option value="Mobile">Mobile</option>
-                <option value="Laptop">Laptop</option>
+              <select name="category" id="category" onChange={handleFormInput} required style={{ margin: "10px" }} >
+                <option className="d-none" value="">
+                  Select Item Category
+                </option>
+                {Categories.map((category) => (
+                  <option key={category.id} value={category.type}>
+                    {category.type}
+                  </option>
+                ))}
               </select>
             </div>
-
             <div className="edit-picture w-100 d-flex align-items-center justify-content-center">
-              {imageUpload && (
-                <img
-                  className="picture w-25"
-                  src={URL.createObjectURL(imageUpload)}
-                  alt="Preview"
-                />
-              )}
+              {imageUpload && 
+              <img className="picture w-25" src={URL.createObjectURL(imageUpload)}  alt="Preview" />}
             </div>
-
             <div className="form-fields w-100 d-flex align-items-center">
               <p>Upload photo</p>
-              <input
-                className="sm:w-50 w-75"
-                type="file"
-                accept="image/*"
-                onChange={(e) => setImageUpload(e.target.files[0])}
-                style={{ margin: "10px" }}
-                required
-              />
+              <input className="sm:w-50 w-75" type="file" accept="image/*" onChange={(e) => setImageUpload(e.target.files[0])} style={{ margin: "10px" }} required />
             </div>
-
             <div className="form-fields w-100">
               <p>Item description</p>
-              <textarea
-                name="description"
-                placeholder="Product Description"
-                onChange={handleFormInput}
-                required
-              ></textarea>
+              <textarea name="description" placeholder="Product Description" onChange={handleFormInput}  required  ></textarea>
             </div>
-
             <div className="form-fields w-100">
               <p>Your contact</p>
-              <input
-                className="sm:w-50 w-75"
-                type="text"
-                placeholder="Your Contact"
-                name="phoneNumber"
-                onChange={handleFormInput}
-                required
-              />
+              <input className="sm:w-50 w-75" type="text" placeholder="Your Contact"  name="phoneNumber" onChange={handleFormInput} required />
             </div>
-
             <button type="submit" className="submit-btn">
               Post Ad
             </button>

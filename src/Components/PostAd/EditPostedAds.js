@@ -9,6 +9,7 @@ import {
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
 import useAuth from "../../Hooks/JWTDecode";
+import Categories from "../Database/Categories";
 
 const EditPostedAds = () => {
   const history = useHistory();
@@ -143,69 +144,33 @@ const EditPostedAds = () => {
       <Navbar />
       <section className="edit-ad container">
         <div className="edit-ad-form px-3">
-          <form
-            className="d-flex flex-column align-items-center"
-            onSubmit={updateAd}
-          >
+          <form className="d-flex flex-column align-items-center" onSubmit={updateAd} >
             <div className="form-fields w-100">
               <p>Item name</p>
-              <input
-                type="text"
-                placeholder="Item name"
-                name="itemName"
-                value={editableAd.itemName}
-                onChange={handleFormInput}
-                required
-              />
+              <input type="text" placeholder="Item name" name="itemName" value={editableAd.itemName} onChange={handleFormInput} required  />
             </div>
-
             <div className="form-fields w-100">
               <p>Brand name</p>
-              <input
-                type="text"
-                placeholder="Brand name"
-                name="brand"
-                value={editableAd.brand}
-                onChange={handleFormInput}
-                required
-              />
+              <input type="text" placeholder="Brand name" name="brand" value={editableAd.brand} onChange={handleFormInput} required />
             </div>
-
             <div className="form-fields w-100">
               <p>Item Price</p>
-              <input
-                type="text"
-                placeholder="Price"
-                name="price"
-                value={editableAd.price}
-                onChange={handleFormInput}
-                required
-              />
+              <input type="text" placeholder="Price" name="price" value={editableAd.price} onChange={handleFormInput} required />
             </div>
-
             <div className="form-fields w-100">
               <p>Category</p>
-              <select
-                name="category"
-                value={editableAd.category}
-                id="category"
-                onChange={handleFormInput}
-                required
-                style={{ margin: "10px" }}
-              >
-                <option value="">Select Item Category</option>
-                <option value="Electronic">Electronic</option>
-                <option value="Vehicle">Vehicle</option>
-                <option value="Mobile">Mobile</option>
-                <option value="Laptop">Laptop</option>
+              <select name="category" value={editableAd.category} id="category" onChange={handleFormInput} required style={{ margin: "10px" }} >
+                <option className="d-none" value="">Select Item Category</option>
+                {Categories.map((category) => (
+                  <option key={category.id} value={category.type}>
+                    {category.type}
+                  </option>
+                ))}
               </select>
             </div>
-
             <div className="edit-picture w-100 d-flex align-items-center justify-content-center">
               {(imageUpload || editableAd.photoURL) && (
-                <img
-                  className="picture w-25"
-                  src={
+                <img className="picture w-25" src={
                     imageUpload
                       ? URL.createObjectURL(imageUpload)
                       : editableAd.photoURL
@@ -214,48 +179,23 @@ const EditPostedAds = () => {
                 />
               )}
             </div>
-
             <div className="form-fields w-100 d-flex align-items-center">
               <p>Upload photo</p>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => setImageUpload(e.target.files[0])}
-                style={{ margin: "10px" }}
-              />
+              <input type="file" accept="image/*" onChange={(e) => setImageUpload(e.target.files[0])} style={{ margin: "10px" }} />
             </div>
-
             <div className="form-fields w-100">
               <p>Item description</p>
-              <textarea
-                name="description"
-                value={editableAd.description}
-                placeholder="Product Description"
-                onChange={handleFormInput}
-                required
-              ></textarea>
+              <textarea name="description" value={editableAd.description} placeholder="Product Description" onChange={handleFormInput} required ></textarea>
             </div>
-
             <div className="form-fields w-100">
               <p>Your contact</p>
-              <input
-                type="text"
-                placeholder="Your Contact"
-                name="phoneNumber"
-                value={editableAd.phoneNumber}
-                onChange={handleFormInput}
-                required
-              />
+              <input type="text" placeholder="Your Contact" name="phoneNumber" value={editableAd.phoneNumber} onChange={handleFormInput} required />
             </div>
             <div className="d-flex justify-content-around w-50">
               <button type="submit" className="submit-btn">
                 Update
               </button>
-              <button
-                type="submit"
-                className="btn btn-danger"
-                onClick={(e) => deleteAd(e, editableAd._id)}
-              >
+              <button type="submit" className="btn btn-danger" onClick={(e) => deleteAd(e, editableAd._id)} >
                 Delete
               </button>
             </div>
