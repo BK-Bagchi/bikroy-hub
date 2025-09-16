@@ -7,33 +7,32 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const MyProfile = () => {
   const history = useHistory();
-  const myName = localStorage.getItem("displayName");
-  const myEmail = localStorage.getItem("email");
-  const myProfilePicture = localStorage.getItem("photoURL");
+  const token = localStorage.getItem("token");
   const [formData, setFromData] = useState({
-    displayName: myName,
-    email: myEmail,
-    photoURL: myProfilePicture,
-    businessName: "",
+    displayName: "",
+    email: "",
+    photoURL: "",
     phoneNumber: "",
-    aboutBusiness: "",
   });
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
     const fetchProfileInfo = async () => {
       try {
-        const response = await axios.get(
-          `${API_BASE_URL}/getProfileInfo?userEmail=${myEmail}`
-        );
+        const response = await axios.get(`${API_BASE_URL}/getProfileInfo`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setFromData(response.data[0]);
       } catch (error) {
         console.error("Error: " + error.message);
       }
     };
 
-    if (myEmail) fetchProfileInfo();
-  }, [myEmail, API_BASE_URL]);
+    if (token) fetchProfileInfo();
+  }, [token, API_BASE_URL]);
+  // console.log(formData);
 
   const handelFormInput = (e) => {
     const { name, value } = e.target;
@@ -85,12 +84,12 @@ const MyProfile = () => {
             onSubmit={handleSubmit}
           >
             <div className="profile-picture">
-              <img src={myProfilePicture} alt="User Profile Pic" />
+              <img src={formData.photoURL} alt="User Profile Pic" />
             </div>
             <input
               className="sm:w-50 w-75"
               type="text"
-              value={myName}
+              value={formData.displayName}
               readOnly
             />
             <input

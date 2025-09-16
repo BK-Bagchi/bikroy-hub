@@ -128,7 +128,7 @@ const ShowAds = () => {
                 <>
                   {/* prettier-ignore */}
                   <button className="buy-now" data-toggle="modal" data-target="#orderTakingModal" >
-                  <i class="bi bi-bag"></i> Buy Now
+                  <i className="bi bi-bag"></i> Buy Now
                 </button>
                   <br />
                   {favAddInfo.includes(adsInfo[0]._id) ? (

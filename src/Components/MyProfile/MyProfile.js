@@ -40,6 +40,7 @@ const MyProfile = () => {
 
     if (token) fetchProfileInfo();
   }, [token, API_BASE_URL]);
+  // console.log(profileInfo);
 
   return (
     <>

@@ -46,9 +46,7 @@ const Categories = () => {
               <h5 className="card-title">Mobile</h5>
               <p className="card-text">
                 {showLoader ? (
-                  <div className="spinner-grow text-dark" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
+                  <span className="text-center">Loading...</span>
                 ) : (
                   <>
                     Total Ads:{" "}
@@ -74,9 +72,7 @@ const Categories = () => {
               <h5 className="card-title">Electronics</h5>
               <p className="card-text">
                 {showLoader ? (
-                  <div className="spinner-grow text-dark" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
+                  <span className="text-center">Loading...</span>
                 ) : (
                   <>
                     Total Ads:{" "}
@@ -102,9 +98,7 @@ const Categories = () => {
               <h5 className="card-title">Vehicle</h5>
               <p className="card-text">
                 {showLoader ? (
-                  <div className="spinner-grow text-dark" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
+                  <span className="text-center">Loading...</span>
                 ) : (
                   <>
                     Total Ads:{" "}
@@ -130,9 +124,7 @@ const Categories = () => {
               <h5 className="card-title">Laptop</h5>
               <p className="card-text">
                 {showLoader ? (
-                  <div className="spinner-grow text-dark" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
+                  <span className="text-center">Loading...</span>
                 ) : (
                   <>
                     Total Ads:{" "}

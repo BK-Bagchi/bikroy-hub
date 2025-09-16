@@ -35,9 +35,7 @@ const AdsHome = () => {
   return (
     <section className="ads-home container">
       {showLoader ? (
-        <div className="spinner-grow text-dark" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
+        <p className="text-center">Loading...</p>
       ) : adsInfo.length > 0 ? (
         <p>Recently posted(click to see details)</p>
       ) : (
