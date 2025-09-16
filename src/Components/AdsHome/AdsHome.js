@@ -39,7 +39,7 @@ const AdsHome = () => {
       ) : adsInfo.length > 0 ? (
         <p>Recently posted(click to see details)</p>
       ) : (
-        <p>No adds to show</p>
+        <p>No ads to show</p>
       )}
       <div className="card-group d-flex justify-content-center">
         {showAdsHome.map((adsHome) => {
@@ -77,24 +77,12 @@ const AdsHome = () => {
         })}
       </div>
       <div className="d-flex justify-content-center mt-3">
-        {adsInfo.length > showAdsOnLoad && adsToShow < adsInfo.length ? (
+        {adsInfo.length > adsToShow && (
           <p
             className="see-more-ads mx-2"
             onClick={() => setAdsToShow(adsToShow + 2)}
           >
             See more
-          </p>
-        ) : (
-          <></>
-        )}
-        {adsInfo.length > showAdsOnLoad && adsToShow < 3 ? (
-          <></>
-        ) : (
-          <p
-            className="see-more-ads mx-2"
-            onClick={() => setAdsToShow(adsToShow - 2)}
-          >
-            See less
           </p>
         )}
       </div>
