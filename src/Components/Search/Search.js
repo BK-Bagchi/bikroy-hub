@@ -15,6 +15,7 @@ const Search = () => {
   const queryParams = new URLSearchParams(location.search);
   const searchItemName = queryParams.get("searchItem");
   const [adsInfo, setAdsInfo] = useState([]);
+  const [showLoader, setShowLoader] = useState(true);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
@@ -22,6 +23,7 @@ const Search = () => {
       try {
         const response = await axios.get(`${API_BASE_URL}/getAddsInfo`);
         setAdsInfo(response.data);
+        setShowLoader(false);
       } catch (error) {
         console.error("Error:", error.message);
       }
@@ -38,9 +40,11 @@ const Search = () => {
     <>
       <Navbar />
       <section className="ads-home container">
-        <p>Showing results of category: "{searchItemName}"</p>
-        {searchItemDetails && searchItemDetails.length > 0 ? (
+        {showLoader ? (
+          <p>Loading...</p>
+        ) : searchItemDetails && searchItemDetails.length > 0 ? (
           <>
+            <p>Showing results of category: "{searchItemName}"</p>
             <div className="card-group d-flex justify-content-center">
               {searchItemDetails.map((showSearch) => {
                 const {
