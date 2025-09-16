@@ -83,6 +83,24 @@ const ShowAds = () => {
     });
   };
 
+  const addToFavorites = async (addId) => {
+    try {
+      const response = await axios.patch(
+        `${API_BASE_URL}/addToFavorites`,
+        {
+          addId: addId,
+          email: userEmail,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      alert(response.data.message);
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -96,10 +114,17 @@ const ShowAds = () => {
             <span>Posted on {postingTime}</span>
             <br />
             {loggedIn ? (
-              // prettier-ignore
-              <button className="buy-now" data-toggle="modal" data-target="#orderTakingModal" >
-                Buy Now
-              </button>
+              <>
+                {/* prettier-ignore */}
+                <button className="buy-now" data-toggle="modal" data-target="#orderTakingModal" >
+                  Buy Now
+                </button>
+                <br />
+                {/* prettier-ignore */}
+                <button className="btn btn-outline-info mt-2" onClick={()=>addToFavorites(_id)}>
+                  <i className="bi bi-heart me-2"></i> Add to Favorites
+                </button>
+              </>
             ) : (
               <span className="buy-now" onClick={() => history.push("/login")}>
                 Login to order
