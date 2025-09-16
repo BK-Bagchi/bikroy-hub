@@ -19,6 +19,8 @@ const ShowAds = () => {
   }, [loggedIn]);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
+  const [showLoader, setShowLoader] = useState(true);
+  const [favAddInfo, setFavAddInfo] = useState([]);
   const [adsInfo, setAdsInfo] = useState([]);
   const [paymentInfo, setPaymentInfo] = useState({
     shippingAddress: "",
@@ -28,21 +30,25 @@ const ShowAds = () => {
   });
 
   useEffect(() => {
-    const fetchSpecificAdd = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `${API_BASE_URL}/getSpecificAdd/?addId=${addId}`
-        );
-        setAdsInfo([response.data]); // Wrap in array to keep consistent structure
+        const [specificAddResponse, favoriteAddsResponse] = await Promise.all([
+          axios.get(`${API_BASE_URL}/getSpecificAdd/?addId=${addId}`),
+          axios.get(`${API_BASE_URL}/getFavoriteAdds?userEmail=${userEmail}`),
+        ]);
+        setFavAddInfo(favoriteAddsResponse.data.favoriteAdds);
+        setAdsInfo([specificAddResponse.data]); // Wrap in array to keep consistent structure
+        setShowLoader(false);
       } catch (error) {
         console.error("Error:", error.message);
       }
     };
 
-    if (addId) fetchSpecificAdd();
-  }, [addId, API_BASE_URL]);
+    if (addId) fetchData();
+  }, [addId, userEmail, API_BASE_URL]);
 
   // console.log(adsInfo);
+  // console.log(favAddInfo);
 
   const orderNow = (paymentMethod) => {
     const { email, ...rest } = adsInfo[0];
@@ -104,34 +110,49 @@ const ShowAds = () => {
   return (
     <>
       <Navbar />
-      {adsInfo.map((thisAd) => {
-        //prettier-ignore
-        const { _id, brand, category, phoneNumber, description, photoURL, itemName, postingTime, price } = thisAd;
+      {showLoader ? (
+        <div className="loader">
+          <p className="text-center">Loading...</p>
+        </div>
+      ) : (
+        adsInfo.map((thisAd) => {
+          //prettier-ignore
+          const { _id, brand, category, phoneNumber, description, photoURL, itemName, postingTime, price } = thisAd;
 
-        return (
-          <section className="show-ad container p-2" key={_id}>
-            <p className="ad-name m-2">{itemName}</p>
-            <span>Posted on {postingTime}</span>
-            <br />
-            {loggedIn ? (
-              <>
-                {/* prettier-ignore */}
-                <button className="buy-now" data-toggle="modal" data-target="#orderTakingModal" >
-                  Buy Now
+          return (
+            <section className="show-ad container p-2" key={_id}>
+              <p className="ad-name m-2">{itemName}</p>
+              <span>Posted on {postingTime}</span>
+              <br />
+              {loggedIn ? (
+                <>
+                  {/* prettier-ignore */}
+                  <button className="buy-now" data-toggle="modal" data-target="#orderTakingModal" >
+                  <i class="bi bi-bag"></i> Buy Now
                 </button>
-                <br />
-                {/* prettier-ignore */}
-                <button className="btn btn-outline-info mt-2" onClick={()=>addToFavorites(_id)}>
-                  <i className="bi bi-heart me-2"></i> Add to Favorites
-                </button>
-              </>
-            ) : (
-              <span className="buy-now" onClick={() => history.push("/login")}>
-                Login to order
-              </span>
-            )}
-            {/* prettier-ignore */}
-            <div className="modal"  tabIndex="-1" role="dialog" id="orderTakingModal"  >
+                  <br />
+                  {favAddInfo.includes(adsInfo[0]._id) ? (
+                    //  prettier-ignore
+                    <button className="btn btn-info mt-2">
+                    <i className="bi bi-heart me-2"></i> Added to Favorites
+                  </button>
+                  ) : (
+                    // prettier-ignore
+                    <button className="btn btn-outline-info mt-2" onClick={()=>addToFavorites(_id)}>
+                      <i className="bi bi-heart me-2"></i> Add to Favorites
+                    </button>
+                  )}
+                </>
+              ) : (
+                <span
+                  className="buy-now"
+                  onClick={() => history.push("/login")}
+                >
+                  Login to order
+                </span>
+              )}
+              {/* prettier-ignore */}
+              <div className="modal"  tabIndex="-1" role="dialog" id="orderTakingModal"  >
               <div className="modal-dialog" role="document">
                 <div className="modal-content">
                   <div className="modal-header">
@@ -194,49 +215,50 @@ const ShowAds = () => {
                 </div>
               </div>
             </div>
-            <div className="ad-picture w-100 d-flex align-items-center justify-content-center">
-              <img className="picture w-25" src={photoURL} alt="picture" />
-            </div>
-            <div className="description d-flex flex-column align-items-center justify-content-center my-3">
-              <div className="product-price">
-                <p className="price">Tk. {price}</p>
+              <div className="ad-picture w-100 d-flex align-items-center justify-content-center">
+                <img className="picture w-25" src={photoURL} alt="picture" />
               </div>
-              <div className="details d-flex flex-wrap">
-                {/* dynamically data will come from db at this place */}
-                <div>
-                  <h6>Brand Name</h6>
-                  <p>{brand}</p>
+              <div className="description d-flex flex-column align-items-center justify-content-center my-3">
+                <div className="product-price">
+                  <p className="price">Tk. {price}</p>
                 </div>
-                <div>
-                  <h6>Model</h6>
-                  <p>{itemName}</p>
+                <div className="details d-flex flex-wrap">
+                  {/* dynamically data will come from db at this place */}
+                  <div>
+                    <h6>Brand Name</h6>
+                    <p>{brand}</p>
+                  </div>
+                  <div>
+                    <h6>Model</h6>
+                    <p>{itemName}</p>
+                  </div>
+                  <div>
+                    <h6>Contact Now</h6>
+                    <p>{phoneNumber}</p>
+                  </div>
+                  <div>
+                    <h6>Category</h6>
+                    <p>{category}</p>
+                  </div>
                 </div>
-                <div>
-                  <h6>Contact Now</h6>
-                  <p>{phoneNumber}</p>
-                </div>
-                <div>
-                  <h6>Category</h6>
-                  <p>{category}</p>
+                <div className="description">
+                  <p>{description}</p>
                 </div>
               </div>
-              <div className="description">
-                <p>{description}</p>
+              <div>
+                <div className="d-flex justify-content-center my-3">
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => alert("Chat with seller is coming soon.")}
+                  >
+                    <i className="bi bi-chat-dots me-2"></i> Chat with Seller
+                  </button>
+                </div>
               </div>
-            </div>
-            <div>
-              <div className="d-flex justify-content-center my-3">
-                <button
-                  className="btn btn-primary"
-                  onClick={() => alert("Chat with seller is coming soon.")}
-                >
-                  <i className="bi bi-chat-dots me-2"></i> Chat with Seller
-                </button>
-              </div>
-            </div>
-          </section>
-        );
-      })}
+            </section>
+          );
+        })
+      )}
       <Bottom />
     </>
   );
