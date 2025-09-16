@@ -32,7 +32,7 @@ const Top = () => {
                   ))}
                 </select>
                 {/* prettier-ignore */}
-                <button type="submit" className="btn btn-primary" onClick={setSearch} >
+                <button type="submit" onClick={setSearch} >
                   <i className="bi bi-search"></i> Search
                 </button>
               </form>

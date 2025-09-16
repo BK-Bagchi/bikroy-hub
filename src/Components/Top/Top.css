@@ -39,6 +39,7 @@ p {
 }
 .search-box button {
   width: 120px;
+  height: calc(2.25rem + 2px);
   background: white;
   color: #149777;
   font-weight: bold;
