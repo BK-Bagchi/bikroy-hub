@@ -8,7 +8,8 @@
 
 .profile form input[type="text"],
 input[type="number"],
-textarea {
+textarea,
+select {
   height: 40px;
   margin-bottom: 15px;
   border: none;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../Top/Navbar";
 import Bottom from "../Bottom/Bottom";
@@ -8,12 +8,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 const MyProfile = () => {
   const history = useHistory();
   const token = localStorage.getItem("token");
-  const [formData, setFromData] = useState({
-    displayName: "",
-    email: "",
-    photoURL: "",
-    phoneNumber: "",
-  });
+  const [formData, setFromData] = useState({});
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
@@ -36,10 +31,21 @@ const MyProfile = () => {
 
   const handelFormInput = (e) => {
     const { name, value } = e.target;
-    setFromData({
+    if (name === "method" || name === "accountNumber") {
+      setFromData({
+      ...formData,
+      paymentMedia:{
+        ...formData.paymentMedia,
+        [name]: value
+      }
+    });
+    }
+    else {
+      setFromData({
       ...formData,
       [name]: value,
-    });
+    })
+  }
   };
 
   const handleSubmit = async (e) => {
@@ -80,47 +86,20 @@ const MyProfile = () => {
         </div>
         <div className="profile-form">
           <form
-            className="d-flex flex-column align-items-center"
-            onSubmit={handleSubmit}
-          >
+            className="d-flex flex-column align-items-center" onSubmit={handleSubmit} >
             <div className="profile-picture">
-              <img src={formData.photoURL} alt="User Profile Pic" />
+              <img src={formData?.photoURL} alt="User Profile Pic" />
             </div>
-            <input
-              className="sm:w-50 w-75"
-              type="text"
-              value={formData.displayName}
-              readOnly
-            />
-            <input
-              className="sm:w-50 w-75"
-              type="text"
-              placeholder="Enter Your Business name"
-              name="businessName"
-              value={formData.businessName}
-              onChange={handelFormInput}
-            />
-            <input
-              className="sm:w-50 w-75"
-              type="text"
-              placeholder="Enter Your Contact"
-              name="phoneNumber"
-              value={formData.phoneNumber}
-              onChange={handelFormInput}
-            />
-            <div className="about-user sm:w-50 w-75">
-              <p>
-                Write something about your business so that others can connect
-                to you.
-              </p>
-              <textarea
-                className="w-100"
-                placeholder="About your business..."
-                name="aboutBusiness"
-                value={formData.aboutBusiness}
-                onChange={handelFormInput}
-              ></textarea>
-            </div>
+            <input className="sm:w-50 w-75" type="text" name="displayName" value={formData?.displayName} readOnly />
+            <select name="method" className="sm:w-50 w-75" value={formData?.paymentMedia?.method} onChange={handelFormInput} >
+              <option value="" className="d-none">Select Payment Method</option>
+              <option value="bank">Bank</option>
+              <option value="bkash">Bkash</option>
+              <option value="rocket">Rocket</option>
+              <option value="nagad">Nagad</option>
+            </select>
+            <input className="sm:w-50 w-75" type="text" placeholder="Enter Your account number" name="accountNumber" value={formData?.paymentMedia?.accountNumber} onChange={handelFormInput} />
+            <input className="sm:w-50 w-75" type="text" placeholder="Enter Your Contact" name="phoneNumber" value={formData?.phoneNumber} onChange={handelFormInput} />
             <button type="submit" className="submit-btn">
               Update Profile
             </button>
