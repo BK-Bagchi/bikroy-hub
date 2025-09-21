@@ -6,12 +6,14 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
+import Chat from "../Chat/Chat";
 
 const SellerOrderDetails = () => {
   const history = useHistory();
   const { orderId } = useParams();
   const [orderInfo, setOrderInfo] = useState([]);
   const [showLoader, setShowLoader] = useState(true);
+  const [showChat, setShowChat] = useState(false);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
@@ -77,11 +79,12 @@ const SellerOrderDetails = () => {
           </div>
         ):(
         orderInfo.map((order) => {
-        const { _id, addInfo, orderCredentials, orderId, paymentMethod } = order;
+        const { _id, addInfo, orderCredentials, orderId, paymentMethod, customerEmail:buyerEmail, sellerEmail } = order;
         const { photoURL, itemName, price, brand, category, description } =
           addInfo[0];
         const { cus_name, cus_phone, ship_add1, total_amount } =
           orderCredentials;
+
         return (
           <section className="show-ad container p-2" key={_id}>
             {/* prettier-ignore */}
@@ -147,6 +150,35 @@ const SellerOrderDetails = () => {
                 <p>{description}</p>
               </div>
             </div>
+            <div className="d-flex align-items-center justify-content-center">
+                <div className="d-flex justify-content-center my-3">
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => setShowChat(true)}
+                  >
+                    <i className="bi bi-chat-dots me-2"></i> Chat with Buyer
+                  </button>
+                </div>
+
+                {/* Popup Modal */}
+                {buyerEmail && sellerEmail && showChat && (
+                  <div className="chat-modal">
+                    <div className="chat-box bg-white p-4">
+                      <button
+                        className="chat-close btn-close float-end"
+                        onClick={() => setShowChat(false)}
+                      >
+                        <i className="bi bi-x-lg"></i>
+                      </button>
+                      <Chat
+                        buyerEmail={buyerEmail}
+                        sellerEmail={sellerEmail}
+                        user="seller"
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
           </section>
         );
       })

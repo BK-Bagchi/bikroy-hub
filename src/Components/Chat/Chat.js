@@ -24,6 +24,14 @@ const Chat = ({ buyerEmail, sellerEmail, user }) => {
 
   // On load: register user and load chat
   useEffect(() => {
+    if (user === "buyer") {
+      socket.emit("register", { email: currentUserEmail, partnerEmail });
+    } else if (user === "seller") {
+      socket.emit("register", {
+        email: partnerEmail,
+        partnerEmail: currentUserEmail,
+      });
+    }
     socket.emit("register", { email: currentUserEmail, partnerEmail });
     socket.on("loadMessages", (msgs) => {
       setMessages(msgs);
@@ -36,7 +44,7 @@ const Chat = ({ buyerEmail, sellerEmail, user }) => {
       socket.off("loadMessages");
       socket.off("privateMessage");
     };
-  }, [currentUserEmail, partnerEmail]);
+  }, [currentUserEmail, partnerEmail, user]);
 
   // Send a new message
   const handleSendMsg = () => {
