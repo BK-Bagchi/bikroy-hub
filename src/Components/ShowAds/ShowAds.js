@@ -8,9 +8,12 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
+import Chat from "../Chat/Chat";
+import useAuth from "../../Hooks/JWTDecode";
 
 const ShowAds = () => {
   const history = useHistory();
+  const { user } = useAuth();
   const { addId } = useParams();
   const userEmail = localStorage.getItem("email");
   const [loggedIn, isLoggedIn] = useState(localStorage.getItem("isLoggedIn"));
@@ -20,6 +23,7 @@ const ShowAds = () => {
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const [showLoader, setShowLoader] = useState(true);
+  const [showChat, setShowChat] = useState(false);
   const [favAddInfo, setFavAddInfo] = useState([]);
   const [adsInfo, setAdsInfo] = useState([]);
   const [paymentInfo, setPaymentInfo] = useState({
@@ -118,6 +122,7 @@ const ShowAds = () => {
         adsInfo.map((thisAd) => {
           //prettier-ignore
           const { _id, brand, category, phoneNumber, description, photoURL, itemName, postingTime, price } = thisAd;
+          const [buyerEmail, sellerEmail] = [user?.email, thisAd.email];
 
           return (
             <section className="show-ad container p-2" key={_id}>
@@ -245,15 +250,30 @@ const ShowAds = () => {
                   <p>{description}</p>
                 </div>
               </div>
-              <div>
+              <div className="d-flex align-items-center justify-content-center">
                 <div className="d-flex justify-content-center my-3">
                   <button
                     className="btn btn-primary"
-                    onClick={() => alert("Chat with seller is coming soon.")}
+                    onClick={() => setShowChat(true)}
                   >
                     <i className="bi bi-chat-dots me-2"></i> Chat with Seller
                   </button>
                 </div>
+
+                {/* Popup Modal */}
+                {buyerEmail && sellerEmail && showChat && (
+                  <div className="chat-modal">
+                    <div className="chat-box bg-white p-4">
+                      <button
+                        className="chat-close btn-close float-end"
+                        onClick={() => setShowChat(false)}
+                      >
+                        <i className="bi bi-x-lg"></i>
+                      </button>
+                      <Chat buyerEmail={buyerEmail} sellerEmail={sellerEmail} />
+                    </div>
+                  </div>
+                )}
               </div>
             </section>
           );
