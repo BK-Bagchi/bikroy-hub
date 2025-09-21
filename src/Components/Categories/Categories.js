@@ -29,6 +29,8 @@ const Categories = () => {
     return acc;
   }, {});
 
+  // console.log(countAdByCategory);
+
   return (
     <section className="container categories">
       <p className="text-center mt-2 mb-2 font-weight-bold">
@@ -128,8 +130,8 @@ const Categories = () => {
                 ) : (
                   <>
                     Total Ads:{" "}
-                    {countAdByCategory.Laptop ? (
-                      <b>{countAdByCategory.Laptop}</b>
+                    {countAdByCategory.Laptops ? (
+                      <b>{countAdByCategory.Laptops}</b>
                     ) : (
                       <b>0</b>
                     )}
