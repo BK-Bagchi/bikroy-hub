@@ -270,7 +270,11 @@ const ShowAds = () => {
                       >
                         <i className="bi bi-x-lg"></i>
                       </button>
-                      <Chat buyerEmail={buyerEmail} sellerEmail={sellerEmail} />
+                      <Chat
+                        buyerEmail={buyerEmail}
+                        sellerEmail={sellerEmail}
+                        user="buyer"
+                      />
                     </div>
                   </div>
                 )}
