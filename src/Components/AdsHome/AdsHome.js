@@ -10,7 +10,7 @@ const AdsHome = () => {
   const { user } = useAuth();
   const [adsInfo, setAdsInfo] = useState([]);
   const [showLoader, setShowLoader] = useState(true);
-  const showAdsOnLoad = 3;
+  const showAdsOnLoad = 5;
   const [adsToShow, setAdsToShow] = useState(showAdsOnLoad); //at start show how many ads
   const filteredAdsToShow = user
     ? adsInfo.filter((ad) => ad.email !== user.email)
