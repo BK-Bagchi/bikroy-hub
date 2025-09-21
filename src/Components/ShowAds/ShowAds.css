@@ -37,7 +37,9 @@
 .show-ad .buy-now,
 .show-ad .accept-order,
 .show-ad .decline-order,
-.show-ad .report-issue {
+.show-ad .report-issue,
+.show-ad .shipment-status {
+  height: 30px;
   background: #149777;
   color: white;
   border: none;
@@ -47,11 +49,15 @@
 }
 .show-ad .accept-order,
 .show-ad .decline-order,
-.show-ad .report-issue {
+.show-ad .report-issue,
+.show-ad .shipment-status {
   margin: 10px 5px;
 }
 .show-ad .decline-order {
   background: #c82333;
+}
+.show-ad .shipment-status {
+  background: gray;
 }
 .show-ad .report-issue {
   background: #ffc107;

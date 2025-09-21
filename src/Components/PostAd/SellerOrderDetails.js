@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../Top/Navbar";
 import Bottom from "../Bottom/Bottom";
 import axios from "axios";
@@ -69,6 +69,23 @@ const SellerOrderDetails = () => {
     }
   };
 
+  const updateShipmentStatus = async (orderId, status) => {
+    !status && alert("Please Select Shipment Status");
+    try {
+      const response = await axios.patch(
+        `${API_BASE_URL}/updateShipmentStatusBySeller?orderId=${orderId}`,
+        { status: `${status}` },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      console.log("Response:", response.data);
+      alert(`${response.data.message} Successfully`); 
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
   return (
     <>
       <Navbar />
@@ -79,11 +96,12 @@ const SellerOrderDetails = () => {
           </div>
         ):(
         orderInfo.map((order) => {
-        const { _id, addInfo, orderCredentials, orderId, paymentMethod, customerEmail:buyerEmail, sellerEmail } = order;
+        const { _id, addInfo, orderCredentials, orderId, paymentMethod, customerEmail:buyerEmail, sellerEmail, shipmentStatus } = order;
         const { photoURL, itemName, price, brand, category, description } =
           addInfo[0];
         const { cus_name, cus_phone, ship_add1, total_amount } =
           orderCredentials;
+
 
         return (
           <section className="show-ad container p-2" key={_id}>
@@ -95,6 +113,12 @@ const SellerOrderDetails = () => {
             <button className="decline-order" onClick={() => actionOnOrder(orderId, "cancelled")} >
               Cancel Order
             </button>
+            {/* prettier-ignore */}
+            <select className="shipment-status" value={shipmentStatus} onChange={(e) => updateShipmentStatus(orderId, e.target.value)} >
+              <option className="d-none" value={""}>Shipment Status Update</option>
+              <option value="shipped">Shipped</option>
+              <option value="delivered">Delivered</option>
+            </select>
             {/* prettier-ignore */}
             {paymentMethod === "online" ? (
               <button className="report-issue" onClick={() => claimMoney(orderId)} >
