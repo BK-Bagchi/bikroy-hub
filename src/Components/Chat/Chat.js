@@ -11,7 +11,7 @@ const Chat = ({ buyerEmail, sellerEmail, user }) => {
   const [userInfo, setUserInfo] = useState([]);
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
-  console.log(messages);
+  //   console.log(messages);
 
   useEffect(() => {
     if (user === "buyer") {
@@ -25,6 +25,8 @@ const Chat = ({ buyerEmail, sellerEmail, user }) => {
 
   // On load: register user and load chat
   useEffect(() => {
+    if (!currentUserEmail || !partnerEmail) return;
+
     if (user === "buyer") {
       socket.emit("register", { email: currentUserEmail, partnerEmail });
     } else if (user === "seller") {
@@ -101,8 +103,8 @@ const Chat = ({ buyerEmail, sellerEmail, user }) => {
           (() => {
             const thisUser =
               currentUserEmail === userInfo.buyerInfo?.email
-                ? userInfo.buyerInfo
-                : userInfo.sellerInfo;
+                ? userInfo.sellerInfo
+                : userInfo.buyerInfo;
 
             return (
               <>
@@ -121,6 +123,14 @@ const Chat = ({ buyerEmail, sellerEmail, user }) => {
 
       {/* Messages */}
       <div className="chat-messages p-3">
+        {/* <div className="message received mb-3">
+          <p>Hello, how can I help you?</p>
+          <span className="time">10:30 AM</span>
+        </div>
+        <div className="message sent mb-3">
+          <p>Is this item still available?</p>
+          <span className="time">10:31 AM</span>
+        </div> */}
         {messages &&
           messages.map((msg, index) => {
             const isCurrentUser = currentUserEmail === msg.sender;
