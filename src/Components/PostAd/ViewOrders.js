@@ -71,7 +71,7 @@ const ViewOrders = () => {
                     </div>
                   </div>
                 ) : (
-                  <></>
+                  <p>Seller may have cancelled your order</p>
                 );
               })}
             </div>

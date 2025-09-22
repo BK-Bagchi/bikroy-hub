@@ -50,12 +50,12 @@ const PreviewAds = () => {
   // console.log("postedAds:", postedAds);
 
   const capitalizeFirstLetter = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+    return string?.charAt(0).toUpperCase() + string?.slice(1);
   };
 
   return (
     <div>
-      <h2 className="mb-4">📑 Manage Posts</h2>
+      <h2 className="mb-4">📑 Manage Ads</h2>
       <Table striped bordered hover responsive>
         {showLoader ? (
           <div>Loading...</div>

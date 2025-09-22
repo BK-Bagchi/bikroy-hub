@@ -10,7 +10,7 @@ import useAuth from "../../Hooks/JWTDecode";
 const Admin = () => {
   const history = useHistory();
   const { logout } = useAuth();
-  const [activeTab, setActiveTab] = useState("posts");
+  const [activeTab, setActiveTab] = useState("ads");
 
   const Logout = () => {
     logout();
@@ -19,7 +19,7 @@ const Admin = () => {
 
   const renderContent = () => {
     switch (activeTab) {
-      case "posts":
+      case "ads":
         return <PreviewAds />;
       case "disputes":
         return <Disputes />;
@@ -43,13 +43,11 @@ const Admin = () => {
               <li className="nav-item">
                 <button
                   className={`btn w-100 text-start mb-2 ${
-                    activeTab === "posts"
-                      ? "btn-success"
-                      : "btn-outline-success"
+                    activeTab === "ads" ? "btn-success" : "btn-outline-success"
                   }`}
-                  onClick={() => setActiveTab("posts")}
+                  onClick={() => setActiveTab("ads")}
                 >
-                  Preview Posts
+                  Preview Ads
                 </button>
               </li>
               <li className="nav-item">
