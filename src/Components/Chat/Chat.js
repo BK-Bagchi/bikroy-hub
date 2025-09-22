@@ -27,14 +27,10 @@ const Chat = ({ buyerEmail, sellerEmail, user }) => {
   useEffect(() => {
     if (!currentUserEmail || !partnerEmail) return;
 
-    if (user === "buyer") {
-      socket.emit("register", { email: currentUserEmail, partnerEmail });
-    } else if (user === "seller") {
-      socket.emit("register", {
-        email: partnerEmail,
-        partnerEmail: currentUserEmail,
-      });
-    }
+    socket.emit("register", {
+      email: currentUserEmail,
+      partnerEmail,
+    });
     socket.on("loadMessages", (msgs) => {
       setMessages(msgs);
       setShowLoader(false);
@@ -43,7 +39,10 @@ const Chat = ({ buyerEmail, sellerEmail, user }) => {
       setMessages((prev) => [...prev, msg]);
     });
     socket.on("loadProfile", (data) => {
-      setUserInfo(data);
+      setUserInfo({
+        buyerInfo: data.buyerInfo || {},
+        sellerInfo: data.sellerInfo || {},
+      });
     });
     return () => {
       socket.off("loadMessages");
@@ -78,20 +77,12 @@ const Chat = ({ buyerEmail, sellerEmail, user }) => {
 
   // Mark messages as read when opening chat
   useEffect(() => {
-    if (user === "buyer") {
-      socket.emit("markRead", {
-        buyerEmail: currentUserEmail,
-        sellerEmail: partnerEmail,
-        reader: currentUserEmail,
-      });
-    } else if (user === "seller") {
-      socket.emit("markRead", {
-        buyerEmail: partnerEmail,
-        sellerEmail: currentUserEmail,
-        reader: currentUserEmail,
-      });
-    }
-  }, [currentUserEmail, partnerEmail, user]);
+    socket.emit("markRead", {
+      buyerEmail,
+      sellerEmail,
+      reader: currentUserEmail,
+    });
+  }, [buyerEmail, sellerEmail, currentUserEmail]);
 
   return showLoader ? (
     <p className="text-center">Loading...</p>

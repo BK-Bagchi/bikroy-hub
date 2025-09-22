@@ -6,12 +6,14 @@ import {
 import axios from "axios";
 import Bottom from "../Bottom/Bottom";
 import Navbar from "../Top/Navbar";
+import Chat from "../Chat/Chat";
 
 const BuyerOrderDetails = () => {
   const { orderId } = useParams();
   const history = useHistory();
   const [orderInfo, setOrderInfo] = useState([]);
   const [showLoader, setShowLoader] = useState(true);
+  const [showChat, setShowChat] = useState(false);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
@@ -68,7 +70,7 @@ const BuyerOrderDetails = () => {
       ) : (
         orderInfo.map((order) => {
           //prettier-ignore
-          const { orderId, addInfo } = order;
+          const { orderId, customerEmail:buyerEmail, sellerEmail, addInfo } = order;
           // prettier-ignore
           const { _id, photoURL, itemName, price, brand, category, description,  } = addInfo[0];
           return (
@@ -114,6 +116,35 @@ const BuyerOrderDetails = () => {
                   <h6 className="text-center">Product Description</h6>
                   <p>{description}</p>
                 </div>
+              </div>
+              <div className="d-flex align-items-center justify-content-center">
+                <div className="d-flex justify-content-center my-3">
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => setShowChat(true)}
+                  >
+                    <i className="bi bi-chat-dots me-2"></i> Chat with Seller
+                  </button>
+                </div>
+
+                {/* Popup Modal */}
+                {buyerEmail && sellerEmail && showChat && (
+                  <div className="chat-modal">
+                    <div className="chat-box bg-white p-4">
+                      <button
+                        className="chat-close btn-close float-end"
+                        onClick={() => setShowChat(false)}
+                      >
+                        <i className="bi bi-x-lg"></i>
+                      </button>
+                      <Chat
+                        buyerEmail={buyerEmail}
+                        sellerEmail={sellerEmail}
+                        user="buyer"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             </section>
           );
