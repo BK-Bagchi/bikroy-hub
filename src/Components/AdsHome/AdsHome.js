@@ -12,10 +12,13 @@ const AdsHome = () => {
   const [showLoader, setShowLoader] = useState(true);
   const showAdsOnLoad = 5;
   const [adsToShow, setAdsToShow] = useState(showAdsOnLoad); //at start show how many ads
-  const filteredAdsToShow = user
+  const filterAccordingUser = user
     ? adsInfo.filter((ad) => ad.email !== user.email)
     : adsInfo;
-  const showAdsHome = filteredAdsToShow.slice(-adsToShow).reverse();
+  const filterAccordingAdminPreview = filterAccordingUser.filter(
+    (ad) => ad.status === "approved"
+  );
+  const showAdsHome = filterAccordingAdminPreview.slice(-adsToShow).reverse();
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {

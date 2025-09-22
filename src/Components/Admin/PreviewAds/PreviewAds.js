@@ -79,31 +79,29 @@ const PreviewAds = () => {
                 const { displayName } = userInfo[0];
 
                 return (
-                  <>
-                    <tr key={_id}>
-                      <td>{index + 1}</td>
-                      <td>{itemName}</td>
-                      <td>{displayName}</td>
-                      <td>{category}</td>
-                      <td>{price}</td>
-                      <td>
-                        {/* prettier-ignore */}
-                        <span className={`badge px-4 py-2 text-white ${ status === "approved" ? "bg-success" : status === "rejected" ? "bg-danger" : "bg-info" }`} >
+                  <tr key={_id}>
+                    <td>{index + 1}</td>
+                    <td>{itemName}</td>
+                    <td>{displayName}</td>
+                    <td>{category}</td>
+                    <td>{price}</td>
+                    <td>
+                      {/* prettier-ignore */}
+                      <span className={`badge px-4 py-2 text-white ${ status === "approved" ? "bg-success" : status === "rejected" ? "bg-danger" : "bg-info" }`} >
                           {capitalizeFirstLetter(status)}
                         </span>
-                      </td>
-                      <td className="d-flex justify-content-center">
-                        {/* prettier-ignore */}
-                        <Button variant="info" size="sm" className="me-2 mr-1" onClick={() => handleShow(post)}>
+                    </td>
+                    <td className="d-flex justify-content-center">
+                      {/* prettier-ignore */}
+                      <Button variant="info" size="sm" className="me-2 mr-1" onClick={() => handleShow(post)}>
                           Preview
                         </Button>
-                        {/* prettier-ignore */}
-                        <Button variant="danger" size="sm" onClick={() => updateAddStatus(_id, "rejected")}>
+                      {/* prettier-ignore */}
+                      <Button variant="danger" size="sm" onClick={() => updateAddStatus(_id, "rejected")}>
                           Reject
                         </Button>
-                      </td>
-                    </tr>
-                  </>
+                    </td>
+                  </tr>
                 );
               })}
             </tbody>
