@@ -70,7 +70,7 @@ const BuyerOrderDetails = () => {
       ) : (
         orderInfo.map((order) => {
           //prettier-ignore
-          const { orderId, customerEmail:buyerEmail, sellerEmail, addInfo } = order;
+          const { orderId, customerEmail:buyerEmail, sellerEmail, addInfo, shipmentStatus } = order;
           // prettier-ignore
           const { _id, photoURL, itemName, price, brand, category, description,  } = addInfo[0];
           return (
@@ -88,6 +88,10 @@ const BuyerOrderDetails = () => {
               {/* prettier-ignore */}
               <button  className="report-issue"  onClick={() => alert("Dispute Management Under Processing")} >
                 Report Issue
+              </button>
+              {/* prettier-ignore */}
+              <button  className="shipment-status px-4" >
+                {shipmentStatus}
               </button>
               <div className="ad-picture w-100 d-flex align-items-center justify-content-center">
                 {/* prettier-ignore */}

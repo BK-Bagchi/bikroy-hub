@@ -48,7 +48,8 @@ const ViewOrders = () => {
                 const { _id: id, orderId, orderStatusBySeller, orderStatusByBuyer ,addsInfo } =
                   orderElements;
                 const { itemName, price, photoURL, postingTime } = addsInfo[0];
-                return orderStatusBySeller !== "cancelled" ? (
+                return orderStatusBySeller !== "cancelled" &&
+                  orderStatusByBuyer !== "cancelled" ? (
                   // prettier-ignore
                   <div className="card" key={id} style={{ maxHeight: "440px", maxWidth: "230px" }} onClick={() => history.push(`/buyerOrderDetails/${orderId}`)} >
                     {/* prettier-ignore */}
@@ -71,7 +72,7 @@ const ViewOrders = () => {
                     </div>
                   </div>
                 ) : (
-                  <p>Seller may have cancelled your order</p>
+                  <></>
                 );
               })}
             </div>
