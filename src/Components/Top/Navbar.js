@@ -48,8 +48,14 @@ const Navbar = () => {
         </nav>
       </section>
       <section className="middle">
-        <div className="name">
-          <p>BikroyHub</p>
+        <div className="name d-flex align-items-center justify-content-center flex-column">
+          <p>Bikroy Hub</p>
+          <div className="slogan d-flex mb-2">
+            <p>Buy </p>
+            <p>and </p>
+            <p>Sell </p>
+            <p>Quickly</p>
+          </div>
         </div>
       </section>
     </>
