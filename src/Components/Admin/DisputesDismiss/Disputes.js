@@ -10,7 +10,9 @@ const Disputes = () => {
   useEffect(() => {
     const fetchDisputes = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/getDisputesInfo`);
+        const response = await axios.get(
+          `${API_BASE_URL}/dispute/getDisputesInfo`
+        );
         setDisputes(response.data);
         setShowLoader(false);
       } catch (error) {
@@ -30,7 +32,7 @@ const Disputes = () => {
 
     if (disputeDecision) {
       const response = await axios.patch(
-        `${API_BASE_URL}/adminResolveDispute?id=${_id}`,
+        `${API_BASE_URL}/dispute/adminResolveDispute?id=${_id}`,
         {
           _id: productId,
           resolution: `${reason} resolved by admin`,

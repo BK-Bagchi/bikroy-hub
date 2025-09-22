@@ -20,7 +20,7 @@ const SellerOrderDetails = () => {
     const fetchData = async () => {
       try {
         //prettier-ignore
-        const orderResponse = await axios.get( `${API_BASE_URL}/getSpecificOrderInfo?orderId=${orderId}`);
+        const orderResponse = await axios.get( `${API_BASE_URL}/order/getSpecificOrderInfo?orderId=${orderId}`);
         setOrderInfo(orderResponse.data);
         setShowLoader(false);
       } catch (error) {
@@ -36,7 +36,7 @@ const SellerOrderDetails = () => {
   const actionOnOrder = async (orderId, status) => {
     try {
       const response = await axios.patch(
-        `${API_BASE_URL}/updateOrderStatusByPerson?orderId=${orderId}`,
+        `${API_BASE_URL}/order/updateOrderStatusByPerson?orderId=${orderId}`,
         { status: `${status}`, person: "seller" },
         {
           headers: { "Content-Type": "application/json" },
@@ -54,7 +54,7 @@ const SellerOrderDetails = () => {
   const claimMoney = async (orderId) => {
     try {
       const response = await axios.patch(
-        `${API_BASE_URL}/disputeManagement?orderId=${orderId}`,
+        `${API_BASE_URL}/dispute/disputeManagement?orderId=${orderId}`,
         { reportedBy: "seller", reason: "claim_money" },
         {
           headers: { "Content-Type": "application/json" },
@@ -73,7 +73,7 @@ const SellerOrderDetails = () => {
     !status && alert("Please Select Shipment Status");
     try {
       const response = await axios.patch(
-        `${API_BASE_URL}/updateShipmentStatusBySeller?orderId=${orderId}`,
+        `${API_BASE_URL}/order/updateShipmentStatusBySeller?orderId=${orderId}`,
         { status: `${status}` },
         {
           headers: { "Content-Type": "application/json" },

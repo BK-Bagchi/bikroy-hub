@@ -22,7 +22,7 @@ const PreviewAds = () => {
   useEffect(() => {
     const fetchPostedAds = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/getAddsInfo`);
+        const response = await axios.get(`${API_BASE_URL}/adds/getAddsInfo`);
         setPostedAds(response.data);
         setShowLoader(false);
       } catch (error) {
@@ -34,7 +34,7 @@ const PreviewAds = () => {
   const updateAddStatus = async (adId, status) => {
     try {
       const response = await axios.put(
-        `${API_BASE_URL}/updateAddStatus`,
+        `${API_BASE_URL}/adds/updateAddStatus`,
         { adId, status: `${status}` },
         {
           headers: { "Content-Type": "application/json" },

@@ -16,7 +16,7 @@ const ViewPostedAds = () => {
     const fetchPostedAds = async () => {
       try {
         const response = await axios.get(
-          `${API_BASE_URL}/getPostedAddsByAnUser?userEmail=${userEmail}`
+          `${API_BASE_URL}/adds/getPostedAddsByAnUser?userEmail=${userEmail}`
         );
         setPostedAds(response.data.userAds);
         setShowLoader(false);

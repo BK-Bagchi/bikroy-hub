@@ -28,7 +28,7 @@ export const signInWithGoogle = () => {
       try {
         // 🔹 Send ID Token to backend (backend will verify & issue JWT)
         const response = await axios.post(
-          `${API_BASE_URL}/userLogin`,
+          `${API_BASE_URL}/profileInfo/userLogin`,
           { idToken, displayName, email, photoURL },
           {
             headers: { "Content-Type": "application/json" },

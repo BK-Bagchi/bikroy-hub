@@ -14,7 +14,7 @@ const MyProfile = () => {
   useEffect(() => {
     const fetchProfileInfo = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/getProfileInfo`, {
+        const response = await axios.get(`${API_BASE_URL}/profileInfo/getProfileInfo`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -58,7 +58,7 @@ const MyProfile = () => {
   const postProfileInfo = async () => {
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/postProfileInfo`,
+        `${API_BASE_URL}/profileInfo/postProfileInfo`,
         formData,
         {
           headers: { "Content-Type": "application/json" },

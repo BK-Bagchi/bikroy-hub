@@ -83,7 +83,7 @@ const PostAd = () => {
       };
 
       const response = await axios.post(
-        `${API_BASE_URL}/postAdds`,
+        `${API_BASE_URL}/adds/postAdds`,
         dataToSend,
         {
           headers: { "Content-Type": "application/json" },

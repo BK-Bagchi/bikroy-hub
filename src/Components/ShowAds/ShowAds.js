@@ -37,8 +37,10 @@ const ShowAds = () => {
     const fetchData = async () => {
       try {
         const [specificAddResponse, favoriteAddsResponse] = await Promise.all([
-          axios.get(`${API_BASE_URL}/getSpecificAdd/?addId=${addId}`),
-          axios.get(`${API_BASE_URL}/getFavoriteAdds?userEmail=${userEmail}`),
+          axios.get(`${API_BASE_URL}/adds/getSpecificAdd/?addId=${addId}`),
+          axios.get(
+            `${API_BASE_URL}/profileInfo/getFavoriteAdds?userEmail=${userEmail}`
+          ),
         ]);
         setFavAddInfo(favoriteAddsResponse.data.favoriteAdds);
         setAdsInfo([specificAddResponse.data]); // Wrap in array to keep consistent structure
@@ -68,7 +70,7 @@ const ShowAds = () => {
     const postAdAsync = async () => {
       try {
         const response = await axios.post(
-          `${API_BASE_URL}/placeOrder`,
+          `${API_BASE_URL}/order/placeOrder`,
           sendPaymentInfo,
           {
             headers: { "Content-Type": "application/json" },
@@ -96,7 +98,7 @@ const ShowAds = () => {
   const addToFavorites = async (addId) => {
     try {
       const response = await axios.patch(
-        `${API_BASE_URL}/addToFavorites`,
+        `${API_BASE_URL}/profileInfo/addToFavorites`,
         {
           addId: addId,
           email: userEmail,

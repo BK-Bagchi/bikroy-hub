@@ -18,7 +18,7 @@ const BuyerOrderDetails = () => {
     const fetchData = async () => {
       try {
         //prettier-ignore
-        const response = await axios.get(`${API_BASE_URL}/getSpecificOrderInfo?orderId=${orderId}`);
+        const response = await axios.get(`${API_BASE_URL}/order/getSpecificOrderInfo?orderId=${orderId}`);
         setOrderInfo(response.data);
         setShowLoader(false);
       } catch (error) {
@@ -33,7 +33,7 @@ const BuyerOrderDetails = () => {
   const actionOnOrder = async (orderId, status) => {
     try {
       const response = await axios.patch(
-        `${API_BASE_URL}/updateOrderStatusByPerson?orderId=${orderId}`,
+        `${API_BASE_URL}/order/updateOrderStatusByPerson?orderId=${orderId}`,
         { status: `${status}`, person: "buyer" },
         {
           headers: { "Content-Type": "application/json" },
@@ -42,7 +42,7 @@ const BuyerOrderDetails = () => {
       console.log("Response:", response.data);
       if (status === "cancelled") {
         const dispute = await axios.patch(
-          `${API_BASE_URL}/disputeManagement?orderId=${orderId}`,
+          `${API_BASE_URL}/dispute/disputeManagement?orderId=${orderId}`,
           { reportedBy: "buyer", reason: "refund" },
           {
             headers: { "Content-Type": "application/json" },

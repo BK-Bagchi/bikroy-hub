@@ -35,7 +35,7 @@ const EditPostedAds = () => {
     const fetchEditableAd = async () => {
       try {
         const response = await axios.get(
-          `${API_BASE_URL}/editPostedAddsByAnUser?userEmail=${userEmail}&_id=${adId}`
+          `${API_BASE_URL}/adds/editPostedAddsByAnUser?userEmail=${userEmail}&_id=${adId}`
         );
         setEditableAd(response.data.add);
       } catch (error) {
@@ -102,7 +102,7 @@ const EditPostedAds = () => {
       };
 
       const response = await axios.put(
-        `${API_BASE_URL}/updateAdds?adId=${adId}`,
+        `${API_BASE_URL}/adds/updateAdds?adId=${adId}`,
         dataToUpdate,
         {
           headers: { "Content-Type": "application/json" },
@@ -120,7 +120,7 @@ const EditPostedAds = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/deleteAdds?adId=${adId}`,
+        `${API_BASE_URL}/adds/deleteAdds?adId=${adId}`,
         {},
         { headers: { "Content-Type": "application/json" } }
       );

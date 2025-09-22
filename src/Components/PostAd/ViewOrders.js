@@ -16,7 +16,7 @@ const ViewOrders = () => {
     const fetchData = async () => {
       try {
         const gotOrdersResponse = await axios.get(
-          `${API_BASE_URL}/postedOrGotOrdersByABuyerOrSeller?userEmail=${userEmail}&person=buyer`
+          `${API_BASE_URL}/order/postedOrGotOrdersByABuyerOrSeller?userEmail=${userEmail}&person=buyer`
         );
         if (gotOrdersResponse.data)
           setOrdersInfo(gotOrdersResponse.data.response);

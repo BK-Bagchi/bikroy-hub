@@ -21,7 +21,7 @@ const AdsHome = () => {
   useEffect(() => {
     const fetchAdsInfo = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/getAddsInfo`);
+        const response = await axios.get(`${API_BASE_URL}/adds/getAddsInfo`);
         setAdsInfo(response.data);
         setShowLoader(false);
       } catch (error) {

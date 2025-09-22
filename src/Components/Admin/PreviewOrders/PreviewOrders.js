@@ -12,7 +12,7 @@ const PreviewOrders = () => {
     const fetchData = async () => {
       try {
         //prettier-ignore
-        const orderResponse = await axios.get( `${API_BASE_URL}/getOrdersInfo`);
+        const orderResponse = await axios.get( `${API_BASE_URL}/order/getOrdersInfo`);
         setOrderInfo(orderResponse.data);
         setShowLoader(false);
       } catch (error) {
@@ -27,7 +27,7 @@ const PreviewOrders = () => {
   const handleAdminStatus = async (orderId, status) => {
     try {
       const response = await axios.patch(
-        `${API_BASE_URL}/updateOrderStatusByPerson?orderId=${orderId}`,
+        `${API_BASE_URL}/order/updateOrderStatusByPerson?orderId=${orderId}`,
         { status: `${status}`, person: "admin" },
         {
           headers: { "Content-Type": "application/json" },
